@@ -4,6 +4,7 @@ function App() {
   return (
     <div className="App">
       <h1>Coucou</h1>
+      <i className="fa-solid fa-circle-user" />
     </div>
   );
 }
