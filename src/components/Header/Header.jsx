@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-// import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
+import {
+  InputBase, IconButton, Button, Avatar,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-// import DirectionsIcon from '@mui/icons-material/Directions';
-import Avatar from '@mui/material/Avatar';
 import './header.scss';
 
 function Header({ className, ...rest }) {
@@ -16,9 +13,14 @@ function Header({ className, ...rest }) {
       className="header"
       {...rest}
     >
-      <div>O'vol</div>
-      {/* <i className="fa-solid fa-circle-user" /> */}
-      <Avatar src="/broken-image.jpg" />
+      <div className="header-top">
+        <div className="header-top__title">O'Vol
+        </div>
+        <div className="header-top__avatar">
+          <Avatar src="/broken-image.jpg" />
+        </div>
+      </div>
+
       <Paper
         component="form"
         sx={{
@@ -34,9 +36,11 @@ function Header({ className, ...rest }) {
           <SearchIcon />
         </IconButton>
       </Paper>
-      <Button variant="outlined">Outlined</Button>
-      <Button variant="outlined">Outlined</Button>
-      <Button variant="outlined">Outlined</Button>
+      <div className="header-nav">
+        <Button className="header-nav__button" variant="outlined">Carte</Button>
+        <Button className="header-nav__button" variant="outlined">Randonées</Button>
+        <Button className="header-nav__button" variant="outlined">Filtres</Button>
+      </div>
     </div>
   );
 }
