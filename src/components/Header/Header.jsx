@@ -5,7 +5,16 @@ import {
   InputBase, IconButton, Button, Avatar,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { createTheme } from '@mui/material/styles';
 import './header.scss';
+
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#007720',
+    },
+  },
+});
 
 function Header({ className, ...rest }) {
   return (
@@ -14,7 +23,7 @@ function Header({ className, ...rest }) {
       {...rest}
     >
       <div className="header-top">
-        <div className="header-top__title">O'Vol
+        <div className="header-top__title">O'VOL
         </div>
         <div className="header-top__avatar">
           <Avatar src="/broken-image.jpg" />
@@ -37,9 +46,9 @@ function Header({ className, ...rest }) {
         </IconButton>
       </Paper>
       <div className="header-nav">
-        <Button className="header-nav__button" variant="outlined">Carte</Button>
-        <Button className="header-nav__button" variant="outlined">Randonées</Button>
-        <Button className="header-nav__button" variant="outlined">Filtres</Button>
+        <Button className="header-nav__button" variant="outlined" theme={customTheme}>Carte</Button>
+        <Button className="header-nav__button" variant="outlined" theme={customTheme}>Randonées</Button>
+        <Button className="header-nav__button" variant="outlined" theme={customTheme}>Filtres</Button>
       </div>
     </div>
   );
