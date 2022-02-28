@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import {
   MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, Circle, FeatureGroup, useMap, useMapEvents,
@@ -13,18 +12,6 @@ import LocateControl from 'react-leaflet-locate-control';
 // import paragliding from '../../assets/icons/paragliding.png';
 
 function Map() {
-=======
-import { useEffect, useState } from 'react';
-import {
-  MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, Circle, FeatureGroup, useMap,
-} from 'react-leaflet';
-import './map.scss';
-import L from 'leaflet';
-// import paragliding from '../../assets/icons/paragliding.png';
-
-function Map() {
-  console.log('map');
->>>>>>> develop
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
   // Future fonctionnalité
   // const [positions, setPositions] = useState([]);
@@ -35,7 +22,6 @@ function Map() {
   //   iconSize: [iconSize],
   //   iconAnchor: [20, 30],
   // });
-<<<<<<< HEAD
   const handleOnSearchResults = (data) => {
     console.log(data);
   };
@@ -91,26 +77,6 @@ function Map() {
     return null;
   }
   console.log('render');
-=======
-
-  function LocationMarker() {
-    const map = useMap();
-    useEffect(() => {
-      map.locate().on('locationfound', (e) => {
-        SetFirstPosition(e.latlng);
-        console.log('e.latlng:', e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        const radius = e.accuracy;
-        console.log('radius:', Math.round(radius));
-        const circle = L.circle(e.latlng, radius);
-        circle.addTo(map);
-      });
-    }, [map]);
-
-    return null;
-  }
-
->>>>>>> develop
   return (
     <div className="map">
       <MapContainer
@@ -118,10 +84,6 @@ function Map() {
         zoom={13}
         style={{ width: '100%', height: '100%' }}
       >
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
         <LocationMarker />
         {/* <Polyline
           pathOptions={{ fillColor: 'red', color: 'blue' }}
@@ -137,7 +99,6 @@ function Map() {
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="OpenTopoMap">
             <TileLayer
-<<<<<<< HEAD
               attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
               url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
             />
@@ -149,13 +110,6 @@ function Map() {
             />
           </LayersControl.BaseLayer>
           {/* <LayersControl.Overlay checked name="Marker with popup">
-=======
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-            />
-          </LayersControl.BaseLayer>
-          <LayersControl.Overlay checked name="Marker with popup">
->>>>>>> develop
             <Marker position={firstPosition}>
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
@@ -164,11 +118,7 @@ function Map() {
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Point de passage">
             <LayerGroup>
-<<<<<<< HEAD
               {wayPoints.length > 0 && wayPoints.map(({
-=======
-              {/* {wayPoints.length > 0 && wayPoints.map(({
->>>>>>> develop
                 ele, lat, lon, name,
               }, index) => (
                 <Marker key={index + name} position={[lat, lon]} icon={getIcon(40)}>
@@ -176,11 +126,7 @@ function Map() {
                     Hauteur: {ele}m
                   </Popup>
                 </Marker>
-<<<<<<< HEAD
               ))}
-=======
-              ))} */}
->>>>>>> develop
             </LayerGroup>
           </LayersControl.Overlay>
           <LayersControl.Overlay name="Feature group">
@@ -189,11 +135,7 @@ function Map() {
               <Circle center={[51.51, -0.06]} radius={200} />
 
             </FeatureGroup>
-<<<<<<< HEAD
           </LayersControl.Overlay> */}
-=======
-          </LayersControl.Overlay>
->>>>>>> develop
         </LayersControl>
       </MapContainer>
 
@@ -201,8 +143,4 @@ function Map() {
   );
 }
 
-<<<<<<< HEAD
 export default React.memo(Map);
-=======
-export default Map;
->>>>>>> develop
