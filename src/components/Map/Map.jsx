@@ -1,81 +1,47 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
 import {
   MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, Circle, FeatureGroup, useMap, useMapEvents,
 
 } from 'react-leaflet';
 import './map.scss';
-import L from 'leaflet';
 import * as ELG from 'esri-leaflet-geocoder';
+import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
 import LocateControl from 'react-leaflet-locate-control';
+import { requestLanding } from '../../requests/map';
+import LocationMarker from './LocationMarker/LocationMarker';
 
-// import paragliding from '../../assets/icons/paragliding.png';
+import paragliding from '../../assets/icons/paragliding.png';
 
 function Map() {
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
+  const [takeOffPositions, setTakeOffPositions] = useState([]);
   // Future fonctionnalité
   // const [positions, setPositions] = useState([]);
   // const [wayPoints, setWayPoints] = useState([]);
 
-  // const getIcon = (iconSize) => L.icon({
-  //   iconUrl: paragliding,
-  //   iconSize: [iconSize],
-  //   iconAnchor: [20, 30],
-  // });
+  const getIcon = (iconSize) => L.icon({
+    iconUrl: paragliding,
+    iconSize: [iconSize],
+    iconAnchor: [20, 30],
+  });
   const handleOnSearchResults = (data) => {
     console.log(data);
   };
 
-  function LocationMarker() {
-    const [position, setPosition] = useState(null);
-    const map = useMap();
+  useEffect(async () => {
+    const response = await requestLanding();
+    console.log('response:', response);
 
-    useEffect(() => {
-      map.locate().on('locationfound', (e) => {
-        console.log('lat', e.latlng);
-        setPosition(e.latlng);
-        const radius = e.accuracy;
-        L.marker(e.latlng)
-          .addTo(map)
-          .bindPopup(`Vous êtes à moins de ${Math.round(radius)} mètres de ce point`);
-        map.flyTo(e.latlng, map.getZoom());
-        console.log('radius:', Math.round(radius));
-        const circle = L.circle(e.latlng, {
-          radius,
-          color: '#00F',
-          fillOpacity: 0.35,
-          stroke: false,
-        });
-        circle.addTo(map);
-      });
-
-      map.on('locationerror', (e) => {
-        console.log(e.message);
-      });
-
-      // Add esri-leaflet-geocoder
-      // const searchControl = L.esri.Geocoding.geosearch({
-      //   providers: [
-      //     L.esri.Geocoding.arcgisOnlineProvider({
-      //       // API Key to be passed to the ArcGIS Online Geocoding Service
-      //       apikey: 'YOUR_API_KEY',
-      //     }),
-      //   ],
-      // }).addTo(map);
-
-      // create an empty layer group to store the results and add it to the map
-      // const results = L.layerGroup().addTo(map);
-
-      // listen for the results event and add every result to the map
-      // searchControl.on('results', (data) => {
-      //   results.clearLayers();
-      //   for (let i = data.results.length - 1; i >= 0; i--) {
-      //     results.addLayer(L.marker(data.results[i].latlng));
-      //   }
-      // });
-    }, []);
-    return null;
-  }
+    if (response.status === 200) {
+      setTakeOffPositions(response.data);
+      console.log(takeOffPositions);
+    }
+    else {
+      console.log(response.data.message);
+    }
+  }, []);
   console.log('render');
   return (
     <div className="map">
@@ -109,33 +75,19 @@ function Map() {
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
             />
           </LayersControl.BaseLayer>
-          {/* <LayersControl.Overlay checked name="Marker with popup">
-            <Marker position={firstPosition}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay checked name="Point de passage">
+          <LayersControl.Overlay checked name="Point de décollage">
             <LayerGroup>
-              {wayPoints.length > 0 && wayPoints.map(({
-                ele, lat, lon, name,
+              {takeOffPositions.length > 0 && takeOffPositions.map(({
+                altitude, latitude, longitude, name,
               }, index) => (
-                <Marker key={index + name} position={[lat, lon]} icon={getIcon(40)}>
+                <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>
                   <Popup>Nom: {name} <br />
-                    Hauteur: {ele}m
+                    Altitude: {altitude}m
                   </Popup>
                 </Marker>
               ))}
             </LayerGroup>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="Feature group">
-            <FeatureGroup pathOptions={{ color: 'purple' }}>
-              <Popup>Popup in FeatureGroup</Popup>
-              <Circle center={[51.51, -0.06]} radius={200} />
-
-            </FeatureGroup>
-          </LayersControl.Overlay> */}
         </LayersControl>
       </MapContainer>
 
