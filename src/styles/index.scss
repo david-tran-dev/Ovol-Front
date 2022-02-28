@@ -1,0 +1,10 @@
+@use 'reset';
+@use 'vars';
+
+body {
+	font-family: vars.$font2;
+}
+
+h1, h2 {
+	font-family: vars.$font1;
+}
