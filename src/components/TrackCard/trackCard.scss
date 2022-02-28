@@ -3,6 +3,7 @@
 .App .trackCard {
 
 	max-width: 500px;
+
 	&-content {
 		&:last-child {
 			padding-bottom: 0;
@@ -11,5 +12,9 @@
 		&__detail {
 			font-size: 0.8em;
 		}
+	}
+
+	& .fa-flag {
+		color: green;
 	}
 }
