@@ -5,7 +5,7 @@ import TrackCard from '../TrackCard/TrackCard';
 
 function TracksList({ className, tracksList, ...rest }) {
   return (
-    <div
+    <main
       className={`trackslist ${className}`}
       {...rest}
     >
@@ -28,7 +28,7 @@ function TracksList({ className, tracksList, ...rest }) {
         />
       ))}
 
-    </div>
+    </main>
   );
 }
 

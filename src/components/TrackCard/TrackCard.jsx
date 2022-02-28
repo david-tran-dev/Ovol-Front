@@ -60,7 +60,7 @@ function TrackCard({
               Dénivelé positif: {positive_elevation}m
             </Typography>
             <Typography className="trackCard-content__detail">
-              Longueur totale : {overall_lenth}m
+              Longueur totale : {overall_lenth}km
             </Typography>
           </CardContent>
         </Box>
