@@ -9,25 +9,26 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Icon } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function TrackCard({
   className,
+  id,
   name,
   difficulty,
   mountain,
   overall_lenth,
   positive_elevation,
-  ...rest
 }) {
   return (
-    <div
-      className={`trackCard ${className}`}
-      {...rest}
+    <Link
+      to={`/track/${id}`}
+
     >
-      <Card sx={{ display: 'flex', my: 1 }}>
+      <Card className={`trackCard ${className}`} sx={{ display: 'flex', my: 1 }}>
         <CardMedia
           component="img"
-          sx={{ width: '33%' }}
+          sx={{ width: '40%' }}
           image="https://images.unsplash.com/photo-1554818048-3e5bf815cfd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1129&q=80"
           alt="Live from space album cover"
         />
@@ -65,7 +66,7 @@ function TrackCard({
         </Box>
       </Card>
 
-    </div>
+    </Link>
   );
 }
 
@@ -76,6 +77,7 @@ TrackCard.propTypes = {
   mountain: PropTypes.string.isRequired,
   positive_elevation: PropTypes.number.isRequired,
   overall_lenth: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
 
 };
 TrackCard.defaultProps = {
