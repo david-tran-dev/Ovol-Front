@@ -1,7 +1,5 @@
 @use 'src/styles/vars';
 
-.header {}
-
 .header-top {
     position: relative;
     display: flex;
@@ -17,7 +15,7 @@
 
     &__avatar {
         position: absolute;
-        right: 0;
+        right: 1em;
         top: 0.6em;
         display: flex;
         justify-self: flex-end;
@@ -27,21 +25,34 @@
         width: 2em;
         height: 2em;
     }
+
+    &__home {
+        position: absolute;
+        left: 3em;
+        top: 0.6em;
+        display: flex;
+        justify-self: flex-end;
+    }
+
+
 }
 
-.header .header-nav {
+.header-nav {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 1em;
     margin-top: 1em;
 
-
-
     &__button {
-        width: 25%;
         background-color: '#12824C';
+        gap: 1em;
         color: '#FFFFFF';
 
     }
+}
+
+.header__input {
+    display: flex;
+    justify-content: center;
 }
