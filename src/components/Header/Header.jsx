@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -9,9 +9,20 @@ import SearchIcon from '@mui/icons-material/Search';
 import customTheme from '../../themes/customTheme';
 import HomeIcon from '../../utils/HomeIcon';
 import PositionedMenu from '../MenuHeader/MenuHeader';
+// import filterTrack from '../App/App';
 import './header.scss';
 
-function Header({ className, ...rest }) {
+function Header({
+  className,
+  onFilterList,
+  ...rest
+}) {
+  const [value, setValue] = useState('');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onFilterList(value);
+    setValue('');
+  };
   return (
     <div
       className="header"
@@ -31,24 +42,26 @@ function Header({ className, ...rest }) {
           <NavLink
             to="/login"
           >
-            {/* <Avatar src="/broken-image.jpg" /> */}
             <PositionedMenu />
           </NavLink>
         </div>
       </div>
       <div className="header__input">
         <Paper
+          onSubmit={handleSubmit}
           component="form"
           sx={{
             p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,
           }}
         >
-
           <InputBase
             sx={{
               ml: 1,
               flex: 1,
             }}
+            type="text"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
             placeholder="Search Ovol Maps"
             inputProps={{ 'aria-label': 'search Google Maps' }}
           />
@@ -66,7 +79,7 @@ function Header({ className, ...rest }) {
             <Button className="header-nav__button" variant="contained">Carte</Button>
           </NavLink>
           <NavLink
-            to="/randonnees"
+            to="/tracksList"
           >
             <Button className="header-nav__button" variant="contained">Randonnées</Button>
           </NavLink>
@@ -83,6 +96,7 @@ function Header({ className, ...rest }) {
 
 Header.propTypes = {
   className: PropTypes.string,
+  onFilterList: PropTypes.func.isRequired,
 };
 Header.defaultProps = {
   className: '',

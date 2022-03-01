@@ -2,7 +2,11 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Avatar } from '@mui/material';
+import { Avatar, ThemeProvider } from '@mui/material';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import MenuIcon from '@mui/icons-material/Menu';
+import { green } from '@mui/material/colors';
+import customTheme from '../../themes/customTheme';
 
 function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,7 +27,9 @@ function PositionedMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <Avatar src="/broken-image.jpg" />
+        <Avatar sx={{ bgcolor: '#007720' }}>
+          <MenuIcon />
+        </Avatar>
       </Button>
       <Menu
         id="demo-positioned-menu"

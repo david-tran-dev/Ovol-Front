@@ -81,7 +81,7 @@ function Map() {
     <div className="map">
       <MapContainer
         center={firstPosition}
-        zoom={13}
+        zoom={10}
         style={{ width: '100%', height: '100%' }}
       >
         <LocationMarker />
