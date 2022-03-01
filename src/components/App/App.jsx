@@ -6,6 +6,7 @@ import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
 import { requestHiking } from '../../requests/data';
 import './App.css';
+import Track from '../Track/Track';
 
 function App() {
   const location = useLocation();
@@ -32,7 +33,7 @@ function App() {
         <Route path="/" element={<Map />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tracksList" element={<TracksList tracksList={tracksList} />} />
-        {/* <Route path="/track/:id" element={<Track />} /> */}
+        <Route path="/track/:id" element={<Track tracksList={tracksList} />} />
       </Routes>
     </div>
   );

@@ -1,0 +1,13 @@
+@use 'src/styles/vars';
+
+.track {
+	padding: 1rem;
+
+	& .fa-map-location-dot {
+		color: orange;
+	}
+
+	& .fa-flag {
+		color: green;
+	}
+}
