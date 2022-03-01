@@ -18,6 +18,7 @@
         "react"
     ],
     "rules": {
+      "camelcase": "off",
       "linebreak-style": "off",
       "brace-style": ["error", "stroustrup"],
       "no-param-reassign": [
