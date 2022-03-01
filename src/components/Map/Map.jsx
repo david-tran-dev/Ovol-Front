@@ -9,14 +9,14 @@ import * as ELG from 'esri-leaflet-geocoder';
 import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
 import LocateControl from 'react-leaflet-locate-control';
-import { requestLanding } from '../../requests/map';
+import { requestLiftOff } from '../../requests/map';
 import LocationMarker from './LocationMarker/LocationMarker';
 
 import paragliding from '../../assets/icons/paragliding.png';
 
 function Map() {
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
-  const [takeOffPositions, setTakeOffPositions] = useState([]);
+  const [liftOffPositions, setLiftOffPositions] = useState([]);
   // Future fonctionnalité
   // const [positions, setPositions] = useState([]);
   // const [wayPoints, setWayPoints] = useState([]);
@@ -26,17 +26,14 @@ function Map() {
     iconSize: [iconSize],
     iconAnchor: [20, 30],
   });
-  const handleOnSearchResults = (data) => {
-    console.log(data);
-  };
 
   useEffect(async () => {
-    const response = await requestLanding();
+    const response = await requestLiftOff();
     console.log('response:', response);
 
     if (response.status === 200) {
-      setTakeOffPositions(response.data);
-      console.log(takeOffPositions);
+      setLiftOffPositions(response.data);
+      console.log(liftOffPositions);
     }
     else {
       console.log(response.data.message);
@@ -77,7 +74,7 @@ function Map() {
           </LayersControl.BaseLayer>
           <LayersControl.Overlay checked name="Point de décollage">
             <LayerGroup>
-              {takeOffPositions.length > 0 && takeOffPositions.map(({
+              {liftOffPositions.length > 0 && liftOffPositions.map(({
                 altitude, latitude, longitude, name,
               }, index) => (
                 <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>
@@ -90,7 +87,6 @@ function Map() {
           </LayersControl.Overlay>
         </LayersControl>
       </MapContainer>
-
     </div>
   );
 }

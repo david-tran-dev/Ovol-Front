@@ -5,9 +5,9 @@ const apiAxios = axios.create({
   baseURL: 'https://apiovol.herokuapp.com/api',
 });
 
-export async function requestLanding() {
+export async function requestLiftOff() {
   try {
-    const response = await apiAxios.get('/landing');
+    const response = await apiAxios.get('/lift-off');
     return response;
   }
   catch (err) {
