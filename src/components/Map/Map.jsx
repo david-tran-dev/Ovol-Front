@@ -1,14 +1,14 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
 import {
-  MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, Circle, FeatureGroup, useMap, useMapEvents,
+  MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup,
 
 } from 'react-leaflet';
 import './map.scss';
-import * as ELG from 'esri-leaflet-geocoder';
+// import * as ELG from 'esri-leaflet-geocoder';
 import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
-import LocateControl from 'react-leaflet-locate-control';
+// import LocateControl from 'react-leaflet-locate-control';
 import { requestLiftOff } from '../../requests/map';
 import LocationMarker from './LocationMarker/LocationMarker';
 
@@ -33,7 +33,6 @@ function Map() {
 
     if (response.status === 200) {
       setLiftOffPositions(response.data);
-      console.log(liftOffPositions);
     }
     else {
       console.log(response.data.message);
@@ -44,7 +43,7 @@ function Map() {
     <div className="map">
       <MapContainer
         center={firstPosition}
-        zoom={13}
+        zoom={10}
         style={{ width: '100%', height: '100%' }}
       >
         <LocationMarker />

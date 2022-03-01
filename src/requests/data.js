@@ -1,9 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import apiAxios from './index';
 
-export async function requestLiftOff() {
+export async function requestHiking() {
   try {
-    const response = await apiAxios.get('/lift-off');
+    const response = await apiAxios.get('/hiking');
+    console.log(response);
     return response;
   }
   catch (err) {
