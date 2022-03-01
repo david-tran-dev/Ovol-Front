@@ -60,7 +60,7 @@ function Track({ className, tracksList, ...rest }) {
         <Typography gutterBottom textAlign="left"> {trackFinded.resume} </Typography>
         <Typography variant="h5" gutterBottom gutterTop textAlign="left">Etapes de la randonnée</Typography>
         {steps.map((step, index) => <Typography key={step + index} textAlign="left">{step}</Typography>)}
-
+        <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: '<iframe src="https://www.google.com/maps/d/embed?mid=1xD4Ypl3aj1YlMS2tHSHkquLROQbSuKOM&ehbc=2E312F" width="640" height="480"></iframe>' }} />
       </Container>
     </div>
   );
