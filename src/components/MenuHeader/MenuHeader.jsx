@@ -4,8 +4,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import PropTypes from 'prop-types';
 
-function PositionedMenu() {
+function PositionedMenu({ isLogged }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -46,9 +47,15 @@ function PositionedMenu() {
         <MenuItem onClick={handleClose}>Connexion</MenuItem>
         <MenuItem onClick={handleClose}>Contact</MenuItem>
         <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {isLogged
+          ? <MenuItem onClick={handleClose}>Logout</MenuItem>
+          : ''}
       </Menu>
     </div>
   );
 }
+
+PositionedMenu.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+};
 export default React.memo(PositionedMenu);

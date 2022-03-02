@@ -46,6 +46,7 @@ function Map() {
         center={firstPosition}
         zoom={10}
         style={{ width: '100%', height: '100%' }}
+        className="map-container"
       >
         <LocationMarker />
         {/* <Polyline

@@ -1,15 +1,12 @@
 /* eslint-disable import/prefer-default-export */
-import apiAxios from './index';
+import apiAxios, { setBearerToken } from './index';
 
-export async function requestLogin(email, password) {
+export async function requestLogin(user, pass) {
   try {
     const response = await apiAxios.post('/login', {
-      email,
-      password,
+      user,
+      pass,
     });
-    console.log('response.data', response.data);
-    apiAxios.defaults.headers.common.Authorization = `Bearer ${response.data.accessToken}`;
-    localStorage.setItem('accessToken', response.data.accessToken);
     return response;
   }
   catch (err) {

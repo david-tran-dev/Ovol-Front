@@ -1,9 +1,11 @@
 @use 'src/styles/vars';
 
+.header {
+    padding: 0 1rem;
+}
 .header-top {
     position: relative;
     display: flex;
-    margin: 1em;
     justify-content: center;
 
 
@@ -55,4 +57,5 @@
 .header__input {
     display: flex;
     justify-content: center;
+    
 }

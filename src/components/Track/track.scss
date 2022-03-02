@@ -1,13 +1,13 @@
 @use 'src/styles/vars';
 
  .App .track {
-	padding: 1rem;
-	margin: 0 auto;
+	padding: 0 1rem;
 	text-align: left;
 	font-family: vars.$font1;
 	line-height: 1.2rem;;
 	
 	&-container {
+		padding: 0;
 	}
 
 	&-title, &-resume, &-steps{

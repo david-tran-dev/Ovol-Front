@@ -8,12 +8,12 @@ export default apiAxios;
 
 export function setBearerToken(token) {
   apiAxios.defaults.headers.common.Authorization = `bearer ${token}`;
-  localStorage.setItem('token', token);
+  localStorage.setItem('accessToken', token);
 }
 
 export function removeBearerToken() {
   apiAxios.defaults.headers.common.Authorization = undefined;
-  localStorage.removeItem('token');
+  localStorage.removeItem('accessToken');
 }
 
 export function getLocalBearerToken() {

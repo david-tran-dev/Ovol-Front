@@ -42,7 +42,7 @@ function TrackCard({
             display: 'flex', justifyContent: 'space-between',
           }}
           >
-            <Typography component="h2" variant="body1" fontWeight="bold" mb="1rem">
+            <Typography component="h2" variant="body1" fontWeight="bold" textAlign="left">
               {name}
             </Typography>
             <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, textAlign: 'left' }} />

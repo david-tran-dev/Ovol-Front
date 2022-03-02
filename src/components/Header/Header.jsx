@@ -15,6 +15,7 @@ import './header.scss';
 function Header({
   className,
   onFilterList,
+  isLogged,
   ...rest
 }) {
   const [value, setValue] = useState('');
@@ -42,7 +43,7 @@ function Header({
           <NavLink
             to="/login"
           >
-            <PositionedMenu />
+            <PositionedMenu isLogged={isLogged} />
           </NavLink>
         </div>
       </div>
@@ -51,7 +52,7 @@ function Header({
           onSubmit={handleSubmit}
           component="form"
           sx={{
-            p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,
+            p: '2px 4px', display: 'flex', alignItems: 'center', width: '400px',
           }}
         >
           <InputBase
@@ -79,7 +80,8 @@ function Header({
             <Button className="header-nav__button" variant="contained">Carte</Button>
           </NavLink>
           <NavLink
-            to="/tracksList"
+            to="/trackslist"
+            onClick={() => onFilterList('')}
           >
             <Button className="header-nav__button" variant="contained">Randonnées</Button>
           </NavLink>
@@ -97,6 +99,7 @@ function Header({
 Header.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 Header.defaultProps = {
   className: '',
