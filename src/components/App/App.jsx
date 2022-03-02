@@ -10,7 +10,7 @@ import { requestHiking } from '../../requests/data';
 import './App.css';
 import Track from '../Track/Track';
 import { requestLogin } from '../../requests/login';
-import { setBearerToken } from '../../requests';
+import { removeBearerToken, setBearerToken } from '../../requests';
 
 function App() {
   const location = useLocation();
@@ -45,6 +45,13 @@ function App() {
     }
   };
 
+  const handleLogoutSubmit = () => {
+    removeBearerToken();
+    setIsLogged(false);
+    console.log('isloggout');
+    navigate('/');
+  };
+
   useEffect(async () => {
     // setIsLoading(true);
     const response = await requestHiking();
@@ -61,7 +68,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header onFilterList={handleFilterTrackList} isLogged={isLogged} />
+      <Header onFilterList={handleFilterTrackList} isLogged={isLogged} onLogoutSubmit={handleLogoutSubmit} />
       <Routes location={location}>
         <Route path="/" element={<Map />} />
         <Route path="/login" element={<Login onLoginSubmit={handleLoginSubmit} errorMessage={loginErrorMessage} />} />

@@ -6,7 +6,7 @@ import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from 'prop-types';
 
-function PositionedMenu({ isLogged }) {
+function PositionedMenu({ isLogged, onLogoutSubmit }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -14,6 +14,10 @@ function PositionedMenu({ isLogged }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogoutSubmit = () => {
+    setAnchorEl(null);
+    onLogoutSubmit();
   };
 
   return (
@@ -48,7 +52,7 @@ function PositionedMenu({ isLogged }) {
         <MenuItem onClick={handleClose}>Contact</MenuItem>
         <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
         {isLogged
-          ? <MenuItem onClick={handleClose}>Logout</MenuItem>
+          ? <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
           : ''}
       </Menu>
     </div>
@@ -57,5 +61,6 @@ function PositionedMenu({ isLogged }) {
 
 PositionedMenu.propTypes = {
   isLogged: PropTypes.bool.isRequired,
+  onLogoutSubmit: PropTypes.func.isRequired,
 };
 export default React.memo(PositionedMenu);

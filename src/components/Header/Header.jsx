@@ -16,6 +16,7 @@ function Header({
   className,
   onFilterList,
   isLogged,
+  onLogoutSubmit,
   ...rest
 }) {
   const [value, setValue] = useState('');
@@ -43,7 +44,7 @@ function Header({
           <NavLink
             to="/login"
           >
-            <PositionedMenu isLogged={isLogged} />
+            <PositionedMenu isLogged={isLogged} onLogoutSubmit={onLogoutSubmit} />
           </NavLink>
         </div>
       </div>
@@ -100,6 +101,7 @@ Header.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
+  onLogoutSubmit: PropTypes.func.isRequired,
 };
 Header.defaultProps = {
   className: '',

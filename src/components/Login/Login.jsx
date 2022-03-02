@@ -111,7 +111,6 @@ function Login({ errorMessage, onLoginSubmit }) {
 }
 
 Login.propTypes = {
-  setIsLogged: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
   onLoginSubmit: PropTypes.func.isRequired,
 };
