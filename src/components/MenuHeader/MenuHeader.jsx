@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar, ThemeProvider } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { green } from '@mui/material/colors';
 import customTheme from '../../themes/customTheme';
@@ -46,8 +47,16 @@ function PositionedMenu() {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>Connexion</MenuItem>
-        <MenuItem onClick={handleClose}>Contact</MenuItem>
+        <NavLink
+          to="/login"
+        >
+          <MenuItem onClick={handleClose}>Connexion</MenuItem>
+        </NavLink>
+        <NavLink
+          to="/contact"
+        >
+          <MenuItem onClick={handleClose}>Contact</MenuItem>
+        </NavLink>
         <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>

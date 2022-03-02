@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import Header from '../Header/Header';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
+import Contact from '../Contact/Contact';
 import { requestHiking } from '../../requests/data';
 import './App.css';
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/" element={<Map />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
+        <Route path="/contact" element={<Contact />} />
         {/* <Route path="/track/:id" element={<Track />} /> */}
       </Routes>
     </div>

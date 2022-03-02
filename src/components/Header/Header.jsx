@@ -23,27 +23,29 @@ function Header({
     onFilterList(value);
     setValue('');
   };
+  const handleTrackListClick = () => {
+    onFilterList('');
+    setValue('');
+  };
   return (
     <div
       className="header"
       {...rest}
     >
       <div className="header-top">
-        <div className="header-top__home">
+        <div className="header-top__home" onClick={handleTrackListClick}>
           <NavLink
             to="/"
           >
-            <HomeIcon sx={{ fontSize: 40, color: '#007720' }} />
+            <HomeIcon
+              sx={{ fontSize: 40, color: '#007720' }}
+            />
           </NavLink>
         </div>
         <div className="header-top__title">O'VOL
         </div>
         <div className="header-top__avatar">
-          <NavLink
-            to="/login"
-          >
-            <PositionedMenu />
-          </NavLink>
+          <PositionedMenu />
         </div>
       </div>
       <div className="header__input">
@@ -74,14 +76,14 @@ function Header({
       <div className="header-nav">
         <ThemeProvider theme={customTheme}>
           <NavLink
-            to="/carte"
+            to="/"
           >
             <Button className="header-nav__button" variant="contained">Carte</Button>
           </NavLink>
           <NavLink
             to="/tracksList"
           >
-            <Button className="header-nav__button" variant="contained">Randonnées</Button>
+            <Button className="header-nav__button" variant="contained" onClick={handleTrackListClick}>Randonnées </Button>
           </NavLink>
           <NavLink
             to="/filtres"
