@@ -15,7 +15,8 @@ function TracksList({ className, trackFilterList, ...rest }) {
         mountain,
         name,
         positive_elevation,
-        overall_lenth,
+        overall_length,
+        img_card,
       }) => (
 
         <TrackCard
@@ -24,7 +25,9 @@ function TracksList({ className, trackFilterList, ...rest }) {
           mountain={mountain}
           name={name}
           positive_elevation={positive_elevation}
-          overall_lenth={overall_lenth}
+          overall_length={overall_length}
+          id={id}
+          img_card={img_card}
         />
       ))}
 
@@ -40,7 +43,8 @@ TracksList.propTypes = {
       difficulty: PropTypes.string.isRequired,
       mountain: PropTypes.string.isRequired,
       positive_elevation: PropTypes.number.isRequired,
-      overall_lenth: PropTypes.number.isRequired,
+      overall_length: PropTypes.number.isRequired,
+      img_card: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };
