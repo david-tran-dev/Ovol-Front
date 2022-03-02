@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { requestLogin } from '../../requests/login';
 
 function Copyright(props) {
   return (
@@ -27,14 +28,16 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Login() {
-  const handleSubmit = (event) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log(email, password);
+    const response = await requestLogin(email, password);
+    console.log('response:', response);
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -65,6 +68,8 @@ function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={((event) => setEmail(event.target.value))}
             />
             <TextField
               margin="normal"
@@ -75,6 +80,8 @@ function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={((event) => setPassword(event.target.value))}
             />
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
