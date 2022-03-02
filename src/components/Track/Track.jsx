@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './track.scss';
 import { Navigate, useParams } from 'react-router-dom';
 import {
-  CardMedia, Container, Icon, Typography, Box, Button,
+  CardMedia, Container, Icon, Box, Button,
 } from '@mui/material';
 import DOMPurify from 'dompurify';
 
@@ -18,14 +18,13 @@ function Track({ className, tracksList, ...rest }) {
     return <Navigate to="/error" replace />;
   }
   const steps = trackFinded.key_stage.split('\n');
-  console.log('steps:', steps);
   console.log('render');
   return (
     <div
       className={`track ${className}`}
       {...rest}
     >
-      <Container sx={{ my: 1 }}>
+      <Container className="track-container" sx={{ my: 1 }}>
         <CardMedia
           className="track-img"
           component="img"
@@ -34,30 +33,30 @@ function Track({ className, tracksList, ...rest }) {
           alt="hiking image"
           title={trackFinded.name}
         />
-        <Typography gutterBottom variant="h5" textAlign="left" fontWeight="bold"> {trackFinded.name}</Typography>
+        <h1 className="track-title" gutterBottom variant="h5" textAlign="left" fontWeight="bold"> {trackFinded.name}</h1>
         <Box sx={{ display: 'flex', textAlign: 'left', my: 1 }}>
           <Box sx={{ pr: 2, width: '50%' }}>
-            <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
+            <p className="track-info">
               Infos techniques:
-            </Typography>
-            <Typography className="track-info__key">Dénivelé positif:
-              <Typography className="track-info__value" component="span"> {trackFinded.positive_elevation}m</Typography>
-            </Typography>
-            <Typography className="track-info__key">Dénivelé négatif:
-              <Typography className="track-info__value" component="span"> {trackFinded.negative_elevation}m</Typography>
-            </Typography>
-            <Typography className="track-info__key">Point haut:
-              <Typography className="track-info__value" component="span"> {trackFinded.hight_point}m</Typography>
-            </Typography>
-            <Typography className="track-info__key">Point bas:
-              <Typography className="track-info__value" component="span"> {trackFinded.low_point}m</Typography>
-            </Typography>
-            <Typography className="track-info__key">Carte IGN:
-              <Typography className="track-info__value" component="span"> {trackFinded.ign_card_reference}</Typography>
-            </Typography>
-            <Typography className="track-info__key">Terrain:
-              <Typography className="track-info__value" component="span"> {trackFinded.land_type}</Typography>
-            </Typography>
+            </p>
+            <p className="track-info__key">Dénivelé positif:
+              <span className="track-info__value"> {trackFinded.positive_elevation}m</span>
+            </p>
+            <p className="track-info__key">Dénivelé négatif:
+              <span className="track-info__value"> {trackFinded.negative_elevation}m</span>
+            </p>
+            <p className="track-info__key">Point haut:
+              <span className="track-info__value"> {trackFinded.hight_point}m</span>
+            </p>
+            <p className="track-info__key">Point bas:
+              <span className="track-info__value"> {trackFinded.low_point}m</span>
+            </p>
+            <p className="track-info__key">Carte IGN:
+              <span className="track-info__value"> {trackFinded.ign_card_reference}</span>
+            </p>
+            <p className="track-info__key">Terrain:
+              <span className="track-info__value"> {trackFinded.land_type}</span>
+            </p>
 
           </Box>
           <Box sx={{ width: '50%', mb: 2 }}>
@@ -68,29 +67,28 @@ function Track({ className, tracksList, ...rest }) {
               <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, mx: 1 }} />
               <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
             </Box>
-            <Typography className="track-info__key">Massif:
-              <Typography className="track-info__value" component="span"> {trackFinded.mountain}</Typography>
-            </Typography>
-            <Typography className="track-info__key">Point de départ:
-              <Typography className="track-info__value" component="span"> {trackFinded.starting_point}</Typography>
-            </Typography>
-            <Typography className="track-info__key">Distance:
-              <Typography className="track-info__value" component="span"> {trackFinded.overall_length}km</Typography>
-            </Typography>
-            <Typography className="track-info__key">Difficulté:
-              <Typography className="track-info__value" component="span"> {trackFinded.difficulty}</Typography>
-
-            </Typography>
+            <p className="track-info__key">Massif:
+              <span className="track-info__value"> {trackFinded.mountain}</span>
+            </p>
+            <p className="track-info__key">Distance:
+              <span className="track-info__value"> {trackFinded.overall_length}km</span>
+            </p>
+            <p className="track-info__key">Difficulté:
+              <span className="track-info__value"> {trackFinded.difficulty}</span>
+            </p>
+            <p className="track-info__key">Point de départ:
+              <span className="track-info__value"> {trackFinded.starting_point}</span>
+            </p>
           </Box>
         </Box>
-        <Typography variant="h5" gutterBottom textAlign="left" fontWeight="bold">Résumé</Typography>
-        <Typography gutterBottom textAlign="left" sx={{ mb: 2 }}> {trackFinded.resume} </Typography>
-        <Typography variant="h5" gutterBottom textAlign="left" fontWeight="bold">Etapes de la randonnée</Typography>
-        {steps.map((step, index) => <Typography key={step + index} textAlign="left">{step}</Typography>)}
+        <p className="track-resume" variant="h5" gutterBottom textAlign="left" fontWeight="bold">Résumé</p>
+        <p className="track-resume__content" gutterBottom textAlign="left" sx={{ mb: 2 }}> {trackFinded.resume} </p>
+        <p className="track-steps" variant="h5" gutterBottom textAlign="left" fontWeight="bold">Etapes de la randonnée</p>
+        {steps.map((step, index) => <p className="track-steps__content" key={step + index} textAlign="left">{step}</p>)}
         <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(trackFinded.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
         <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
-          <Button variant="contained">Décollage</Button>
-          <Button variant="contained">Attérissage</Button>
+          <Button className="track-button" variant="contained">Décollage</Button>
+          <Button className="track-button" variant="contained">Attérissage</Button>
         </Box>
       </Container>
     </div>

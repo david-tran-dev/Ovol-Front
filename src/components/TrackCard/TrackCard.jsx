@@ -31,7 +31,7 @@ function TrackCard({
           component="img"
           sx={{ width: '40%' }}
           image={img_card}
-          alt="Live from space album cover"
+          alt={name}
         />
         <Box sx={{
           display: 'flex', flexDirection: 'column', width: '100%', p: 1,
@@ -42,7 +42,7 @@ function TrackCard({
             display: 'flex', justifyContent: 'space-between',
           }}
           >
-            <Typography component="h2" variant="h6">
+            <Typography component="h2" variant="h6" fontWeight="bold">
               {name}
             </Typography>
             <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24 }} />
@@ -79,6 +79,7 @@ TrackCard.propTypes = {
   positive_elevation: PropTypes.number.isRequired,
   overall_length: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
+  img_card: PropTypes.string.isRequired,
 
 };
 TrackCard.defaultProps = {
