@@ -29,7 +29,6 @@ function Header({
   const handleTrackListClick = () => {
     onFilterList('');
     setValue('');
-    isActive();
   };
   return (
     <div
