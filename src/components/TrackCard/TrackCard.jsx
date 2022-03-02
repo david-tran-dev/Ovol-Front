@@ -63,7 +63,7 @@ function TrackCard({
               Massif: {mountain}
             </Typography>
             <Typography className="trackCard-content__detail">
-              Diffilcuté: {difficulty}
+              Difficulté: {difficulty}
             </Typography>
             <Typography className="trackCard-content__detail">
               Orientation décollage: NO

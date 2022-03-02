@@ -1,9 +1,9 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable prefer-template */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './track.scss';
-import { Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   CardMedia, Container, Icon, Box, Button,
 } from '@mui/material';
@@ -90,7 +90,9 @@ function Track({ className, tracksList, ...rest }) {
         <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(trackFinded.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
         <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
           <ThemeProvider theme={customTheme}>
+            {/* <Link to={`/liftOff/${liftOffId}`}> */}
             <Button className="track-button" variant="contained">Décollage</Button>
+            {/* </Link> */}
             <Button className="track-button" variant="contained">Attérissage</Button>
           </ThemeProvider>
         </Box>
