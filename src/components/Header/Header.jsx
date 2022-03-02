@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
+import classnames from 'classnames';
 import {
   InputBase, IconButton, Button, ThemeProvider,
 } from '@mui/material';
@@ -9,12 +10,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import customTheme from '../../themes/customTheme';
 import HomeIcon from '../../utils/HomeIcon';
 import PositionedMenu from '../MenuHeader/MenuHeader';
+
 // import filterTrack from '../App/App';
 import './header.scss';
 
 function Header({
   className,
   onFilterList,
+  isActive,
   ...rest
 }) {
   const [value, setValue] = useState('');
@@ -26,6 +29,7 @@ function Header({
   const handleTrackListClick = () => {
     onFilterList('');
     setValue('');
+    isActive();
   };
   return (
     <div
@@ -45,10 +49,10 @@ function Header({
         <div className="header-top__title">O'VOL
         </div>
         <div className="header-top__avatar">
-          <PositionedMenu />
+          <PositionedMenu isActive={isActive} />
         </div>
       </div>
-      <div className="header__input">
+      <div className={classnames('header-input', { 'is-active': isActive })}>
         <Paper
           onSubmit={handleSubmit}
           component="form"
@@ -99,6 +103,7 @@ function Header({
 Header.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };
 Header.defaultProps = {
   className: '',

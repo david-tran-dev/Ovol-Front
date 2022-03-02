@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Routes, Route, useLocation, Navigate,
 } from 'react-router-dom';
@@ -9,23 +9,27 @@ import TracksList from '../TracksList/TracksList';
 import Contact from '../Contact/Contact';
 import { requestHiking } from '../../requests/data';
 import './App.css';
+import Track from '../Track/Track';
 
 function App() {
   const location = useLocation();
   const [tracksList, setTracksList] = useState([]);
   const [filterTrackList, setFilterTrackList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [searchBar, setSearchBar] = useState(false);
 
-  function handleFilterTrackList(value) {
+  // const [isLoading, setIsLoading] = useState(false);
+
+  const handleFilterTrackList = (value) => {
     if (value === '') {
       setFilterTrackList(tracksList);
     }
     const searchList = tracksList.filter((track) => track.name.toLowerCase().includes(value.toLowerCase()));
     // console.log('searchlist', searchList);
     setFilterTrackList(searchList);
+    setSearchBar(false);
     return <Navigate to="/tracksList" />;
     // console.log('value dans app', value);
-  }
+  };
 
   useEffect(async () => {
     // setIsLoading(true);
@@ -41,18 +45,23 @@ function App() {
     }
   }, []);
 
+  const searchBarIsActive = (value) => {
+    setSearchBar(value);
+    console.log('value contact', value);
+  };
+
   return (
     <div className="App">
-      <Header onFilterList={handleFilterTrackList} />
+      <Header onFilterList={handleFilterTrackList} isActive={searchBar} />
       <Routes location={location}>
         <Route path="/" element={<Map />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login isActiveBar={searchBarIsActive} />} />
+        <Route path="/contact" element={<Contact isActiveBar={searchBarIsActive} />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
-        <Route path="/contact" element={<Contact />} />
-        {/* <Route path="/track/:id" element={<Track />} /> */}
+        <Route path="/track/:id" element={<Track tracksList={tracksList} />} />
       </Routes>
     </div>
   );
 }
 
-export default App;
+export default React.memo(App);

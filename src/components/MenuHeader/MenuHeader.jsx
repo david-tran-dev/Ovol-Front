@@ -2,12 +2,9 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Avatar, ThemeProvider } from '@mui/material';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import { NavLink } from 'react-router-dom';
+import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { green } from '@mui/material/colors';
-import customTheme from '../../themes/customTheme';
+import { NavLink } from 'react-router-dom';
 
 function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,10 +51,12 @@ function PositionedMenu() {
         </NavLink>
         <NavLink
           to="/contact"
+          className="search-bar__is-active"
         >
           <MenuItem onClick={handleClose}>Contact</MenuItem>
         </NavLink>
         <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
+        <MenuItem onClick={handleClose}>A propos</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
     </div>
