@@ -11,9 +11,10 @@
 	}
 
 	&-title, &-resume, &-steps{
-		font-size: 1.5em;
-		font-family: vars.$font2;
+		font-size: 1.3em;
+		font-family: vars.$font1;
 		margin: 1.5rem 0 1rem;
+		font-weight: bold;
 
 	}
 
@@ -27,7 +28,6 @@
 
 	&-info {
 		margin-bottom: 1rem;
-		font-weight: bold;
 		
 	}
 
@@ -78,6 +78,6 @@
 	
 	&-button {
 		width: 100%;
-		margin: 0 1rem;
+		margin: 0 0.5rem;
 	}
 }

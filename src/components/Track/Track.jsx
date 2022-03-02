@@ -8,6 +8,8 @@ import {
   CardMedia, Container, Icon, Box, Button,
 } from '@mui/material';
 import DOMPurify from 'dompurify';
+import { ThemeProvider } from '@emotion/react';
+import customTheme from '../../themes/customTheme';
 
 function Track({ className, tracksList, ...rest }) {
   const { id } = useParams();
@@ -33,7 +35,7 @@ function Track({ className, tracksList, ...rest }) {
           alt="hiking image"
           title={trackFinded.name}
         />
-        <h1 className="track-title" gutterBottom variant="h5" textAlign="left" fontWeight="bold"> {trackFinded.name}</h1>
+        <h1 className="track-title"> {trackFinded.name}</h1>
         <Box sx={{ display: 'flex', textAlign: 'left', my: 1 }}>
           <Box sx={{ pr: 2, width: '50%' }}>
             <p className="track-info">
@@ -81,14 +83,16 @@ function Track({ className, tracksList, ...rest }) {
             </p>
           </Box>
         </Box>
-        <p className="track-resume" variant="h5" gutterBottom textAlign="left" fontWeight="bold">Résumé</p>
-        <p className="track-resume__content" gutterBottom textAlign="left" sx={{ mb: 2 }}> {trackFinded.resume} </p>
-        <p className="track-steps" variant="h5" gutterBottom textAlign="left" fontWeight="bold">Etapes de la randonnée</p>
-        {steps.map((step, index) => <p className="track-steps__content" key={step + index} textAlign="left">{step}</p>)}
+        <p className="track-resume">Résumé</p>
+        <p className="track-resume__content"> {trackFinded.resume} </p>
+        <p className="track-steps">Etapes de la randonnée</p>
+        {steps.map((step, index) => <p className="track-steps__content" key={step + index}>{step}</p>)}
         <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(trackFinded.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
         <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
-          <Button className="track-button" variant="contained">Décollage</Button>
-          <Button className="track-button" variant="contained">Attérissage</Button>
+          <ThemeProvider theme={customTheme}>
+            <Button className="track-button" variant="contained">Décollage</Button>
+            <Button className="track-button" variant="contained">Attérissage</Button>
+          </ThemeProvider>
         </Box>
       </Container>
     </div>

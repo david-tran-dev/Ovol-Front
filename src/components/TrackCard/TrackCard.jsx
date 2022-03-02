@@ -42,12 +42,23 @@ function TrackCard({
             display: 'flex', justifyContent: 'space-between',
           }}
           >
-            <Typography component="h2" variant="h6" fontWeight="bold">
+            <Typography component="h2" variant="body1" fontWeight="bold" mb="1rem">
               {name}
             </Typography>
-            <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24 }} />
+            <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, textAlign: 'left' }} />
           </Box>
-          <CardContent className="trackCard-content" sx={{ textAlign: 'left', p: 0, pb: 0 }}>
+          <CardContent
+            className="trackCard-content"
+            sx={{
+              textAlign: 'left',
+              p: 0,
+              pb: 0,
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              height: '100%',
+            }}
+          >
             <Typography className="trackCard-content__detail">
               Massif: {mountain}
             </Typography>

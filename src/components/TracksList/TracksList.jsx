@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import './tracksList.scss';
 import TrackCard from '../TrackCard/TrackCard';
 
-function TracksList({ className, tracksList, ...rest }) {
+function TracksList({ className, trackFilterList, ...rest }) {
   return (
     <main
       className={`trackslist ${className}`}
       {...rest}
     >
-      {tracksList.map(({
+      {trackFilterList.map(({
         id,
         difficulty,
         mountain,
@@ -37,7 +37,7 @@ function TracksList({ className, tracksList, ...rest }) {
 
 TracksList.propTypes = {
   className: PropTypes.string,
-  tracksList: PropTypes.arrayOf(
+  trackFilterList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       difficulty: PropTypes.string.isRequired,
