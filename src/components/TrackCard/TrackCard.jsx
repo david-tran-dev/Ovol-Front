@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './trackCard.scss';
 
@@ -9,7 +10,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Icon } from '@mui/material';
-import { Link } from 'react-router-dom';
 
 function TrackCard({
   className,
@@ -17,8 +17,9 @@ function TrackCard({
   name,
   difficulty,
   mountain,
-  overall_lenth,
+  overall_length,
   positive_elevation,
+  img_card,
 }) {
   return (
     <Link
@@ -29,8 +30,8 @@ function TrackCard({
         <CardMedia
           component="img"
           sx={{ width: '40%' }}
-          image="https://images.unsplash.com/photo-1554818048-3e5bf815cfd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1129&q=80"
-          alt="Live from space album cover"
+          image={img_card}
+          alt={name}
         />
         <Box sx={{
           display: 'flex', flexDirection: 'column', width: '100%', p: 1,
@@ -41,12 +42,23 @@ function TrackCard({
             display: 'flex', justifyContent: 'space-between',
           }}
           >
-            <Typography component="h2" variant="h6">
+            <Typography component="h2" variant="body1" fontWeight="bold" mb="1rem">
               {name}
             </Typography>
-            <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24 }} />
+            <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, textAlign: 'left' }} />
           </Box>
-          <CardContent className="trackCard-content" sx={{ textAlign: 'left', p: 0, pb: 0 }}>
+          <CardContent
+            className="trackCard-content"
+            sx={{
+              textAlign: 'left',
+              p: 0,
+              pb: 0,
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              height: '100%',
+            }}
+          >
             <Typography className="trackCard-content__detail">
               Massif: {mountain}
             </Typography>
@@ -60,7 +72,7 @@ function TrackCard({
               Dénivelé positif: {positive_elevation}m
             </Typography>
             <Typography className="trackCard-content__detail">
-              Longueur totale : {overall_lenth}km
+              Longueur totale : {overall_length}km
             </Typography>
           </CardContent>
         </Box>
@@ -76,8 +88,9 @@ TrackCard.propTypes = {
   difficulty: PropTypes.string.isRequired,
   mountain: PropTypes.string.isRequired,
   positive_elevation: PropTypes.number.isRequired,
-  overall_lenth: PropTypes.number.isRequired,
+  overall_length: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
+  img_card: PropTypes.string.isRequired,
 
 };
 TrackCard.defaultProps = {

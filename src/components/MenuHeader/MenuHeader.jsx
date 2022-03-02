@@ -2,11 +2,8 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Avatar, ThemeProvider } from '@mui/material';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { green } from '@mui/material/colors';
-import customTheme from '../../themes/customTheme';
 
 function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);

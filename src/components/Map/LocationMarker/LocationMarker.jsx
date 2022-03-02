@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 
 function LocationMarker() {
-  const [position, setPosition] = useState(null);
+  // const [position, setPosition] = useState(null);
   const map = useMap();
 
   useEffect(() => {
     map.locate().on('locationfound', (e) => {
       console.log('lat', e.latlng);
-      setPosition(e.latlng);
+      // setPosition(e.latlng);
       const radius = e.accuracy;
       L.marker(e.latlng)
         .addTo(map)
