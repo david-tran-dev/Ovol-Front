@@ -49,6 +49,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
         <Route path="/track/:id" element={<Track />} />
+        {/* <Route path="/liftOff/:id" element={<Track />} /> */}
       </Routes>
     </div>
   );

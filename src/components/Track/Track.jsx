@@ -128,7 +128,7 @@ function Track({ className, ...rest }) {
               <Link to={`/liftoff/${hiking.liftOfId}`}>
                 <Button className="track-button" variant="contained">Décollage</Button>
               </Link>
-              <Link to={`/liftoff/${hiking.liftOfId}`}>
+              <Link to="/landings">
                 <Button className="track-button" variant="contained">Attérissage</Button>
               </Link>
             </ThemeProvider>
