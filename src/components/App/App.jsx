@@ -6,7 +6,7 @@ import Login from '../Login/Login';
 import Header from '../Header/Header';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
-import { requestHiking } from '../../requests/data';
+import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
 
@@ -29,7 +29,7 @@ function App() {
 
   useEffect(async () => {
     // setIsLoading(true);
-    const response = await requestHiking();
+    const response = await requestHikingList();
 
     if (response.status === 200) {
       setTracksList(response.data);
@@ -48,7 +48,8 @@ function App() {
         <Route path="/" element={<Map />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
-        <Route path="/track/:id" element={<Track tracksList={tracksList} />} />
+        <Route path="/track/:id" element={<Track />} />
+        {/* <Route path="/liftOff/:id" element={<Track />} /> */}
       </Routes>
     </div>
   );

@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import apiAxios from './index';
 
-export async function requestLiftOffList() {
+export async function requestHikingList() {
   try {
-    const response = await apiAxios.get('/liftoff');
+    const response = await apiAxios.get('/hiking');
     return response;
   }
   catch (err) {
@@ -12,9 +12,9 @@ export async function requestLiftOffList() {
   }
 }
 
-export async function requestLiftOff(id) {
+export async function requestHiking(id) {
   try {
-    const response = await apiAxios.get(`/liftoff/${id}`);
+    const response = await apiAxios.get(`/hiking/${id}`);
     return response;
   }
   catch (err) {
