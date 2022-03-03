@@ -6,18 +6,15 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './searchBar.scss';
-// import classnames from 'classnames';
 
 function SearchBar({
   onFilterList,
-  onActiveNav,
 }) {
   const [value, setValue] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
     onFilterList(value);
     setValue('');
-    onActiveNav(false);
   };
   return (
     <div className="header-nav">
@@ -51,11 +48,6 @@ function SearchBar({
 }
 
 SearchBar.propTypes = {
-  // className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
-  onActiveNav: PropTypes.func.isRequired,
-};
-SearchBar.defaultProps = {
-  // className: '',
 };
 export default React.memo(SearchBar);

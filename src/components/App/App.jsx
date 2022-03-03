@@ -59,10 +59,12 @@ function App() {
     <div className="App">
       <Header onFilterList={handleFilterTrackList} isActive={searchBar} onActiveNav={handleIsOpenNavBar} />
       {isOpenNavBar
-        ? <SearchBar onActiveNav={handleIsOpenNavBar} onFilterList={handleFilterTrackList} />
-        : ''}
-      {isOpenNavBar
-        ? <NavHeader onFilterList={handleFilterTrackList} />
+        ? (
+          <>
+            <SearchBar onActiveNav={handleIsOpenNavBar} onFilterList={handleFilterTrackList} />
+            <NavHeader onFilterList={handleFilterTrackList} />
+          </>
+        )
         : ''}
 
       {/* <MenuHeader onActiveNav={handleIsOpenNavBar} /> */}
