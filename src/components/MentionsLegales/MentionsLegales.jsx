@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import SendIcon from '@mui/icons-material/Send';
-import itemData from '../../assets/img/itemDataContact/itemDataContact';
+import itemDataML from '../../assets/img/itemDataContact/itemDataMentionsLegales';
 import './mentionsLegales.scss';
 
 function MiddleDividers({
@@ -24,7 +24,7 @@ function MiddleDividers({
           <Grid container alignItems="center">
             <Grid item xs>
               <ImageList sx={{ width: 330, height: 450 }} cols={2} rowHeight={164}>
-                {itemData.map((item) => (
+                {itemDataML.map((item) => (
                   <ImageListItem key={item.img}>
                     <img
                       src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
