@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
-import {
-  InputBase, IconButton, Button, ThemeProvider,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import customTheme from '../../themes/customTheme';
 import HomeIcon from '../../utils/HomeIcon';
-import PositionedMenu from '../MenuHeader/MenuHeader';
-// import filterTrack from '../App/App';
 import './header.scss';
+import MenuHeader from '../MenuHeader/MenuHeader';
 
 function Header({
   className,
   onFilterList,
+  onActiveNav,
   ...rest
 }) {
-  const [value, setValue] = useState('');
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onFilterList(value);
-    setValue('');
+  // const [value, setValue] = useState('');
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   onFilterList(value);
+  //   setValue('');
+  // };
+  const handleTrackListClick = () => {
+    onFilterList('');
+    // setValue('');
   };
   return (
     <div
@@ -29,24 +27,22 @@ function Header({
       {...rest}
     >
       <div className="header-top">
-        <div className="header-top__home">
+        <div className="header-top__home" onClick={handleTrackListClick}>
           <NavLink
             to="/"
           >
-            <HomeIcon sx={{ fontSize: 40, color: '#007720' }} />
+            <HomeIcon
+              sx={{ fontSize: 40, color: '#007720' }}
+            />
           </NavLink>
         </div>
         <div className="header-top__title">O'VOL
         </div>
         <div className="header-top__avatar">
-          <NavLink
-            to="/login"
-          >
-            <PositionedMenu />
-          </NavLink>
+          <MenuHeader onActiveNav={onActiveNav} />
         </div>
       </div>
-      <div className="header__input">
+      {/* <div className={classnames('header-input', { 'is-active': isActive })}>
         <Paper
           onSubmit={handleSubmit}
           component="form"
@@ -70,26 +66,7 @@ function Header({
             <SearchIcon />
           </IconButton>
         </Paper>
-      </div>
-      <div className="header-nav">
-        <ThemeProvider theme={customTheme}>
-          <NavLink
-            to="/carte"
-          >
-            <Button className="header-nav__button" variant="contained">Carte</Button>
-          </NavLink>
-          <NavLink
-            to="/tracksList"
-          >
-            <Button className="header-nav__button" variant="contained">Randonnées</Button>
-          </NavLink>
-          <NavLink
-            to="/filtres"
-          >
-            <Button className="header-nav__button" variant="contained">Filtres</Button>
-          </NavLink>
-        </ThemeProvider>
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -97,6 +74,7 @@ function Header({
 Header.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
+  onActiveNav: PropTypes.func.isRequired,
 };
 Header.defaultProps = {
   className: '',

@@ -52,7 +52,15 @@
     }
 }
 
-.header__input {
+.header-input {
     display: flex;
     justify-content: center;
+
+
+
+}
+
+.is-active {
+    visibility: hidden;
+    background-color: red;
 }

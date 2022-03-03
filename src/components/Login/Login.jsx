@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
+function Copyright(...props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -26,7 +27,10 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-function Login() {
+function Login({
+  isActiveBar,
+}) {
+  isActiveBar(true);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -108,5 +112,7 @@ function Login() {
     </ThemeProvider>
   );
 }
-
+Login.propTypes = {
+  isActiveBar: PropTypes.func.isRequired,
+};
 export default React.memo(Login);
