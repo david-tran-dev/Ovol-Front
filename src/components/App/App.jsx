@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Routes, Route, useLocation, Navigate,
+  Routes, Route, useLocation, useNavigate,
 } from 'react-router-dom';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
@@ -12,13 +12,18 @@ import Contact from '../Contact/Contact';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
+import { requestLogin } from '../../requests/login';
+import { removeBearerToken, setBearerToken } from '../../requests';
 
 function App() {
   const location = useLocation();
   const [tracksList, setTracksList] = useState([]);
   const [filterTrackList, setFilterTrackList] = useState([]);
-  const [searchBar, setSearchBar] = useState(false);
+  // const [searchBar, setSearchBar] = useState(false);
   const [isOpenNavBar, setIsOpenNavBar] = useState(true);
+  const [loginErrorMessage, setLoginErrorMessage] = useState('');
+  const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
 
   // const [isLoading, setIsLoading] = useState(false);
   const handleIsOpenNavBar = (value) => {
@@ -31,9 +36,30 @@ function App() {
     }
     const searchList = tracksList.filter((track) => track.name.toLowerCase().includes(value.toLowerCase()));
     setFilterTrackList(searchList);
-    setSearchBar(false);
+    navigate('/trackslist');
+  };
+
+  const handleLoginSubmit = async (email, password) => {
+    setLoginErrorMessage('');
+    const response = await requestLogin(email, password);
+    console.log('response:', response);
+    if (response.status === 200) {
+      setBearerToken(response.data.accessToken);
+      setIsLogged(true);
+      navigate('/trackslist');
+    }
+    else {
+      setIsLogged(false);
+      setLoginErrorMessage(response.data);
+    }
+  };
+
+  const handleLogoutSubmit = () => {
+    removeBearerToken();
+    setIsLogged(false);
+    // setSearchBar(false);
     setIsOpenNavBar(true);
-    return <Navigate to="/tracksList" />;
+    navigate('/tracksList');
   };
 
   useEffect(async () => {
@@ -50,28 +76,42 @@ function App() {
     }
   }, []);
 
-  const searchBarIsActive = (value) => {
-    setSearchBar(value);
-    console.log('value contact', value);
-  };
+  // const searchBarIsActive = (value) => {
+  //   setSearchBar(value);
+  //   console.log('value contact', value);
+  // };
 
   return (
     <div className="App">
-      <Header onFilterList={handleFilterTrackList} isActive={searchBar} onActiveNav={handleIsOpenNavBar} />
+      <Header
+        onFilterList={handleFilterTrackList}
+        onActiveNav={handleIsOpenNavBar}
+        isLogged={isLogged}
+        onLogoutSubmit={handleLogoutSubmit}
+      />
       {isOpenNavBar
         ? (
           <>
-            <SearchBar onActiveNav={handleIsOpenNavBar} onFilterList={handleFilterTrackList} />
+            <SearchBar onFilterList={handleFilterTrackList} />
             <NavHeader onFilterList={handleFilterTrackList} />
           </>
         )
         : ''}
 
-      {/* <MenuHeader onActiveNav={handleIsOpenNavBar} /> */}
       <Routes location={location}>
         <Route path="/" element={<Map />} />
-        <Route path="/login" element={<Login isActiveBar={searchBarIsActive} />} />
-        <Route path="/contact" element={<Contact isActiveBar={searchBarIsActive} />} />
+        <Route
+          path="/login"
+          element={(
+            <Login
+              onLoginSubmit={handleLoginSubmit}
+              errorMessage={loginErrorMessage}
+              onActiveNav={handleIsOpenNavBar}
+              // isActiveBar={searchBarIsActive}
+            />
+          )}
+        />
+        <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
         <Route path="/track/:id" element={<Track />} />
         {/* <Route path="/liftOff/:id" element={<Track />} /> */}

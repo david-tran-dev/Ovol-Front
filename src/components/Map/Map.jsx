@@ -10,7 +10,7 @@ import './map.scss';
 import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
 // import LocateControl from 'react-leaflet-locate-control';
-import { requestLiftOff } from '../../requests/map';
+import { requestLiftOffList } from '../../requests/map';
 import LocationMarker from './LocationMarker/LocationMarker';
 
 import paragliding from '../../assets/icons/paragliding.png';
@@ -29,7 +29,7 @@ function Map() {
   });
 
   useEffect(async () => {
-    const response = await requestLiftOff();
+    const response = await requestLiftOffList();
     console.log('response:', response);
 
     if (response.status === 200) {
@@ -46,6 +46,7 @@ function Map() {
         center={firstPosition}
         zoom={10}
         style={{ width: '100%', height: '100%' }}
+        className="map-container"
       >
         <LocationMarker />
         {/* <Polyline

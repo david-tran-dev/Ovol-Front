@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
@@ -9,10 +8,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import './contact.scss';
 
-function MiddleDividers({
-  isActiveBar,
-}) {
-  isActiveBar(true);
+function MiddleDividers() {
   return (
     <div className="header-contact">
       <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -45,8 +41,5 @@ function MiddleDividers({
     </div>
   );
 }
-MiddleDividers.propTypes = {
-  isActiveBar: PropTypes.func.isRequired,
-};
 
 export default React.memo(MiddleDividers);

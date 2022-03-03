@@ -7,8 +7,8 @@ import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from 'react-router-dom';
 
-function PositionedMenu({
-  onActiveNav,
+function MenuHeader({
+  isLogged, onLogoutSubmit, onActiveNav,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -18,6 +18,10 @@ function PositionedMenu({
   const handleClose = () => {
     setAnchorEl(null);
     onActiveNav(false);
+  };
+  const handleLogoutSubmit = () => {
+    setAnchorEl(null);
+    onLogoutSubmit();
   };
 
   return (
@@ -61,16 +65,18 @@ function PositionedMenu({
         </NavLink>
         <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
         <MenuItem onClick={handleClose}>A propos</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {isLogged
+          ? <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
+          : ''}
       </Menu>
     </div>
   );
 }
-PositionedMenu.propTypes = {
+
+MenuHeader.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+  onLogoutSubmit: PropTypes.func.isRequired,
   onActiveNav: PropTypes.func.isRequired,
 };
 
-// PositionedMenu.defaultProps = {
-//   className: '',
-// };
-export default React.memo(PositionedMenu);
+export default React.memo(MenuHeader);
