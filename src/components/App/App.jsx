@@ -6,7 +6,7 @@ import Login from '../Login/Login';
 import Header from '../Header/Header';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
-import { requestHiking } from '../../requests/data';
+import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
 import { requestLogin } from '../../requests/login';
@@ -54,7 +54,7 @@ function App() {
 
   useEffect(async () => {
     // setIsLoading(true);
-    const response = await requestHiking();
+    const response = await requestHikingList();
 
     if (response.status === 200) {
       setTracksList(response.data);
@@ -71,9 +71,16 @@ function App() {
       <Header onFilterList={handleFilterTrackList} isLogged={isLogged} onLogoutSubmit={handleLogoutSubmit} />
       <Routes location={location}>
         <Route path="/" element={<Map />} />
+<<<<<<< HEAD
         <Route path="/login" element={<Login onLoginSubmit={handleLoginSubmit} errorMessage={loginErrorMessage} />} />
         <Route path="/trackslist" element={<TracksList trackFilterList={filterTrackList} />} />
         <Route path="/track/:id" element={<Track tracksList={tracksList} />} />
+=======
+        <Route path="/login" element={<Login />} />
+        <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
+        <Route path="/track/:id" element={<Track />} />
+        {/* <Route path="/liftOff/:id" element={<Track />} /> */}
+>>>>>>> develop
       </Routes>
     </div>
   );
