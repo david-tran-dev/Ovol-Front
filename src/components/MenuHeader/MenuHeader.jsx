@@ -59,9 +59,21 @@ function PositionedMenu({
         >
           <MenuItem onClick={handleClose}>Contact</MenuItem>
         </NavLink>
-        <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
-        <MenuItem onClick={handleClose}>A propos</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <NavLink
+          to="/mentionsLegales"
+        >
+          <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
+        </NavLink>
+        <NavLink
+          to="/aPropos"
+        >
+          <MenuItem onClick={handleClose}>A propos</MenuItem>
+        </NavLink>
+        <NavLink
+          to="/logout"
+        >
+          <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </NavLink>
       </Menu>
     </div>
   );

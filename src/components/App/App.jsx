@@ -9,6 +9,8 @@ import SearchBar from '../SearchBar/SearchBar';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
 import Contact from '../Contact/Contact';
+import MentionsLegales from '../MentionsLegales/MentionsLegales';
+import Apropos from '../Apropos/Apropos';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
@@ -52,7 +54,6 @@ function App() {
 
   const searchBarIsActive = (value) => {
     setSearchBar(value);
-    console.log('value contact', value);
   };
 
   return (
@@ -72,6 +73,8 @@ function App() {
         <Route path="/" element={<Map />} />
         <Route path="/login" element={<Login isActiveBar={searchBarIsActive} />} />
         <Route path="/contact" element={<Contact isActiveBar={searchBarIsActive} />} />
+        <Route path="/mentionsLegales" element={<MentionsLegales isActiveBar={searchBarIsActive} />} />
+        <Route path="/apropos" element={<Apropos isActiveBar={searchBarIsActive} />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
         <Route path="/track/:id" element={<Track />} />
         {/* <Route path="/liftOff/:id" element={<Track />} /> */}

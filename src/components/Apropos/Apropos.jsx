@@ -11,14 +11,14 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import SendIcon from '@mui/icons-material/Send';
 import itemData from '../../assets/img/itemDataContact/itemDataContact';
-import './contact.scss';
+import './apropos.scss';
 
 function MiddleDividers({
   isActiveBar,
 }) {
   isActiveBar(true);
   return (
-    <div className="header-contact">
+    <div className="header-apropos">
       <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <Box sx={{ my: 3, mx: 2 }}>
           <Grid container alignItems="center">
@@ -37,22 +37,19 @@ function MiddleDividers({
               </ImageList>
 
               <Typography gutterBottom variant="h4" component="div">
-                CONTACT
+                A PROPOS
               </Typography>
             </Grid>
           </Grid>
           <Typography color="text.secondary" variant="body2">
-            Pour nous Contacter :
+            Biographie :
           </Typography>
         </Box>
         <Divider variant="middle" />
         <Box sx={{ m: 2 }}>
-          <Stack direction="row" spacing={1}>
-            <Chip label="David" />
-            <Chip label="Antoine" />
-            <Chip label="Olivier" />
-            <Chip label="Adrien" />
-            <Chip label="Fred" />
+          <Stack direction="column" spacing={1}>
+            <Chip label="Qui sommes nous ?" />
+            <Chip label="Histoire" />
           </Stack>
         </Box>
         <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
