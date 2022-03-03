@@ -16,7 +16,7 @@ function Photo({
       <Card>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image={url}
           alt={title}
         />

@@ -13,13 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import customTheme from '../../themes/customTheme';
 
-function Login({ errorMessage, onLoginSubmit, onActiveNav }) {
+function Login({ errorMessage, onLoginSubmit }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onActiveNav(true);
     onLoginSubmit(email, password);
     setEmail('');
     setPassword('');

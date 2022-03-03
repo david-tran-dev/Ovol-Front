@@ -14,6 +14,7 @@ import './App.css';
 import Track from '../Track/Track';
 import { requestLogin } from '../../requests/login';
 import { removeBearerToken, setBearerToken } from '../../requests';
+import Loading from '../Loading/Loading';
 
 function App() {
   const location = useLocation();
@@ -46,6 +47,7 @@ function App() {
     if (response.status === 200) {
       setBearerToken(response.data.accessToken);
       setIsLogged(true);
+      setIsOpenNavBar(true);
       navigate('/trackslist');
     }
     else {
@@ -59,7 +61,7 @@ function App() {
     setIsLogged(false);
     // setSearchBar(false);
     setIsOpenNavBar(true);
-    navigate('/tracksList');
+    navigate('/');
   };
 
   useEffect(async () => {
@@ -114,6 +116,7 @@ function App() {
         <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
         <Route path="/track/:id" element={<Track />} />
+        <Route path="/loading" element={<Loading />} />
         {/* <Route path="/liftOff/:id" element={<Track />} /> */}
       </Routes>
     </div>
