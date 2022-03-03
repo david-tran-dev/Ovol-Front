@@ -1,12 +1,15 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-function PositionedMenu({ isLogged, onLogoutSubmit }) {
+function MenuHeader({
+  isLogged, onLogoutSubmit, onActiveNav,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -14,6 +17,7 @@ function PositionedMenu({ isLogged, onLogoutSubmit }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    onActiveNav(false);
   };
   const handleLogoutSubmit = () => {
     setAnchorEl(null);
@@ -48,9 +52,19 @@ function PositionedMenu({ isLogged, onLogoutSubmit }) {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>Connexion</MenuItem>
-        <MenuItem onClick={handleClose}>Contact</MenuItem>
+        <NavLink
+          to="/login"
+        >
+          <MenuItem onClick={handleClose}>Connexion</MenuItem>
+        </NavLink>
+        <NavLink
+          to="/contact"
+          className="search-bar__is-active"
+        >
+          <MenuItem onClick={handleClose}>Contact</MenuItem>
+        </NavLink>
         <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
+        <MenuItem onClick={handleClose}>A propos</MenuItem>
         {isLogged
           ? <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
           : ''}
@@ -59,8 +73,10 @@ function PositionedMenu({ isLogged, onLogoutSubmit }) {
   );
 }
 
-PositionedMenu.propTypes = {
+MenuHeader.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   onLogoutSubmit: PropTypes.func.isRequired,
+  onActiveNav: PropTypes.func.isRequired,
 };
-export default React.memo(PositionedMenu);
+
+export default React.memo(MenuHeader);

@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Routes, Route, useLocation, useNavigate,
 } from 'react-router-dom';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
+import NavHeader from '../NavHeader/NavHeader';
+import SearchBar from '../SearchBar/SearchBar';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
+import Contact from '../Contact/Contact';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
@@ -16,10 +19,16 @@ function App() {
   const location = useLocation();
   const [tracksList, setTracksList] = useState([]);
   const [filterTrackList, setFilterTrackList] = useState([]);
-  const [isLogged, setIsLogged] = useState(false);
+  // const [searchBar, setSearchBar] = useState(false);
+  const [isOpenNavBar, setIsOpenNavBar] = useState(true);
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
   const navigate = useNavigate();
+
+  // const [isLoading, setIsLoading] = useState(false);
+  const handleIsOpenNavBar = (value) => {
+    setIsOpenNavBar(value);
+  };
 
   const handleFilterTrackList = (value) => {
     if (value === '') {
@@ -48,8 +57,9 @@ function App() {
   const handleLogoutSubmit = () => {
     removeBearerToken();
     setIsLogged(false);
-    console.log('isloggout');
-    navigate('/');
+    // setSearchBar(false);
+    setIsOpenNavBar(true);
+    navigate('/tracksList');
   };
 
   useEffect(async () => {
@@ -66,13 +76,42 @@ function App() {
     }
   }, []);
 
+  // const searchBarIsActive = (value) => {
+  //   setSearchBar(value);
+  //   console.log('value contact', value);
+  // };
+
   return (
     <div className="App">
-      <Header onFilterList={handleFilterTrackList} isLogged={isLogged} onLogoutSubmit={handleLogoutSubmit} />
+      <Header
+        onFilterList={handleFilterTrackList}
+        onActiveNav={handleIsOpenNavBar}
+        isLogged={isLogged}
+        onLogoutSubmit={handleLogoutSubmit}
+      />
+      {isOpenNavBar
+        ? (
+          <>
+            <SearchBar onFilterList={handleFilterTrackList} />
+            <NavHeader onFilterList={handleFilterTrackList} />
+          </>
+        )
+        : ''}
+
       <Routes location={location}>
         <Route path="/" element={<Map />} />
-
-        <Route path="/login" element={<Login onLoginSubmit={handleLoginSubmit} errorMessage={loginErrorMessage} />} />
+        <Route
+          path="/login"
+          element={(
+            <Login
+              onLoginSubmit={handleLoginSubmit}
+              errorMessage={loginErrorMessage}
+              onActiveNav={handleIsOpenNavBar}
+              // isActiveBar={searchBarIsActive}
+            />
+          )}
+        />
+        <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
         <Route path="/track/:id" element={<Track />} />
         {/* <Route path="/liftOff/:id" element={<Track />} /> */}
@@ -81,4 +120,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

@@ -13,14 +13,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import customTheme from '../../themes/customTheme';
 
-function Login({ errorMessage, onLoginSubmit }) {
+function Login({ errorMessage, onLoginSubmit, onActiveNav }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    onActiveNav(true);
     onLoginSubmit(email, password);
-
     setEmail('');
     setPassword('');
   };
@@ -113,6 +113,7 @@ function Login({ errorMessage, onLoginSubmit }) {
 Login.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   onLoginSubmit: PropTypes.func.isRequired,
+  onActiveNav: PropTypes.func.isRequired,
 };
 
 export default React.memo(Login);
