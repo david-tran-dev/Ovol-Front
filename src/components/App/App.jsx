@@ -4,6 +4,8 @@ import {
 } from 'react-router-dom';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
+import NavHeader from '../NavHeader/NavHeader';
+import SearchBar from '../SearchBar/SearchBar';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
 import Contact from '../Contact/Contact';
@@ -16,19 +18,22 @@ function App() {
   const [tracksList, setTracksList] = useState([]);
   const [filterTrackList, setFilterTrackList] = useState([]);
   const [searchBar, setSearchBar] = useState(false);
+  const [isOpenNavBar, setIsOpenNavBar] = useState(true);
 
   // const [isLoading, setIsLoading] = useState(false);
+  const handleIsOpenNavBar = (value) => {
+    setIsOpenNavBar(value);
+  };
 
   const handleFilterTrackList = (value) => {
     if (value === '') {
       setFilterTrackList(tracksList);
     }
     const searchList = tracksList.filter((track) => track.name.toLowerCase().includes(value.toLowerCase()));
-    // console.log('searchlist', searchList);
     setFilterTrackList(searchList);
     setSearchBar(false);
+    setIsOpenNavBar(true);
     return <Navigate to="/tracksList" />;
-    // console.log('value dans app', value);
   };
 
   useEffect(async () => {
@@ -52,7 +57,15 @@ function App() {
 
   return (
     <div className="App">
-      <Header onFilterList={handleFilterTrackList} isActive={searchBar} />
+      <Header onFilterList={handleFilterTrackList} isActive={searchBar} onActiveNav={handleIsOpenNavBar} />
+      {isOpenNavBar
+        ? <SearchBar onActiveNav={handleIsOpenNavBar} onFilterList={handleFilterTrackList} />
+        : ''}
+      {isOpenNavBar
+        ? <NavHeader onFilterList={handleFilterTrackList} />
+        : ''}
+
+      {/* <MenuHeader onActiveNav={handleIsOpenNavBar} /> */}
       <Routes location={location}>
         <Route path="/" element={<Map />} />
         <Route path="/login" element={<Login isActiveBar={searchBarIsActive} />} />

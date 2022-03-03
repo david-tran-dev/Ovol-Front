@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,7 +7,9 @@ import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from 'react-router-dom';
 
-function PositionedMenu() {
+function PositionedMenu({
+  onActiveNav,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -14,6 +17,7 @@ function PositionedMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    onActiveNav(false);
   };
 
   return (
@@ -62,4 +66,11 @@ function PositionedMenu() {
     </div>
   );
 }
+PositionedMenu.propTypes = {
+  onActiveNav: PropTypes.func.isRequired,
+};
+
+// PositionedMenu.defaultProps = {
+//   className: '',
+// };
 export default React.memo(PositionedMenu);
