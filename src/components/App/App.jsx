@@ -9,7 +9,6 @@ import TracksList from '../TracksList/TracksList';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
-import TrackPhotos from '../TrackPhotos/TrackPhotos';
 
 function App() {
   const location = useLocation();
@@ -44,7 +43,6 @@ function App() {
 
   return (
     <div className="App">
-      <TrackPhotos />
       <Header onFilterList={handleFilterTrackList} />
       <Routes location={location}>
         <Route path="/" element={<Map />} />

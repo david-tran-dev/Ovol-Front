@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './track.scss';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   CardMedia, Container, Icon, Box, Button,
 } from '@mui/material';
@@ -12,6 +12,7 @@ import DOMPurify from 'dompurify';
 import { ThemeProvider } from '@emotion/react';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
+import TrackPhotos from '../TrackPhotos/TrackPhotos';
 
 function Track({ className, ...rest }) {
   const [hiking, setHiking] = useState({});
@@ -25,7 +26,6 @@ function Track({ className, ...rest }) {
 
     setLoading(true);
     if (Object.keys(hiking).length === 0) {
-      console.log('dans le if');
       const response = await requestHiking(id);
       console.log(response);
       if (response.status === 200) {
@@ -37,13 +37,14 @@ function Track({ className, ...rest }) {
       }
     }
     if (Object.keys(hiking).length > 0) {
-      setSteps(hiking.key_stage.split('\n'));
+      if (hiking.key_stage !== null) {
+        setSteps(hiking.key_stage.split('\n'));
+      }
     }
     setLoading(false);
   }, [hiking]);
 
   console.log('hiking:', hiking);
-  console.log('steps:', steps);
 
   console.log('render');
   return (
@@ -114,13 +115,22 @@ function Track({ className, ...rest }) {
           </Box>
           <p className="track-resume">Résumé</p>
           <p className="track-resume__content"> {hiking.resume} </p>
+
           <p className="track-steps">Etapes de la randonnée</p>
           {steps.map((step, index) => <p className="track-steps__content" key={step + index}>{step}</p>)}
+
+          <p className="track-photos">Photos </p>
+          <TrackPhotos photos={hiking.photo_hiking} />
+
           <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
           <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
             <ThemeProvider theme={customTheme}>
-              <Button className="track-button" variant="contained">Décollage</Button>
-              <Button className="track-button" variant="contained">Attérissage</Button>
+              <Link to={`/liftoff/${hiking.liftOfId}`}>
+                <Button className="track-button" variant="contained">Décollage</Button>
+              </Link>
+              <Link to={`/liftoff/${hiking.liftOfId}`}>
+                <Button className="track-button" variant="contained">Attérissage</Button>
+              </Link>
             </ThemeProvider>
           </Box>
         </Container>

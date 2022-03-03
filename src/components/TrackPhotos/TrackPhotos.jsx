@@ -1,27 +1,20 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Carousel from 'react-material-ui-carousel';
-import { Paper, Button } from '@mui/material';
-import { Photo } from '@mui/icons-material';
+import Photo from './Photo/Photo';
 
-function TrackPhotos(props) {
-  const items = [
-    {
-      name: 'Random Name #1',
-      description: 'Probably the most random thing you have ever seen!',
-    },
-    {
-      name: 'Random Name #2',
-      description: 'Hello World!',
-    },
-  ];
-  console.log('render');
+function TrackPhotos({ photos }) {
   return (
     <Carousel animation="slide">
-      {
-                items.map((item, i) => <Photo key={i} item={item} />)
-            }
+      {photos && (
+        photos.map(({ title, url }, i) => <Photo key={i + title} title={title} url={url} />)
+      )}
     </Carousel>
   );
 }
 
+TrackPhotos.propTypes = {
+  photos: PropTypes.array.isRequired,
+};
 export default React.memo(TrackPhotos);
