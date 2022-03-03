@@ -15,6 +15,10 @@ function TrackPhotos({ photos }) {
 }
 
 TrackPhotos.propTypes = {
-  photos: PropTypes.array.isRequired,
+  photos: PropTypes.array,
+};
+
+TrackPhotos.defaultProps = {
+  photos: [],
 };
 export default React.memo(TrackPhotos);

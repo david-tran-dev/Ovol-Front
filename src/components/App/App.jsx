@@ -71,16 +71,11 @@ function App() {
       <Header onFilterList={handleFilterTrackList} isLogged={isLogged} onLogoutSubmit={handleLogoutSubmit} />
       <Routes location={location}>
         <Route path="/" element={<Map />} />
-<<<<<<< HEAD
+
         <Route path="/login" element={<Login onLoginSubmit={handleLoginSubmit} errorMessage={loginErrorMessage} />} />
-        <Route path="/trackslist" element={<TracksList trackFilterList={filterTrackList} />} />
-        <Route path="/track/:id" element={<Track tracksList={tracksList} />} />
-=======
-        <Route path="/login" element={<Login />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
         <Route path="/track/:id" element={<Track />} />
         {/* <Route path="/liftOff/:id" element={<Track />} /> */}
->>>>>>> develop
       </Routes>
     </div>
   );
