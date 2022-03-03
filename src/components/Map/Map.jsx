@@ -11,12 +11,12 @@ import PropTypes from 'prop-types';
 import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
 // import LocateControl from 'react-leaflet-locate-control';
-import { requestLiftOff } from '../../requests/map';
 import LocationMarker from './LocationMarker/LocationMarker';
 
 import paragliding from '../../assets/icons/paragliding.png';
 
 function Map({ liftOffList }) {
+  console.log(liftOffList);
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
   // Future fonctionnalité
   // const [positions, setPositions] = useState([]);
@@ -28,9 +28,6 @@ function Map({ liftOffList }) {
     iconAnchor: [20, 30],
   });
 
-  useEffect(async () => {
-
-  }, []);
   console.log('render');
   return (
     <div className="map">
@@ -38,6 +35,7 @@ function Map({ liftOffList }) {
         center={firstPosition}
         zoom={10}
         style={{ width: '100%', height: '100%' }}
+        className="map-container"
       >
         <LocationMarker />
         {/* <Polyline

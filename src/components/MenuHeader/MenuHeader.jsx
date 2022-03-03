@@ -1,11 +1,15 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { NavLink } from 'react-router-dom';
 
-function PositionedMenu() {
+function MenuHeader({
+  isLogged, onLogoutSubmit, onActiveNav,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -13,6 +17,15 @@ function PositionedMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    onActiveNav(false);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogoutSubmit = () => {
+    setAnchorEl(null);
+    onLogoutSubmit();
   };
 
   return (
@@ -33,7 +46,7 @@ function PositionedMenu() {
         aria-labelledby="demo-positioned-button"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={handleMenuClose}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -43,12 +56,31 @@ function PositionedMenu() {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>Connexion</MenuItem>
-        <MenuItem onClick={handleClose}>Contact</MenuItem>
+        <NavLink
+          to="/login"
+        >
+          <MenuItem onClick={handleClose}>Connexion</MenuItem>
+        </NavLink>
+        <NavLink
+          to="/contact"
+          className="search-bar__is-active"
+        >
+          <MenuItem onClick={handleClose}>Contact</MenuItem>
+        </NavLink>
         <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>A propos</MenuItem>
+        {isLogged
+          ? <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
+          : ''}
       </Menu>
     </div>
   );
 }
-export default React.memo(PositionedMenu);
+
+MenuHeader.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+  onLogoutSubmit: PropTypes.func.isRequired,
+  onActiveNav: PropTypes.func.isRequired,
+};
+
+export default React.memo(MenuHeader);
