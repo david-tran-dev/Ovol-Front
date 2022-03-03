@@ -9,6 +9,7 @@ import TracksList from '../TracksList/TracksList';
 import { requestHiking } from '../../requests/data';
 import './App.css';
 import Track from '../Track/Track';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
   const location = useLocation();
@@ -45,6 +46,8 @@ function App() {
     <div className="App">
       <Header onFilterList={handleFilterTrackList} />
       <Routes location={location}>
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/" element={<Map />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
