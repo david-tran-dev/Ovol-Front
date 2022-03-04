@@ -67,8 +67,16 @@ function MenuHeader({
         >
           <MenuItem onClick={handleClose}>Contact</MenuItem>
         </NavLink>
-        <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
-        <MenuItem onClick={handleClose}>A propos</MenuItem>
+        <NavLink
+          to="/mentionsLegales"
+        >
+          <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
+        </NavLink>
+        <NavLink
+          to="/apropos"
+        >
+          <MenuItem onClick={handleClose}>A propos</MenuItem>
+        </NavLink>
         {isLogged
           ? <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
           : ''}

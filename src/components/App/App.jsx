@@ -9,6 +9,8 @@ import SearchBar from '../SearchBar/SearchBar';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
 import Contact from '../Contact/Contact';
+import MentionsLegales from '../MentionsLegales/MentionsLegales';
+import Apropos from '../Apropos/Apropos';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
@@ -113,6 +115,8 @@ function App() {
         : ''}
 
       <Routes location={location}>
+        <Route path="/mentionsLegales" element={<MentionsLegales onActiveNav={handleIsOpenNavBar} />} />
+        <Route path="/apropos" element={<Apropos onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/" element={<Map liftOffList={liftOffList} />} />
         <Route
           path="/login"
