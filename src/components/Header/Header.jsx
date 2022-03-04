@@ -8,38 +8,33 @@ import MenuHeader from '../MenuHeader/MenuHeader';
 function Header({
   className,
   onFilterList,
+  isLogged,
+  onLogoutSubmit,
   onActiveNav,
   ...rest
 }) {
-  // const [value, setValue] = useState('');
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   onFilterList(value);
-  //   setValue('');
-  // };
-  const handleTrackListClick = () => {
-    onFilterList('');
-    // setValue('');
-  };
   return (
     <div
       className="header"
       {...rest}
     >
       <div className="header-top">
-        <div className="header-top__home" onClick={handleTrackListClick}>
+        <div className="header-top__home">
           <NavLink
             to="/"
           >
             <HomeIcon
               sx={{ fontSize: 40, color: '#007720' }}
+              onClick={() => onActiveNav(true)}
             />
           </NavLink>
         </div>
         <div className="header-top__title">O'VOL
         </div>
+        {isLogged && (<p className="header-top__message">Bienvenue, Admin</p>)}
         <div className="header-top__avatar">
-          <MenuHeader onActiveNav={onActiveNav} />
+
+          <MenuHeader onActiveNav={onActiveNav} isLogged={isLogged} onLogoutSubmit={onLogoutSubmit} />
         </div>
       </div>
     </div>
@@ -49,6 +44,8 @@ function Header({
 Header.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  onLogoutSubmit: PropTypes.func.isRequired,
   onActiveNav: PropTypes.func.isRequired,
 };
 Header.defaultProps = {
