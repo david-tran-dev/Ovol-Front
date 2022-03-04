@@ -20,7 +20,7 @@ function TrackCard({
   overall_length,
   positive_elevation,
   img_card,
-  liftOff,
+  favorableWind,
 }) {
   return (
     <Link
@@ -67,7 +67,7 @@ function TrackCard({
               Difficulté: {difficulty}
             </Typography>
             <Typography className="trackCard-content__detail">
-              Orientation décollage: {` ${liftOff.favorableWind}`}
+              Orientation décollage: {` ${favorableWind}`}
             </Typography>
             <Typography className="trackCard-content__detail">
               Dénivelé positif: {positive_elevation}m
@@ -92,7 +92,7 @@ TrackCard.propTypes = {
   overall_length: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   img_card: PropTypes.string.isRequired,
-  liftOff: PropTypes.string.isRequired,
+  favorableWind: PropTypes.array.isRequired,
 
 };
 TrackCard.defaultProps = {

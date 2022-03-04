@@ -12,11 +12,12 @@ import Contact from '../Contact/Contact';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
-import { requestLiftOffList } from '../../requests/map';
+import { requestLiftOffList } from '../../requests/liftOff';
 import LiftOff from '../LiftOff/LiftOff';
 import { requestLogin } from '../../requests/login';
 import { removeBearerToken, setBearerToken } from '../../requests';
 import Loading from '../Loading/Loading';
+import Landings from '../Landings/Landings';
 
 function App() {
   const location = useLocation();
@@ -137,6 +138,7 @@ function App() {
         <Route path="/track/:id" element={<Track />} />
         <Route path="/loading" element={<Loading />} />
         <Route path="/liftoff/:id" element={<LiftOff />} />
+        <Route path="/landings/:id" element={<Landings />} />
       </Routes>
 
     </div>
