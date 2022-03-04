@@ -12,6 +12,8 @@ import Contact from '../Contact/Contact';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
 import Track from '../Track/Track';
+import { requestLiftOffList } from '../../requests/map';
+import LiftOff from '../LiftOff/LiftOff';
 import { requestLogin } from '../../requests/login';
 import { removeBearerToken, setBearerToken } from '../../requests';
 import Loading from '../Loading/Loading';
@@ -20,6 +22,7 @@ function App() {
   const location = useLocation();
   const [tracksList, setTracksList] = useState([]);
   const [filterTrackList, setFilterTrackList] = useState([]);
+  const [liftOffList, setLiftOffList] = useState([]);
   // const [searchBar, setSearchBar] = useState(false);
   const [isOpenNavBar, setIsOpenNavBar] = useState(true);
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
@@ -76,6 +79,15 @@ function App() {
     else {
       console.log(response.data.message);
     }
+
+    const liftOffResponse = await requestLiftOffList();
+
+    if (liftOffResponse.status === 200) {
+      setLiftOffList(liftOffResponse.data);
+    }
+    else {
+      console.log(liftOffResponse.data.message);
+    }
   }, []);
 
   // const searchBarIsActive = (value) => {
@@ -101,7 +113,7 @@ function App() {
         : ''}
 
       <Routes location={location}>
-        <Route path="/" element={<Map />} />
+        <Route path="/" element={<Map liftOffList={liftOffList} />} />
         <Route
           path="/login"
           element={(
@@ -109,16 +121,24 @@ function App() {
               onLoginSubmit={handleLoginSubmit}
               errorMessage={loginErrorMessage}
               onActiveNav={handleIsOpenNavBar}
-              // isActiveBar={searchBarIsActive}
             />
           )}
         />
         <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
-        <Route path="/tracksList" element={<TracksList trackFilterList={filterTrackList} />} />
+        <Route
+          path="/tracksList"
+          element={(
+            <TracksList
+              trackFilterList={filterTrackList}
+              liftOffList={liftOffList}
+            />
+          )}
+        />
         <Route path="/track/:id" element={<Track />} />
         <Route path="/loading" element={<Loading />} />
-        {/* <Route path="/liftOff/:id" element={<Track />} /> */}
+        <Route path="/liftoff/:id" element={<LiftOff />} />
       </Routes>
+
     </div>
   );
 }

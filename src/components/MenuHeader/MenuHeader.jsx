@@ -19,6 +19,10 @@ function MenuHeader({
     setAnchorEl(null);
     onActiveNav(false);
   };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
   const handleLogoutSubmit = () => {
     setAnchorEl(null);
     onLogoutSubmit();
@@ -42,7 +46,7 @@ function MenuHeader({
         aria-labelledby="demo-positioned-button"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={handleMenuClose}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',

@@ -17,13 +17,17 @@
 	& .fa-map-location-dot {
 		color: orange;
 	}
-
+	& .fa-flag-checkered {
+		color: green;
+		margin-left: 0.5rem;
+	}
 	& .fa-flag {
 		color: green;
 	}
 
 	&-info {
 		margin-bottom: 1rem;
+		font-weight: bold;
 		
 	}
 

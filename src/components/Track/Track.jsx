@@ -1,6 +1,6 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable react/no-danger */
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-danger */
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './track.scss';
@@ -14,7 +14,7 @@ import DOMPurify from 'dompurify';
 import { ThemeProvider } from '@emotion/react';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
-import TrackPhotos from '../TrackPhotos/TrackPhotos';
+import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
 
 function Track({ className, ...rest }) {
@@ -113,7 +113,11 @@ function Track({ className, ...rest }) {
                   <span className="track-info__value"> {hiking.difficulty}</span>
                 </p>
                 <p className="track-info__key">Point de départ:
-                  <span className="track-info__value"> {hiking.starting_point}</span>
+                  <span className="track-info__value">
+                    <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
+                      <Icon class="fa-solid fa-flag-checkered" sx={{ width: 24, height: 24, mx: 1 }} />
+                    </a>
+                  </span>
                 </p>
               </Box>
             </Box>
@@ -124,9 +128,10 @@ function Track({ className, ...rest }) {
             {steps.map((step, index) => <p className="track-steps__content" key={step + index}>{step}</p>)}
 
             <p className="track-photos">Photos </p>
-            <TrackPhotos photos={hiking.photo_hiking} />
+            <CarouselPhotos photos={hiking.photo_hiking} />
 
             <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
+
             <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
               <ThemeProvider theme={customTheme}>
                 <Link className="track-link" to={`/liftoff/${hiking.liftOff_id}`}>

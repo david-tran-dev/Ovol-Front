@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import Carousel from 'react-material-ui-carousel';
 import Photo from './Photo/Photo';
 
-function TrackPhotos({ photos }) {
+function CarouselPhotos({ photos }) {
+  console.log('photos: ', photos);
   return (
     <Carousel animation="slide">
       {photos && (
@@ -14,11 +15,11 @@ function TrackPhotos({ photos }) {
   );
 }
 
-TrackPhotos.propTypes = {
+CarouselPhotos.propTypes = {
   photos: PropTypes.array,
 };
 
-TrackPhotos.defaultProps = {
+CarouselPhotos.defaultProps = {
   photos: [],
 };
-export default React.memo(TrackPhotos);
+export default React.memo(CarouselPhotos);
