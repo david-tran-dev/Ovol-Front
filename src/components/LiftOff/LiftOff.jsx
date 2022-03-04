@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './liftOff.scss';
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Container, Box, CardMedia,
 } from '@mui/material';
@@ -18,7 +18,7 @@ function LiftOff({ className, ...rest }) {
   const { id } = useParams();
   const [liftOff, setLiftOff] = useState();
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(async () => {
     console.log('useeffect');
     setLoading(true);
@@ -29,7 +29,7 @@ function LiftOff({ className, ...rest }) {
         setLiftOff(response.data[0]);
       }
       else {
-        Navigate('/error');
+        navigate('/error');
       }
     }
     setLoading(false);
