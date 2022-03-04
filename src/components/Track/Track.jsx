@@ -1,123 +1,157 @@
-/* eslint-disable react/no-danger */
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+/* eslint-disable react/no-danger */
+/* eslint-disable react/jsx-no-useless-fragment */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './track.scss';
-import { Navigate, useParams } from 'react-router-dom';
+import {
+  Link, useNavigate, useParams,
+} from 'react-router-dom';
 import {
   CardMedia, Container, Icon, Box, Button,
 } from '@mui/material';
 import DOMPurify from 'dompurify';
 import { ThemeProvider } from '@emotion/react';
 import customTheme from '../../themes/customTheme';
+import { requestHiking } from '../../requests/hiking';
+import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
+import Loading from '../Loading/Loading';
 
-function Track({ className, tracksList, ...rest }) {
+function Track({ className, ...rest }) {
+  const [hiking, setHiking] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [steps, setSteps] = useState([]);
   const { id } = useParams();
-  const trackFinded = tracksList.find((track) => track.id === Number(id));
+  const navigate = useNavigate();
 
-  console.log('trackFinded:', trackFinded);
-  if (!trackFinded) {
-    return <Navigate to="/error" replace />;
-  }
-  const steps = trackFinded.key_stage.split('\n');
+  useEffect(async () => {
+    console.log('useEffect');
+
+    setLoading(true);
+    if (Object.keys(hiking).length === 0) {
+      const response = await requestHiking(id);
+      console.log(response);
+      if (response.status === 200) {
+        setHiking(response.data[0]);
+      }
+      else {
+        console.log(response);
+        navigate('/error');
+      }
+    }
+    if (Object.keys(hiking).length > 0) {
+      if (hiking.key_stage !== null) {
+        setSteps(hiking.key_stage.split('\n'));
+      }
+      setLoading(false);
+    }
+  }, [hiking]);
+
+  console.log('hiking:', hiking);
+
   console.log('render');
-  return (
-    <div
-      className={`track ${className}`}
-      {...rest}
-    >
-      <Container className="track-container" sx={{ my: 1 }}>
-        <CardMedia
-          className="track-img"
-          component="img"
-          height="140"
-          image={`${trackFinded.img_card}`}
-          alt="hiking image"
-          title={trackFinded.name}
-        />
-        <h1 className="track-title"> {trackFinded.name}</h1>
-        <Box sx={{ display: 'flex', textAlign: 'left', my: 1 }}>
-          <Box sx={{ pr: 2, width: '50%' }}>
-            <p className="track-info">
-              Infos techniques:
-            </p>
-            <p className="track-info__key">Dénivelé positif:
-              <span className="track-info__value"> {trackFinded.positive_elevation}m</span>
-            </p>
-            <p className="track-info__key">Dénivelé négatif:
-              <span className="track-info__value"> {trackFinded.negative_elevation}m</span>
-            </p>
-            <p className="track-info__key">Point haut:
-              <span className="track-info__value"> {trackFinded.hight_point}m</span>
-            </p>
-            <p className="track-info__key">Point bas:
-              <span className="track-info__value"> {trackFinded.low_point}m</span>
-            </p>
-            <p className="track-info__key">Carte IGN:
-              <span className="track-info__value"> {trackFinded.ign_card_reference}</span>
-            </p>
-            <p className="track-info__key">Terrain:
-              <span className="track-info__value"> {trackFinded.land_type}</span>
-            </p>
 
-          </Box>
-          <Box sx={{ width: '50%', mb: 2 }}>
-            <Box sx={{
-              display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
-            }}
-            >
-              <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, mx: 1 }} />
-              <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
+  return (
+    <>
+
+      {!loading ? (
+        <div
+          className={`track ${className}`}
+          {...rest}
+        >
+
+          <Container className="track-container" sx={{ my: 1 }}>
+            <CardMedia
+              className="track-img"
+              component="img"
+              height="140"
+              image={`${hiking.img_card}`}
+              alt="hiking image"
+              title={hiking.name}
+            />
+            <h1 className="track-title"> {hiking.name}</h1>
+            <Box sx={{ display: 'flex', textAlign: 'left', my: 1 }}>
+              <Box sx={{ pr: 2, width: '50%' }}>
+                <p className="track-info">
+                  Infos techniques:
+                </p>
+                <p className="track-info__key">Dénivelé positif:
+                  <span className="track-info__value"> {hiking.positive_elevation}m</span>
+                </p>
+                <p className="track-info__key">Dénivelé négatif:
+                  <span className="track-info__value"> {hiking.negative_elevation}m</span>
+                </p>
+                <p className="track-info__key">Point haut:
+                  <span className="track-info__value"> {hiking.hight_point}m</span>
+                </p>
+                <p className="track-info__key">Point bas:
+                  <span className="track-info__value"> {hiking.low_point}m</span>
+                </p>
+                <p className="track-info__key">Carte IGN:
+                  <span className="track-info__value"> {hiking.ign_card_reference}</span>
+                </p>
+                <p className="track-info__key">Terrain:
+                  <span className="track-info__value"> {hiking.land_type}</span>
+                </p>
+
+              </Box>
+              <Box sx={{ width: '50%', mb: 2 }}>
+                <Box sx={{
+                  display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
+                }}
+                >
+                  <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, mx: 1 }} />
+                  <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
+                </Box>
+                <p className="track-info__key">Massif:
+                  <span className="track-info__value"> {hiking.mountain}</span>
+                </p>
+                <p className="track-info__key">Distance:
+                  <span className="track-info__value"> {hiking.overall_length}km</span>
+                </p>
+                <p className="track-info__key">Difficulté:
+                  <span className="track-info__value"> {hiking.difficulty}</span>
+                </p>
+                <p className="track-info__key">Point de départ:
+                  <span className="track-info__value">
+                    <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
+                      <Icon class="fa-solid fa-flag-checkered" sx={{ width: 24, height: 24, mx: 1 }} />
+                    </a>
+                  </span>
+                </p>
+              </Box>
             </Box>
-            <p className="track-info__key">Massif:
-              <span className="track-info__value"> {trackFinded.mountain}</span>
-            </p>
-            <p className="track-info__key">Distance:
-              <span className="track-info__value"> {trackFinded.overall_length}km</span>
-            </p>
-            <p className="track-info__key">Difficulté:
-              <span className="track-info__value"> {trackFinded.difficulty}</span>
-            </p>
-            <p className="track-info__key">Point de départ:
-              <span className="track-info__value"> {trackFinded.starting_point}</span>
-            </p>
-          </Box>
-        </Box>
-        <p className="track-resume">Résumé</p>
-        <p className="track-resume__content"> {trackFinded.resume} </p>
-        <p className="track-steps">Etapes de la randonnée</p>
-        {steps.map((step, index) => <p className="track-steps__content" key={step + index}>{step}</p>)}
-        <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(trackFinded.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
-        <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
-          <ThemeProvider theme={customTheme}>
-            <Button className="track-button" variant="contained">Décollage</Button>
-            <Button className="track-button" variant="contained">Attérissage</Button>
-          </ThemeProvider>
-        </Box>
-      </Container>
-    </div>
+            <p className="track-resume">Résumé</p>
+            <p className="track-resume__content"> {hiking.resume} </p>
+
+            <p className="track-steps">Etapes de la randonnée</p>
+            {steps.map((step, index) => <p className="track-steps__content" key={step + index}>{step}</p>)}
+
+            <p className="track-photos">Photos </p>
+            <CarouselPhotos photos={hiking.photo_hiking} />
+
+            <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
+
+            <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
+              <ThemeProvider theme={customTheme}>
+                <Link className="track-link" to={`/liftoff/${hiking.liftOff_id}`}>
+                  <Button className="track-button" variant="contained">Décollage</Button>
+                </Link>
+                <Link className="track-link" to={`/landing/${hiking.idLandings}`}>
+                  <Button className="track-button" variant="contained">Attérissage</Button>
+                </Link>
+              </ThemeProvider>
+            </Box>
+          </Container>
+        </div>
+      )
+        : <Loading />}
+    </>
   );
 }
 
 Track.propTypes = {
   className: PropTypes.string,
-  tracksList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      difficulty: PropTypes.string.isRequired,
-      mountain: PropTypes.string.isRequired,
-      positive_elevation: PropTypes.number.isRequired,
-      negative_elevation: PropTypes.number.isRequired,
-      overall_length: PropTypes.number.isRequired,
-      img_card: PropTypes.string.isRequired,
-      starting_point: PropTypes.string.isRequired,
-      hiking_plan: PropTypes.string,
-      resume: PropTypes.string.isRequired,
-      hight_point: PropTypes.number.isRequired,
-      low_point: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-
 };
 Track.defaultProps = {
   className: '',
