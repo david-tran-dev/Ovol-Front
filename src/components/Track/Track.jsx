@@ -60,7 +60,7 @@ function Track({ className, ...rest }) {
           {...rest}
         >
 
-          <Container className="track-container" sx={{ my: 1 }}>
+          <Container sx={{ my: 1 }}>
             <CardMedia
               className="track-img"
               component="img"
@@ -137,7 +137,7 @@ function Track({ className, ...rest }) {
                 <Link className="track-link" to={`/liftoff/${hiking.liftOff_id}`}>
                   <Button className="track-button" variant="contained">Décollage</Button>
                 </Link>
-                <Link className="track-link" to={`/landing/${hiking.idLandings}`}>
+                <Link className="track-link" to={`/landings/${hiking.idLandings}`}>
                   <Button className="track-button" variant="contained">Attérissage</Button>
                 </Link>
               </ThemeProvider>

@@ -1,0 +1,40 @@
+@use 'src/styles/vars';
+
+ .App .landing {
+	margin: 2rem auto;
+	text-align: left;
+	font-family: vars.$font1;
+	line-height: 1.2rem;;
+	
+	
+	&-title{
+		font-size: 1.3em;
+		font-family: vars.$font1;
+		margin: 1rem 1rem;
+		font-weight: bold;
+
+
+	}
+
+	& .fa-map-location-dot {
+		color: orange;
+	}
+
+	& .fa-flag {
+		color: green;
+	}
+
+	&-info {
+		&__key {
+			font-weight: bold;
+		}
+		&__value {
+			font-weight: 400;
+		}
+	}
+
+	&-description, &-danger {
+		font-weight: bold;
+	}
+	
+}

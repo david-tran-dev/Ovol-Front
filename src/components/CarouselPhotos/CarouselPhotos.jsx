@@ -5,7 +5,6 @@ import Carousel from 'react-material-ui-carousel';
 import Photo from './Photo/Photo';
 
 function CarouselPhotos({ photos }) {
-  console.log('photos: ', photos);
   return (
     <Carousel animation="slide">
       {photos && (
