@@ -8,6 +8,7 @@ import NavHeader from '../NavHeader/NavHeader';
 import SearchBar from '../SearchBar/SearchBar';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
+import AdminCreate from '../AdminCreate/AdminCreate';
 import Contact from '../Contact/Contact';
 import { requestHikingList } from '../../requests/hiking';
 import './App.css';
@@ -125,6 +126,7 @@ function App() {
           )}
         />
         <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
+        <Route path="/adminCreate" element={<AdminCreate onActiveNav={handleIsOpenNavBar} />} />
         <Route
           path="/tracksList"
           element={(
