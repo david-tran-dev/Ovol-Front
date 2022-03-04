@@ -90,9 +90,6 @@ function Track({ className, ...rest }) {
                 <p className="track-info__key">Carte IGN:
                   <span className="track-info__value"> {hiking.ign_card_reference}</span>
                 </p>
-                <p className="track-info__key">Terrain:
-                  <span className="track-info__value"> {hiking.land_type}</span>
-                </p>
 
               </Box>
               <Box sx={{ width: '50%', mb: 2 }}>
@@ -101,8 +98,13 @@ function Track({ className, ...rest }) {
                 }}
                 >
                   <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, mx: 1 }} />
-                  <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
+                  <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
+                    <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
+                  </a>
                 </Box>
+                <p className="track-info__key">Terrain:
+                  <span className="track-info__value"> {hiking.land_type}</span>
+                </p>
                 <p className="track-info__key">Massif:
                   <span className="track-info__value"> {hiking.mountain}</span>
                 </p>
@@ -112,13 +114,7 @@ function Track({ className, ...rest }) {
                 <p className="track-info__key">Difficulté:
                   <span className="track-info__value"> {hiking.difficulty}</span>
                 </p>
-                <p className="track-info__key">Point de départ:
-                  <span className="track-info__value">
-                    <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
-                      <Icon class="fa-solid fa-flag-checkered" sx={{ width: 24, height: 24, mx: 1 }} />
-                    </a>
-                  </span>
-                </p>
+
               </Box>
             </Box>
             <p className="track-resume">Résumé</p>
