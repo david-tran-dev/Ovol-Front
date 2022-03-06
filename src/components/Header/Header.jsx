@@ -10,6 +10,7 @@ import customTheme from '../../themes/customTheme';
 import HomeIcon from '../../utils/HomeIcon';
 import PositionedMenu from '../MenuHeader/MenuHeader';
 // import filterTrack from '../App/App';
+import logo from '../../assets/logo.png';
 import './header.scss';
 
 function Header({
@@ -36,7 +37,9 @@ function Header({
             <HomeIcon sx={{ fontSize: 40, color: '#007720' }} />
           </NavLink>
         </div>
-        <div className="header-top__title">O'VOL
+        <div className="header-logo-container">
+          <img className="header-logo" src={logo} alt="logo paragliding" />
+          <div className="header-top__title">O'VOL </div>
         </div>
         <div className="header-top__avatar">
           <NavLink

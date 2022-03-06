@@ -8,9 +8,10 @@
 
 
     &__title {
-        margin: 0.5em;
         font-size: 2em;
         font-family: vars.$font2;
+        font-weight: bold;
+        color: vars.$color1;
     }
 
     &__avatar {
@@ -36,7 +37,9 @@
 
 
 }
-
+.header-logo {
+    width: 140px;
+}
 .header-nav {
     display: flex;
     flex-direction: row;
