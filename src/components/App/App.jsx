@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
 import { requestHiking } from '../../requests/data';
-import './App.css';
+import './app.scss';
 import Track from '../Track/Track';
 import ErrorPage from '../ErrorPage/ErrorPage';
 

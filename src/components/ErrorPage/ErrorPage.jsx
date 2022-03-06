@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './errorPage.scss';
-import { Alert, AlertTitle, Paper } from '@mui/material';
+import {
+  Paper, Typography,
+} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function ErrorPage({ className, ...rest }) {
   return (
@@ -9,10 +12,13 @@ function ErrorPage({ className, ...rest }) {
       className="errorpage className"
       {...rest}
     >
-      <Alert severity="error">
-        <AlertTitle>Error</AlertTitle>
-        Cette page n'existe pas
-      </Alert>
+      <Typography className="errorpage-title" variant="h1" fontWeight="bold">404</Typography>
+      <Typography className="errorpage-content" variant="body1" fontSize={32} gutterBottom>Votre envol s'arrête ici!</Typography>
+      <Typography variant="body1">
+        <Link className="errorpage-link" to="/">
+          Revenir à la page d'accueil
+        </Link>
+      </Typography>
     </Paper>
   );
 }
