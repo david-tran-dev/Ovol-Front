@@ -24,6 +24,7 @@ import { requestLiftOffList } from '../../requests/liftOff';
 import { requestLogin } from '../../requests/login';
 import { removeBearerToken, setBearerToken } from '../../requests';
 import './app.scss';
+import Filters from '../Filters/Filters';
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
   const [isOpenNavBar, setIsOpenNavBar] = useState(true);
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [isLogged, setIsLogged] = useState(false);
+  const [isFiltersActive, setIsFiltersActive] = useState(false);
   const navigate = useNavigate();
 
   // const [isLoading, setIsLoading] = useState(false);
@@ -68,9 +70,12 @@ function App() {
   const handleLogoutSubmit = () => {
     removeBearerToken();
     setIsLogged(false);
-    // setSearchBar(false);
     setIsOpenNavBar(true);
     navigate('/');
+  };
+
+  const handleFiltersClick = () => {
+    setIsFiltersActive((prevState) => !prevState);
   };
 
   useEffect(async () => {
@@ -87,15 +92,69 @@ function App() {
       console.log(response.data.message);
     }
 
-    const liftOffResponse = await requestLiftOffList();
+    // const liftOffResponse = await requestLiftOffList();
 
-    if (liftOffResponse.status === 200) {
-      setLiftOffList(liftOffResponse.data);
-    }
-    else {
-      console.log(liftOffResponse.data.message);
-    }
+    // if (liftOffResponse.status === 200) {
+    //   setLiftOffList(liftOffResponse.data);
+    // }
+    // else {
+    //   console.log(liftOffResponse.data.message);
+    // }
   }, []);
+
+  const multiFilterTrack = (key, values) => {
+    const cloneList = [...tracksList];
+    const {
+      massif,
+      difficulty,
+      distance,
+      height,
+      duration,
+      orientation,
+    } = values;
+    const filterList = cloneList
+      .filter((track) => track.mountain === massif)
+      .filter((track) => track.difficulty === difficulty);
+    setFilterTrackList(filterList);
+  };
+    // switch (key) {
+    //   case 'distance': {
+    //     const cloneList = [...tracksList];
+    //     const filterDistanceList = cloneList.filter((track) => track.overall_length <= value);
+    //     setFilterTrackList(filterDistanceList);
+    //     break;
+    //   }
+    //   case 'height': {
+    //     const cloneList = [...tracksList];
+    //     const filterHeightList = cloneList.filter((track) => track.positive_elevation <= value);
+    //     setFilterTrackList(filterHeightList);
+    //     break;
+    //   }
+    //   case 'massif': {
+    //     const cloneList = [...tracksList];
+    //     const filterHeightList = cloneList.filter((track) => track.mountain === value);
+    //     setFilterTrackList(filterHeightList);
+    //     break;
+    //   }
+    //   case 'difficulty': {
+    //     const cloneList = [...tracksList];
+    //     const filterHeightList = cloneList.filter((track) => track.difficulty === value);
+    //     setFilterTrackList(filterHeightList);
+    //     break;
+    //   }
+    //   case 'orientation':
+    //     break;
+    //   case 'duration':
+    //     break;
+
+  //   default:
+  //     return null;
+  // }
+
+  const handleFilterChange = (key, values) => {
+    console.log('handleFilterchange', key, values);
+    multiFilterTrack(key, values);
+  };
 
   return (
     <div className="App">
@@ -109,7 +168,8 @@ function App() {
         ? (
           <>
             <SearchBar onFilterList={handleFilterTrackList} />
-            <NavHeader onFilterList={handleFilterTrackList} />
+            <NavHeader onFilterList={handleFilterTrackList} onFiltersClick={handleFiltersClick} />
+
           </>
         )
         : ''}
@@ -137,6 +197,10 @@ function App() {
             <TracksList
               trackFilterList={filterTrackList}
               liftOffList={liftOffList}
+              onFiltersClick={handleFiltersClick}
+              isFiltersActive={isFiltersActive}
+              tracksList={tracksList}
+              onFilterChange={handleFilterChange}
             />
           )}
         />

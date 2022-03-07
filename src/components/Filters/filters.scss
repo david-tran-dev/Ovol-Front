@@ -1,0 +1,7 @@
+@use 'src/styles/vars';
+
+.App .filter {
+	&-select {
+		margin-bottom: 1rem;
+	}
+}

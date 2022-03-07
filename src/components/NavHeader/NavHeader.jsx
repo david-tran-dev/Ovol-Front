@@ -7,6 +7,7 @@ import customTheme from '../../themes/customTheme';
 function NavHeader({
   className,
   onFilterList,
+  onFiltersClick,
   ...rest
 }) {
   const handleTrackListClick = () => {
@@ -28,11 +29,8 @@ function NavHeader({
         >
           <Button className="header-nav__button" variant="contained" onClick={handleTrackListClick}>Randonnées </Button>
         </NavLink>
-        <NavLink
-          to="/filtres"
-        >
-          <Button className="header-nav__button" variant="contained">Filtres</Button>
-        </NavLink>
+
+        <Button className="header-nav__button" variant="contained" onClick={() => onFiltersClick()}>Filtres</Button>
       </ThemeProvider>
     </div>
   );
@@ -41,6 +39,7 @@ function NavHeader({
 NavHeader.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
+  onFiltersClick: PropTypes.func.isRequired,
 };
 NavHeader.defaultProps = {
   className: '',
