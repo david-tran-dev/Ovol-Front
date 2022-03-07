@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
   Routes, Route, useLocation, useNavigate,
 } from 'react-router-dom';
+
+// Components
 import Login from '../Login/Login';
 import Header from '../Header/Header';
 import NavHeader from '../NavHeader/NavHeader';
@@ -9,24 +11,26 @@ import SearchBar from '../SearchBar/SearchBar';
 import Map from '../Map/Map';
 import TracksList from '../TracksList/TracksList';
 import AdminCreate from '../AdminCreate/AdminCreate';
+import Track from '../Track/Track';
+import ErrorPage from '../ErrorPage/ErrorPage';
 import Contact from '../Contact/Contact';
 import MentionsLegales from '../MentionsLegales/MentionsLegales';
 import Apropos from '../Apropos/Apropos';
-import { requestHikingList } from '../../requests/hiking';
-import './App.css';
-import Track from '../Track/Track';
-import { requestLiftOffList } from '../../requests/map';
 import LiftOff from '../LiftOff/LiftOff';
+import Loading from '../Loading/Loading';
+import Landings from '../Landings/Landings';
+
+import { requestHikingList } from '../../requests/hiking';
+import { requestLiftOffList } from '../../requests/liftOff';
 import { requestLogin } from '../../requests/login';
 import { removeBearerToken, setBearerToken } from '../../requests';
-import Loading from '../Loading/Loading';
+import './app.scss';
 
 function App() {
   const location = useLocation();
   const [tracksList, setTracksList] = useState([]);
   const [filterTrackList, setFilterTrackList] = useState([]);
   const [liftOffList, setLiftOffList] = useState([]);
-  // const [searchBar, setSearchBar] = useState(false);
   const [isOpenNavBar, setIsOpenNavBar] = useState(true);
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [isLogged, setIsLogged] = useState(false);
@@ -73,6 +77,7 @@ function App() {
   useEffect(async () => {
     // setIsLoading(true);
     const response = await requestHikingList();
+    console.log('response:', response);
 
     if (response.status === 200) {
       setTracksList(response.data);
@@ -93,11 +98,6 @@ function App() {
     }
   }, []);
 
-  // const searchBarIsActive = (value) => {
-  //   setSearchBar(value);
-  //   console.log('value contact', value);
-  // };
-
   return (
     <div className="App">
       <Header
@@ -116,6 +116,8 @@ function App() {
         : ''}
 
       <Routes location={location}>
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/mentionsLegales" element={<MentionsLegales onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/apropos" element={<Apropos onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/" element={<Map liftOffList={liftOffList} />} />
@@ -143,6 +145,7 @@ function App() {
         <Route path="/track/:id" element={<Track />} />
         <Route path="/loading" element={<Loading />} />
         <Route path="/liftoff/:id" element={<LiftOff />} />
+        <Route path="/landings/:id" element={<Landings />} />
       </Routes>
 
     </div>

@@ -34,7 +34,7 @@ function TracksList({
             overall_length={overall_length}
             id={id}
             img_card={img_card}
-            liftOff={liftOffFound}
+            favorableWind={liftOffFound && liftOffFound.favorableWind}
           />
         );
       })}

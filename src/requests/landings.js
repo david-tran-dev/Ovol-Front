@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import apiAxios from './index';
 
-export async function requestHikingList() {
+export async function requestLandingsList() {
   try {
-    const response = await apiAxios.get('/hiking');
+    const response = await apiAxios.get('/landing');
     return response;
   }
   catch (err) {
@@ -12,9 +12,9 @@ export async function requestHikingList() {
   }
 }
 
-export async function requestHiking(id) {
+export async function requestLandings(id) {
   try {
-    const response = await apiAxios.get(`/hiking/${id}`);
+    const response = await apiAxios.get(`/landing/${id}`);
     return response;
   }
   catch (err) {
@@ -22,9 +22,9 @@ export async function requestHiking(id) {
     return err.response;
   }
 }
-export async function requestHikingPost(data) {
+export async function requestLandingPost(data) {
   try {
-    const response = await apiAxios.post('/hiking', data);
+    const response = await apiAxios.post('/landing', data);
     return response;
   }
   catch (err) {

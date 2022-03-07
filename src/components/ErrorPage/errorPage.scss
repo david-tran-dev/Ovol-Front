@@ -1,0 +1,17 @@
+@use 'src/styles/vars';
+
+.App .errorpage {
+	margin: 1rem;
+	background: url('../../assets/img/404.jpg') no-repeat center/cover;
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	color: vars.$color1;
+
+	&-title,
+	&-content,
+	&-link {
+		text-shadow: 2px 2px 2px black;
+	}
+}

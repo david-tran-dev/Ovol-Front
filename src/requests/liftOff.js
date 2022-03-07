@@ -22,3 +22,14 @@ export async function requestLiftOff(id) {
     return err.response;
   }
 }
+
+export async function requestLiftOffPost(data) {
+  try {
+    const response = await apiAxios.post('/liftoff', data);
+    return response;
+  }
+  catch (err) {
+    console.log(err);
+    return err.response;
+  }
+}

@@ -10,21 +10,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   Container, Box, CardMedia,
 } from '@mui/material';
-import { requestLiftOff } from '../../requests/map';
+import { requestLiftOff } from '../../requests/liftOff';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
 
 function LiftOff({ className, ...rest }) {
   const { id } = useParams();
-  const [liftOff, setLiftOff] = useState();
+  const [liftOff, setLiftOff] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
   useEffect(async () => {
     console.log('useeffect');
     setLoading(true);
     if (!liftOff) {
       const response = await requestLiftOff(id);
-      console.log('response:', response);
+      console.log('response: ', response);
       if (response.status === 200) {
         setLiftOff(response.data[0]);
       }
@@ -32,6 +33,7 @@ function LiftOff({ className, ...rest }) {
         navigate('/error');
       }
     }
+
     setLoading(false);
   }, [liftOff]);
 
@@ -41,7 +43,6 @@ function LiftOff({ className, ...rest }) {
     <>
 
       {!loading
-
         ? (
           <div
             className={`liftOff ${className}`}
@@ -89,6 +90,7 @@ function LiftOff({ className, ...rest }) {
 
             </Container>
           </div>
+
         )
         : <Loading />}
     </>
@@ -97,22 +99,8 @@ function LiftOff({ className, ...rest }) {
 
 LiftOff.propTypes = {
   className: PropTypes.string,
-  // liftOffList: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     name: PropTypes.string.isRequired,
-  //     description: PropTypes.string.isRequired,
-  // type-of-terrain: PropTypes.string.isRequired,
-  // danger: PropTypes.string,
-  // fflv-link: PropTypes.string.isRequired,
-  // latitude:  PropTypes.number.isRequired,
-  // longitude: PropTypes.number.isRequired,
-  // altitude: PropTypes.number.isRequired,
-  // favorable-wind: PropTypes.string.isRequired,
-  // unfavorable-wind: PropTypes.string.isRequired,
-  //   }),
-  // ).isRequired,
-
 };
+
 LiftOff.defaultProps = {
   className: '',
 };
