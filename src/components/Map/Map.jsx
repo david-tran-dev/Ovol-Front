@@ -6,18 +6,18 @@ import {
 
 } from 'react-leaflet';
 import './map.scss';
+import PropTypes from 'prop-types';
 // import * as ELG from 'esri-leaflet-geocoder';
 import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
 // import LocateControl from 'react-leaflet-locate-control';
-import { requestLiftOff } from '../../requests/map';
 import LocationMarker from './LocationMarker/LocationMarker';
 
 import paragliding from '../../assets/icons/paragliding.png';
 
-function Map() {
+function Map({ liftOffList }) {
+  console.log(liftOffList);
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
-  const [liftOffPositions, setLiftOffPositions] = useState([]);
   // Future fonctionnalité
   // const [positions, setPositions] = useState([]);
   // const [wayPoints, setWayPoints] = useState([]);
@@ -28,17 +28,6 @@ function Map() {
     iconAnchor: [20, 30],
   });
 
-  useEffect(async () => {
-    const response = await requestLiftOff();
-    console.log('response:', response);
-
-    if (response.status === 200) {
-      setLiftOffPositions(response.data);
-    }
-    else {
-      console.log(response.data.message);
-    }
-  }, []);
   console.log('render');
   return (
     <div className="map">
@@ -46,6 +35,7 @@ function Map() {
         center={firstPosition}
         zoom={10}
         style={{ width: '100%', height: '100%' }}
+        className="map-container"
       >
         <LocationMarker />
         {/* <Polyline
@@ -74,7 +64,7 @@ function Map() {
           </LayersControl.BaseLayer>
           <LayersControl.Overlay checked name="Point de décollage">
             <LayerGroup>
-              {liftOffPositions.length > 0 && liftOffPositions.map(({
+              {liftOffList.length > 0 && liftOffList.map(({
                 altitude, latitude, longitude, name,
               }, index) => (
                 <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>
@@ -90,5 +80,16 @@ function Map() {
     </div>
   );
 }
+
+Map.propTypes = {
+  liftOffList: PropTypes.arrayOf(
+    PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      altitude: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+};
 
 export default React.memo(Map);

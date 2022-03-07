@@ -20,6 +20,7 @@ function TrackCard({
   overall_length,
   positive_elevation,
   img_card,
+  favorableWind,
 }) {
   return (
     <Link
@@ -42,7 +43,7 @@ function TrackCard({
             display: 'flex', justifyContent: 'space-between',
           }}
           >
-            <Typography component="h2" variant="body1" fontWeight="bold" mb="1rem">
+            <Typography component="h2" variant="body1" fontWeight="bold" textAlign="left">
               {name}
             </Typography>
             <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, textAlign: 'left' }} />
@@ -63,10 +64,10 @@ function TrackCard({
               Massif: {mountain}
             </Typography>
             <Typography className="trackCard-content__detail">
-              Diffilcuté: {difficulty}
+              Difficulté: {difficulty}
             </Typography>
             <Typography className="trackCard-content__detail">
-              Orientation décollage: NO
+              Orientation décollage: {` ${favorableWind}`}
             </Typography>
             <Typography className="trackCard-content__detail">
               Dénivelé positif: {positive_elevation}m
@@ -91,9 +92,11 @@ TrackCard.propTypes = {
   overall_length: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   img_card: PropTypes.string.isRequired,
+  favorableWind: PropTypes.array.isRequired,
 
 };
 TrackCard.defaultProps = {
   className: '',
+
 };
 export default React.memo(TrackCard);

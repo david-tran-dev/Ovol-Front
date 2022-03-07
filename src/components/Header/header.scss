@@ -1,9 +1,12 @@
 @use 'src/styles/vars';
 
+.header {
+    padding: 0 1rem;
+    color: vars.$color1;
+}
 .header-top {
     position: relative;
     display: flex;
-    margin: 1em;
     justify-content: center;
 
 
@@ -11,7 +14,7 @@
         font-size: 2em;
         font-family: vars.$font2;
         font-weight: bold;
-        color: vars.$color1;
+        position: relative;
     }
 
     &__avatar {
@@ -34,6 +37,11 @@
         display: flex;
         justify-self: flex-end;
     }
+    &__message {
+        font-size: 1.2em;
+        bottom: -10px;
+        margin: 1rem 0;
+    }
 
 
 }
@@ -55,7 +63,15 @@
     }
 }
 
-.header__input {
+.header-input {
     display: flex;
     justify-content: center;
+
+
+
+}
+
+.is-active {
+    visibility: hidden;
+    background-color: red;
 }

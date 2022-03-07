@@ -1,29 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
-import {
-  InputBase, IconButton, Button, ThemeProvider,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import customTheme from '../../themes/customTheme';
 import HomeIcon from '../../utils/HomeIcon';
-import PositionedMenu from '../MenuHeader/MenuHeader';
-// import filterTrack from '../App/App';
 import logo from '../../assets/logo.png';
 import './header.scss';
+import MenuHeader from '../MenuHeader/MenuHeader';
 
 function Header({
   className,
   onFilterList,
+  isLogged,
+  onLogoutSubmit,
+  onActiveNav,
   ...rest
 }) {
-  const [value, setValue] = useState('');
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onFilterList(value);
-    setValue('');
-  };
   return (
     <div
       className="header"
@@ -34,64 +24,21 @@ function Header({
           <NavLink
             to="/"
           >
-            <HomeIcon sx={{ fontSize: 40, color: '#007720' }} />
+            <HomeIcon
+              sx={{ fontSize: 40, color: '#007720' }}
+              onClick={() => onActiveNav(true)}
+            />
           </NavLink>
         </div>
         <div className="header-logo-container">
           <img className="header-logo" src={logo} alt="logo paragliding" />
           <div className="header-top__title">O'VOL </div>
+          {isLogged && (<p className="header-top__message">Bienvenue, Admin</p>)}
         </div>
         <div className="header-top__avatar">
-          <NavLink
-            to="/login"
-          >
-            <PositionedMenu />
-          </NavLink>
-        </div>
-      </div>
-      <div className="header__input">
-        <Paper
-          onSubmit={handleSubmit}
-          component="form"
-          sx={{
-            p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,
-          }}
-        >
-          <InputBase
-            sx={{
-              ml: 1,
-              flex: 1,
-            }}
-            type="text"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            placeholder="Search Ovol Maps"
-            inputProps={{ 'aria-label': 'search Google Maps' }}
-          />
 
-          <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-      </div>
-      <div className="header-nav">
-        <ThemeProvider theme={customTheme}>
-          <NavLink
-            to="/carte"
-          >
-            <Button className="header-nav__button" variant="contained">Carte</Button>
-          </NavLink>
-          <NavLink
-            to="/tracksList"
-          >
-            <Button className="header-nav__button" variant="contained">Randonnées</Button>
-          </NavLink>
-          <NavLink
-            to="/filtres"
-          >
-            <Button className="header-nav__button" variant="contained">Filtres</Button>
-          </NavLink>
-        </ThemeProvider>
+          <MenuHeader onActiveNav={onActiveNav} isLogged={isLogged} onLogoutSubmit={onLogoutSubmit} />
+        </div>
       </div>
     </div>
   );
@@ -100,6 +47,9 @@ function Header({
 Header.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  onLogoutSubmit: PropTypes.func.isRequired,
+  onActiveNav: PropTypes.func.isRequired,
 };
 Header.defaultProps = {
   className: '',
