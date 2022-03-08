@@ -108,12 +108,16 @@ function App() {
 
     const result = tracksList.filter((track) => {
       console.log('filter0', filters[0]);
-      console.log('filter4', filters[4]);
+      console.log('filter2', filters[2]);
       console.log('trackMoutain', track.mountain);
       console.log('trackdenivelé', track.positive_elevation);
       if (filters[0] !== '' && track.mountain !== filters[0]) return false;
       if (filters[1] !== '' && track.difficulty !== filters[1]) return false;
-      if (filters[2] !== '' && track.orientation !== filters[2]) return false;
+      if (filters[2] !== '') {
+        const liftOffFound = liftOffList.find((liftOff) => liftOff.id === track.liftOff_id);
+        console.log('liftOffFound:', liftOffFound);
+        return liftOffFound.favorableWind.includes(filters[2]);
+      }
       if (filters[3] !== '' && track.overall_length > filters[3]) return false;
       if (filters[4] !== '' && track.positive_elevation > filters[4]) return false;
       if (filters[5] !== '' && track.duration > filters[5]) return false;

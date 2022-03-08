@@ -20,7 +20,13 @@ function TracksList({
       {...rest}
     >
       {isFiltersActive
-        ? <Filters tracksList={tracksList} onFilterChange={onFilterChange} onResetFilter={onResetFilter} />
+        ? (
+          <Filters
+            tracksList={tracksList}
+            onFilterChange={onFilterChange}
+            onResetFilter={onResetFilter}
+          />
+        )
         : null}
       {trackFilterList.map(({
         id,
@@ -70,6 +76,7 @@ TracksList.propTypes = {
   isFiltersActive: PropTypes.bool.isRequired,
   onFilterChange: PropTypes.func.isRequired,
   tracksList: PropTypes.array,
+  onResetFilter: PropTypes.func.isRequired,
 };
 TracksList.defaultProps = {
   className: '',

@@ -21,17 +21,17 @@ function Filters({
   onResetFilter,
   ...rest
 }) {
-  const [massif, setMassif] = useState('');
-  const [orientation, setOrientation] = useState('');
-  const [difficulty, setDifficulty] = useState('');
-  const [distance, setDistance] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [height, setHeight] = useState(0);
-
   const massifList = createMountainList(tracksList, 'mountain');
   const difficultyList = createDifficultyList(tracksList, 'difficulty');
   const heightMax = getTrackHeightMax(tracksList);
   const distanceMax = getTrackDistancetMax(tracksList);
+
+  const [massif, setMassif] = useState('');
+  const [orientation, setOrientation] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [distance, setDistance] = useState(distanceMax);
+  const [duration, setDuration] = useState(100);
+  const [height, setHeight] = useState(heightMax);
 
   const handleChange = (key, value) => {
     console.log(key, value);
@@ -59,9 +59,9 @@ function Filters({
     setMassif('');
     setOrientation('');
     setDifficulty('');
-    setDistance('');
-    setDuration('');
-    setHeight('');
+    setDistance(distanceMax);
+    setDuration(100);
+    setHeight(heightMax);
     onResetFilter();
   };
   console.log(distanceMax);
