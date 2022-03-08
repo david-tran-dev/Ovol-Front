@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 import React, { useEffect, useState } from 'react';
 import {
   Routes, Route, useLocation, useNavigate,
@@ -24,7 +26,6 @@ import { requestLiftOffList } from '../../requests/liftOff';
 import { requestLogin } from '../../requests/login';
 import { removeBearerToken, setBearerToken } from '../../requests';
 import './app.scss';
-import Filters from '../Filters/Filters';
 
 function App() {
   const location = useLocation();
@@ -92,70 +93,45 @@ function App() {
       console.log(response.data.message);
     }
 
-    // const liftOffResponse = await requestLiftOffList();
+    const liftOffResponse = await requestLiftOffList();
 
-    // if (liftOffResponse.status === 200) {
-    //   setLiftOffList(liftOffResponse.data);
-    // }
-    // else {
-    //   console.log(liftOffResponse.data.message);
-    // }
+    if (liftOffResponse.status === 200) {
+      setLiftOffList(liftOffResponse.data);
+    }
+    else {
+      console.log(liftOffResponse.data.message);
+    }
   }, []);
 
-  const multiFilterTrack = (key, values) => {
-    const cloneList = [...tracksList];
-    const {
-      massif,
-      difficulty,
-      distance,
-      height,
-      duration,
-      orientation,
-    } = values;
-    const filterList = cloneList
-      .filter((track) => track.mountain === massif)
-      .filter((track) => track.difficulty === difficulty);
-    setFilterTrackList(filterList);
-  };
-    // switch (key) {
-    //   case 'distance': {
-    //     const cloneList = [...tracksList];
-    //     const filterDistanceList = cloneList.filter((track) => track.overall_length <= value);
-    //     setFilterTrackList(filterDistanceList);
-    //     break;
-    //   }
-    //   case 'height': {
-    //     const cloneList = [...tracksList];
-    //     const filterHeightList = cloneList.filter((track) => track.positive_elevation <= value);
-    //     setFilterTrackList(filterHeightList);
-    //     break;
-    //   }
-    //   case 'massif': {
-    //     const cloneList = [...tracksList];
-    //     const filterHeightList = cloneList.filter((track) => track.mountain === value);
-    //     setFilterTrackList(filterHeightList);
-    //     break;
-    //   }
-    //   case 'difficulty': {
-    //     const cloneList = [...tracksList];
-    //     const filterHeightList = cloneList.filter((track) => track.difficulty === value);
-    //     setFilterTrackList(filterHeightList);
-    //     break;
-    //   }
-    //   case 'orientation':
-    //     break;
-    //   case 'duration':
-    //     break;
+  const multiFilterTrack = (filters) => {
+    console.log('filters:', filters);
 
-  //   default:
-  //     return null;
-  // }
+    const result = tracksList.filter((track) => {
+      console.log('filter0', filters[0]);
+      console.log('filter4', filters[4]);
+      console.log('trackMoutain', track.mountain);
+      console.log('trackdenivelé', track.positive_elevation);
+      if (filters[0] !== '' && track.mountain !== filters[0]) return false;
+      if (filters[1] !== '' && track.difficulty !== filters[1]) return false;
+      if (filters[2] !== '' && track.orientation !== filters[2]) return false;
+      if (filters[3] !== '' && track.overall_length > filters[3]) return false;
+      if (filters[4] !== '' && track.positive_elevation > filters[4]) return false;
+      if (filters[5] !== '' && track.duration > filters[5]) return false;
 
-  const handleFilterChange = (key, values) => {
-    console.log('handleFilterchange', key, values);
-    multiFilterTrack(key, values);
+      return true;
+    });
+    console.log('result', result);
+    setFilterTrackList(result);
   };
 
+  const handleFilterChange = (filters) => {
+    multiFilterTrack(filters);
+  };
+
+  const handleResetFilter = () => {
+    console.log('reinit');
+    setFilterTrackList(tracksList);
+  };
   return (
     <div className="App">
       <Header
@@ -197,10 +173,10 @@ function App() {
             <TracksList
               trackFilterList={filterTrackList}
               liftOffList={liftOffList}
-              onFiltersClick={handleFiltersClick}
               isFiltersActive={isFiltersActive}
               tracksList={tracksList}
               onFilterChange={handleFilterChange}
+              onResetFilter={handleResetFilter}
             />
           )}
         />

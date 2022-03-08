@@ -92,11 +92,11 @@ TrackCard.propTypes = {
   overall_length: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   img_card: PropTypes.string.isRequired,
-  favorableWind: PropTypes.array.isRequired,
+  favorableWind: PropTypes.array,
 
 };
 TrackCard.defaultProps = {
   className: '',
-
+  favorableWind: [],
 };
 export default React.memo(TrackCard);

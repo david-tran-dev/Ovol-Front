@@ -11,6 +11,7 @@ function TracksList({
   isFiltersActive,
   tracksList,
   onFilterChange,
+  onResetFilter,
   ...rest
 }) {
   return (
@@ -19,7 +20,7 @@ function TracksList({
       {...rest}
     >
       {isFiltersActive
-        ? <Filters tracksList={tracksList} onFilterChange={onFilterChange} />
+        ? <Filters tracksList={tracksList} onFilterChange={onFilterChange} onResetFilter={onResetFilter} />
         : null}
       {trackFilterList.map(({
         id,

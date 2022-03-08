@@ -1,10 +1,10 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import './filters.scss';
-import { Paper } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -18,14 +18,15 @@ function Filters({
   className,
   onFilterChange,
   tracksList,
+  onResetFilter,
   ...rest
 }) {
   const [massif, setMassif] = useState('');
   const [orientation, setOrientation] = useState('');
   const [difficulty, setDifficulty] = useState('');
-  const [distance, setDistance] = useState('');
-  const [duration, setDuration] = useState('');
-  const [height, setHeight] = useState('');
+  const [distance, setDistance] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [height, setHeight] = useState(0);
 
   const massifList = createMountainList(tracksList, 'mountain');
   const difficultyList = createDifficultyList(tracksList, 'difficulty');
@@ -40,18 +41,30 @@ function Filters({
     if (key === 'distance') setDistance(value);
     if (key === 'duration') setDuration(value);
     if (key === 'height') setHeight(value);
-
-    const values = {
-      massif,
-      difficulty,
-      distance,
-      height,
-      duration,
-      orientation,
-    };
-    onFilterChange(key, values);
   };
 
+  useEffect(() => {
+    const filters = [];
+    filters.push(massif);
+    filters.push(difficulty);
+    filters.push(orientation);
+    filters.push(distance);
+    filters.push(height);
+    filters.push(duration);
+    console.log('dans le filters', filters);
+    onFilterChange(filters);
+  }, [massif, orientation, difficulty, distance, height, duration]);
+
+  const handleResetFilter = () => {
+    setMassif('');
+    setOrientation('');
+    setDifficulty('');
+    setDistance('');
+    setDuration('');
+    setHeight('');
+    onResetFilter();
+  };
+  console.log(distanceMax);
   return (
     <Paper
       className="filters className"
@@ -146,14 +159,16 @@ function Filters({
           </Select>
         </FormControl>
       </Box>
+      <Button onClick={handleResetFilter}>Réinitialiser</Button>
     </Paper>
   );
 }
 
 Filters.propTypes = {
   className: PropTypes.string,
-  onFilterChange: PropTypes.func.isRequired,
   tracksList: PropTypes.array,
+  onFilterChange: PropTypes.func.isRequired,
+  onResetFilter: PropTypes.func.isRequired,
 };
 Filters.defaultProps = {
   className: '',
