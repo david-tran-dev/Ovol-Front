@@ -2,15 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './tracksList.scss';
 import TrackCard from '../TrackCard/TrackCard';
+import Filters from '../Filters/Filters';
 
 function TracksList({
-  className, trackFilterList, liftOffList, ...rest
+  className,
+  trackFilterList,
+  liftOffList,
+  isFiltersActive,
+  tracksList,
+  onFilterChange,
+  onResetFilter,
+  ...rest
 }) {
   return (
     <main
       className={`trackslist ${className}`}
       {...rest}
     >
+      {isFiltersActive
+        ? (
+          <Filters
+            tracksList={tracksList}
+            onFilterChange={onFilterChange}
+            onResetFilter={onResetFilter}
+          />
+        )
+        : null}
       {trackFilterList.map(({
         id,
         difficulty,
@@ -56,8 +73,13 @@ TracksList.propTypes = {
     }),
   ).isRequired,
   liftOffList: PropTypes.array.isRequired,
+  isFiltersActive: PropTypes.bool.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  tracksList: PropTypes.array,
+  onResetFilter: PropTypes.func.isRequired,
 };
 TracksList.defaultProps = {
   className: '',
+  tracksList: [],
 };
 export default React.memo(TracksList);
