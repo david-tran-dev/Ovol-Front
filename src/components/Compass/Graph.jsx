@@ -13,7 +13,7 @@ function Graph({ props }) {
       <PolarRadiusAxis angle={0} domain={[0, 150]} />
       <Radar name="Favorable" dataKey="A" stroke="green" fill="green" fillOpacity={0.3} />
       <Radar name="Defavorable" dataKey="B" stroke="red" fill="red" fillOpacity={0.3} />
-      {/* <Radar name="wind" dataKey="C" stroke="blue" fill="blue" fillOpacity={0.6} /> */}
+      <Radar name="wind" dataKey="C" stroke="blue" fill="blue" fillOpacity={0.6} />
       <Legend />
     </RadarChart>
   );

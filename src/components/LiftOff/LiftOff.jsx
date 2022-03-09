@@ -90,7 +90,7 @@ function LiftOff({ className, ...rest }) {
                 <p className="liftOff-danger__content">{liftOff.danger}</p>
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                <Compass favorableWind={liftOff.favorableWind} unfavorableWind={liftOff.unfavorableWind} />
+                <Compass favorableWind={liftOff.favorableWind} unfavorableWind={liftOff.unfavorableWind} balise={liftOff.balise} />
               </Box>
 
             </Container>
