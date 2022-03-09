@@ -23,9 +23,9 @@ export async function requestLiftOff(id) {
   }
 }
 
-export async function requestLiftOffPost(data) {
+export async function requestLiftOffPost(data, idLand) {
   try {
-    const response = await apiAxios.post('/liftoff', data);
+    const response = await apiAxios.post('/liftoff', data, { idLandinds: idLand });
     return response;
   }
   catch (err) {

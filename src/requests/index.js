@@ -2,11 +2,13 @@ import axios from 'axios';
 
 const apiAxios = axios.create({
   baseURL: 'https://apiovol.herokuapp.com/api',
+  // withCredentials: true,
 });
 
 export default apiAxios;
 
 export function setBearerToken(token) {
+  apiAxios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
   apiAxios.defaults.headers.common.Authorization = `bearer ${token}`;
   localStorage.setItem('accessToken', token);
 }

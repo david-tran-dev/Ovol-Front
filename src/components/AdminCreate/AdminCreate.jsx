@@ -9,10 +9,14 @@ import {
 import {
   Container, Button,
 } from '@mui/material';
+import ImageListItem from '@mui/material/ImageList';
+import { ThemeProvider } from '@emotion/react';
 import TextField from '@mui/material/TextField';
+import UploadImg from '../UploadImg/UploadImg';
+import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
-import { requestLiftOff, requestLiftOffPost } from '../../requests/liftOff';
-import { requestLandings } from '../../requests/landings';
+import { requestLiftOff } from '../../requests/liftOff';
+import { requestLandings, requestLandingPost } from '../../requests/landings';
 
 import Loading from '../Loading/Loading';
 
@@ -24,6 +28,9 @@ function AdminCreate({ className, ...rest }) {
   const [valuesLiftOff, setValuesLiftOff] = useState({});
   const [valuesLanding, setValuesLanding] = useState({});
   const [valuesHiking, setValuesHiking] = useState({});
+  const [valuesImg, setValuesImg] = useState([]);
+  const [valuesUrl, setValuesUrl] = useState([]);
+  // const [valuesTextField, setValuesTextField] = useState({});
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -80,12 +87,22 @@ function AdminCreate({ className, ...rest }) {
     }
   }, [hiking]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(valuesLiftOff);
-    requestLiftOffPost(valuesLiftOff);
-    // requestLandingPost(valuesLanding);
-    // requestHikingPost(valuesHiking);
+    // console.log('valueLiftOf:', valuesLiftOff);
+
+    const responseLand = await requestLandingPost(valuesLanding, valuesImg, valuesUrl);
+    console.log('response retour fetch responseLand:', responseLand.data[0].id);
+    // console.log({ valuesLanding, valuesImg, valuesUrl });
+    // const idLand = responseLand.data.id;
+    // if (responseLand) {
+    //   const responseLift = await requestLiftOffPost(valuesLiftOff, idLand);
+    //   console.log(responseLift.data.id);
+    //   const idLift = (responseLift.data.id);
+    //   if (responseLift) {
+    //     requestHikingPost(valuesHiking, idLand, idLift);
+    //   }
+    // }
   };
 
   const handleChangeLiftOff = (item, inputValue) => {
@@ -97,6 +114,7 @@ function AdminCreate({ className, ...rest }) {
     // console.log('le state', value);
   };
   const handleChangeLanding = (item, inputValue) => {
+    // console.log('type of item', (typeof (inputValue)));
     // console.log('item: ', item, 'value:', inputValue);
     const valueClone = { ...valuesLanding };
     valueClone[item] = inputValue;
@@ -112,6 +130,22 @@ function AdminCreate({ className, ...rest }) {
     setValuesHiking(valueClone);
     // console.log('le state', value);
   };
+  const handleImg = (imgName) => {
+    console.log('imgselected:', imgName);
+    setValuesImg(imgName);
+  };
+  const handleUrl = (imgUrl) => {
+    console.log('imgurl:', imgUrl);
+    const myArrayImgUrlClone = [...valuesUrl];
+    // myArrayImg[0] = (imgUrl);
+    myArrayImgUrlClone.push(imgUrl);
+    // setValuesUrl(imgUrl);
+    setValuesUrl(myArrayImgUrlClone);
+    console.log({ myArrayImgUrlClone });
+  };
+  // const handleChangeImg = (value) => {
+  //   setValuesTextField(value);
+  // };
 
   return (
 
@@ -124,52 +158,92 @@ function AdminCreate({ className, ...rest }) {
         >
           <form action="" className="form-data__input" onSubmit={handleSubmit}>
             <div className="div-container">
-              <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
-                ADMIN DECOLLAGE ITEMS:
-                {
-                  Object.keys(liftOff).map(((item) => (
+              <ThemeProvider theme={customTheme}>
+                <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
+                  ADMIN ATTERRISSAGE ITEMS:
+                  {
+                    Object.keys(landing).map(((item) => {
+                      if (item !== 'id' && item !== 'photo_landing') {
+                        return (
+                          <TextField
+                            sx={{ p: '2px 4px', width: '100%' }}
+                            label={item}
+                            placeholder={item}
+                            onChange={(event) => handleChangeLanding(item, event.target.value)}
+                            // multiline
+                          />
+                        );
+                      }
+                      if (item === 'photo_landing') {
+                        return (
+                          <>
+                            <TextField
+                              sx={{ p: '2px 4px', width: '100%' }}
+                              label={item}
+                              placeholder={item}
+                              // onChange={(event) => handleUrl(event.target.value)}
+                              value={[valuesImg, valuesUrl]}
+                              multiline
+                            />
+                            <ImageListItem sx={{ width: '200px', height: '200px' }}>
+                              <img
+                                src={valuesUrl}
+                                alt={valuesImg}
+                              />
+                            </ImageListItem>
+                          </>
 
-                    <TextField
-                      sx={{ p: '2px 4px', width: '100%' }}
-                      label={item}
-                      placeholder={item}
-                      name={item}
-                      onChange={(event) => handleChangeLiftOff(item, event.target.value)}
-                    />
-                  )
-                  ))
+                        );
+                      }
+                      return null;
+                    }))
+                  }
+                  <UploadImg imgSelect={handleImg} urlSelect={handleUrl} />
+                </Container>
+                <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
+                  ADMIN DECOLLAGE ITEMS:
+                  {
+                    Object.keys(liftOff).map(((item) => {
+                      if (item !== 'id' && item !== 'idLandings') {
+                        return (
+                          <TextField
+                            sx={{ p: '2px 4px', width: '100%' }}
+                            label={item}
+                            placeholder={item}
+                            name={item}
+                            onChange={(event) => handleChangeLiftOff(item, event.target.value)}
+                          />
+                        );
+                      }
+                      return null;
+                    }))
+                  }
+                  <UploadImg />
+                </Container>
+
+                <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
+                  ADMIN RANDO ITEMS:
+                  {
+                    Object.keys(hiking).map(((item) => {
+                      if (item !== 'user_id' && item !== 'id' && item !== 'idLandings' && item !== 'liftOff_id') {
+                        return (
+                          <TextField
+                            sx={{ p: '2px 4px', width: '100%' }}
+                            // width="300px"
+                            label={item}
+                            placeholder={item}
+                            onChange={(event) => handleChangeHiking(item, event.target.value)}
+                            multiline
+                          />
+                        );
+                      }
+                      return null;
+                    }))
                 }
-              </Container>
-              <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
-                ADMIN ATTERRISSAGE ITEMS:
-                {
-                  Object.keys(landing).map(((item) => (
-                    <TextField
-                      sx={{ p: '2px 4px', width: '100%' }}
-                      label={item}
-                      placeholder={item}
-                      onChange={(event) => handleChangeLanding(item, event.target.value)}
-                      multiline
-                    />
-                  )))
-                }
-              </Container>
-              <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
-                ADMIN RANDO ITEMS:
-                {
-                  Object.keys(hiking).map(((item) => (
-                    <TextField
-                      sx={{ p: '2px 4px', width: '100%' }}
-                      // width="300px"
-                      label={item}
-                      placeholder={item}
-                      onChange={(event) => handleChangeHiking(item, event.target.value)}
-                      multiline
-                    />
-                  )))
-                }
-              </Container>
-              <Button variant="contained" type="submit">Submit</Button>
+                  <UploadImg />
+                </Container>
+                <Button variant="contained" type="submit">Submit</Button>
+              </ThemeProvider>
             </div>
           </form>
         </div>

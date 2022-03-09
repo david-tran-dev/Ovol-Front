@@ -22,8 +22,11 @@ export async function requestLandings(id) {
     return err.response;
   }
 }
-export async function requestLandingPost(data) {
+export async function requestLandingPost(data, img, url) {
   try {
+    console.log({ data, img, url });
+    data.photo_landing = `'name': '${img}', 'url': '${url}'`;
+    console.log({ data });
     const response = await apiAxios.post('/landing', data);
     return response;
   }
