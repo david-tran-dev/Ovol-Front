@@ -159,7 +159,7 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
         <Route path="/mentionsLegales" element={<MentionsLegales onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/apropos" element={<Apropos onActiveNav={handleIsOpenNavBar} />} />
-        <Route path="/" element={<Map liftOffList={liftOffList} />} />
+        <Route path="/" element={<Map liftOffList={liftOffList} tracksList={tracksList} />} />
         <Route
           path="/login"
           element={(
