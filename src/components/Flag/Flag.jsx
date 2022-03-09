@@ -16,10 +16,10 @@ export default function Flag({ liftOffId }) {
     // const liftOffInfos = liftOff.data[0];
     const baliseInfos = balise.data;
     // TODO : declarer les conditions pour la couleur du drapeau
-    if (Number(baliseInfos.vitesseVentMoy) < 10) {
+    if (Number(baliseInfos.vitesseVentMoy) < 20) {
       setColorFlag('green');
     }
-    else if (Number(baliseInfos.vitesseVentMoy) >= 10 && Number(baliseInfos.vitesseVentMoy) < 15) {
+    else if (Number(baliseInfos.vitesseVentMoy) >= 20 && Number(baliseInfos.vitesseVentMoy) < 30) {
       setColorFlag('orange');
     }
     else {
