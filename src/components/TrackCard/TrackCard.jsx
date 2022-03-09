@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Icon } from '@mui/material';
+import { convertDurationToTime } from '../../utils/timeConverter';
 
 function TrackCard({
   className,
@@ -21,6 +22,7 @@ function TrackCard({
   positive_elevation,
   img_card,
   favorableWind,
+  duration,
 }) {
   return (
     <Link
@@ -75,6 +77,9 @@ function TrackCard({
             <Typography className="trackCard-content__detail">
               Longueur totale : {overall_length}km
             </Typography>
+            <Typography className="trackCard-content__detail">
+              Temps estimé : {convertDurationToTime(duration)}
+            </Typography>
           </CardContent>
         </Box>
       </Card>
@@ -93,7 +98,7 @@ TrackCard.propTypes = {
   id: PropTypes.number.isRequired,
   img_card: PropTypes.string.isRequired,
   favorableWind: PropTypes.array,
-
+  duration: PropTypes.number.isRequired,
 };
 TrackCard.defaultProps = {
   className: '',

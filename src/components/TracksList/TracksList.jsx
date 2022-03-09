@@ -37,6 +37,7 @@ function TracksList({
         overall_length,
         img_card,
         liftOff_id,
+        duration,
       }) => {
         const liftOffFound = liftOffList.find((liftOff) => liftOff.id === liftOff_id);
         console.log('liftOffFound:', liftOffFound);
@@ -51,7 +52,9 @@ function TracksList({
             overall_length={overall_length}
             id={id}
             img_card={img_card}
+            duration={duration}
             favorableWind={liftOffFound && liftOffFound.favorableWind}
+
           />
         );
       })}
@@ -70,6 +73,7 @@ TracksList.propTypes = {
       positive_elevation: PropTypes.number.isRequired,
       overall_length: PropTypes.number.isRequired,
       img_card: PropTypes.string.isRequired,
+      duration: PropTypes.number.isRequired,
     }),
   ).isRequired,
   liftOffList: PropTypes.array.isRequired,

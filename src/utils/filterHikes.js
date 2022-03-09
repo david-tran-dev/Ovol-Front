@@ -36,3 +36,10 @@ export function getTrackDistancetMax(list) {
   const heightMax = Math.max(...heightArray);
   return heightMax;
 }
+
+export function getTrackDurationMax(list) {
+  const durationArray = list.map((track) => track.duration);
+  const durationMaxString = Math.max(...durationArray).toFixed(2);
+  const durationMax = Number(durationMaxString);
+  return durationMax;
+}
