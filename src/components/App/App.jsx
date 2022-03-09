@@ -37,7 +37,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [isFiltersActive, setIsFiltersActive] = useState(false);
   const navigate = useNavigate();
-
+  console.log('location:', location);
   // const [isLoading, setIsLoading] = useState(false);
   const handleIsOpenNavBar = (value) => {
     setIsOpenNavBar(value);
@@ -49,6 +49,9 @@ function App() {
     }
     const searchList = tracksList.filter((track) => track.name.toLowerCase().includes(value.toLowerCase()));
     setFilterTrackList(searchList);
+    if (location.pathname !== '/trackList') {
+      setIsFiltersActive(false);
+    }
     navigate('/trackslist');
   };
 
