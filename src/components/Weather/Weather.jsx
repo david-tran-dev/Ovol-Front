@@ -6,9 +6,9 @@ import {
   Box, Card, CardContent, Typography,
 } from '@mui/material';
 import { Navigate } from 'react-router-dom';
-import { requestWeather } from '../requests/weather';
-import Loading from '../components/Loading/Loading';
-import { getWindKilometerPerHour } from '../utils/weatherConverter';
+import { requestWeather } from '../../requests/weather';
+import { getWindKilometerPerHour } from '../../utils/weatherConverter';
+import Loading from '../Loading/Loading';
 
 function Weather({
   className, lat, lon, ...rest
@@ -39,18 +39,27 @@ function Weather({
     getWeatherReport();
   }, []);
 
+  // console.log('icon:', weather[0].icon);
   return (
     <>
       {loading ? <Loading />
         : (
-          <Card className={`weather ${className}`} sx={{ background: 'url()' }} {...rest}>
+          <Card
+            className={`weather ${className}`}
+            sx={{
+              background: `url('/weather/${weather[0].icon}.png')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+            {...rest}
+          >
             <CardContent>
               <Box display="flex" flexDirection="row">
                 <Box p={1}>
                   <Typography className="weather-title" variant="h4" color="textPrimary">
                     {name},{sys.country}
                   </Typography>
-                  <Typography variant="subtitle" color="textSecondary">
+                  <Typography className="weather-infos" variant="subtitle" color="textSecondary">
                     lat: {coord.lat}, lon: {coord.lon}
                   </Typography>
                 </Box>
@@ -59,7 +68,7 @@ function Weather({
             <CardContent>
               <Box display="flex" flexDirection="row-reverse">
                 <Box p={0}>
-                  <Typography variant="h6" color="textPrimary">
+                  <Typography className="weather-infos" variant="h5" color="textPrimary">
                     Temp: {main.temp}
                     <span>&#176;</span>
                     C
@@ -70,7 +79,7 @@ function Weather({
             <CardContent>
               <Box display="flex" flexDirection="row-reverse">
                 <Box p={0}>
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography className="weather-infos" variant="body1" color="textSecondary">
                     {weather[0].description}
                   </Typography>
                 </Box>
@@ -79,17 +88,17 @@ function Weather({
             <CardContent>
               <Box display="flex" flexDirection="row">
                 <Box p={1}>
-                  <Typography variant="h6" color="textPrimary">
+                  <Typography className="weather-infos" variant="h6" color="textPrimary">
                     Humidité: {main.humidity} %
                   </Typography>
                 </Box>
                 <Box p={1}>
-                  <Typography variant="h6" color="textPrimary">
+                  <Typography className="weather-infos" variant="h6" color="textPrimary">
                     Pression: {main.pressure} pa
                   </Typography>
                 </Box>
                 <Box p={1}>
-                  <Typography variant="h6" color="textPrimary">
+                  <Typography className="weather-infos" variant="h6" color="textPrimary">
                     Vent: {getWindKilometerPerHour(wind.speed)} km/h
                   </Typography>
                 </Box>

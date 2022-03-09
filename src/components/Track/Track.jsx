@@ -16,7 +16,7 @@ import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
-import Weather from '../../Weather/Weather';
+import Weather from '../Weather/Weather';
 import { requestLiftOff } from '../../requests/liftOff';
 
 function Track({ className, ...rest }) {
