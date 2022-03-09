@@ -12,7 +12,7 @@ import Select from '@mui/material/Select';
 import { ThemeProvider } from '@emotion/react';
 import PrettoSlider from './PrettoSlider/PrettoSlider';
 import {
-  createDifficultyList, createMountainList, getTrackDistancetMax, getTrackHeightMax,
+  createDifficultyList, createMountainList, getTrackDistancetMax, getTrackDurationMax, getTrackHeightMax,
 } from '../../utils/filterHikes';
 import customTheme from '../../themes/customTheme';
 
@@ -27,6 +27,7 @@ function Filters({
   const difficultyList = createDifficultyList(tracksList, 'difficulty');
   const heightMax = getTrackHeightMax(tracksList);
   const distanceMax = getTrackDistancetMax(tracksList);
+  const durationMax = getTrackDurationMax(tracksList);
 
   const [massif, setMassif] = useState('');
   const [orientation, setOrientation] = useState('');
@@ -99,13 +100,15 @@ function Filters({
             max={heightMax}
             onChange={(e) => handleChange('height', e.target.value)}
           />
-          <Typography>Durée</Typography>
+          <Typography>Temps estimé</Typography>
           <PrettoSlider
             valueLabelDisplay="auto"
             aria-label="Durée"
-            defaultValue={20}
+            defaultValue={durationMax}
             size="small"
             value={duration}
+            min={0}
+            max={durationMax}
             onChange={(e) => handleChange('duration', e.target.value)}
           />
         </Box>
