@@ -122,31 +122,31 @@ function Compass({ favorableWind, unfavorableWind }) {
       }
       // wind direction
       // si la valeur du select est egale a data[index].C ,on le set au max(ici 150) et l'index +/- 1 à 40
-      if (item.subject === windDirection) {
-        // exception pour le NO dont l'index+1 serait undefined car superieur a data.length
-        if (item.subject === 'NO') {
-          const newArray = [...data];
-          newArray[index].C = 150;
-          newArray[0].C = 40;
-          newArray[index - 1].C = 40;
-          setData(newArray);
-        }
-        // exception pour le N dont l'index-1 serait undefined car inferieur a 0
-        else if (item.subject === 'N') {
-          const newArray = [...data];
-          newArray[index].C = 150;
-          newArray[index + 1].C = 40;
-          newArray[7].C = 40;
-          setData(newArray);
-        }
-        else {
-          const newArray = [...data];
-          newArray[index].C = 150;
-          newArray[index + 1].C = 40;
-          newArray[index - 1].C = 40;
-          setData(newArray);
-        }
-      }
+      // if (item.subject === windDirection) {
+      // exception pour le NO dont l'index+1 serait undefined car superieur a data.length
+      // if (item.subject === 'NO') {
+      //   const newArray = [...data];
+      //   newArray[index].C = 150;
+      //   newArray[0].C = 40;
+      //   newArray[index - 1].C = 40;
+      //   setData(newArray);
+      // }
+      // exception pour le N dont l'index-1 serait undefined car inferieur a 0
+      // else if (item.subject === 'N') {
+      //   const newArray = [...data];
+      //   newArray[index].C = 150;
+      //   newArray[index + 1].C = 40;
+      //   newArray[7].C = 40;
+      //   setData(newArray);
+      // }
+      // else {
+      //   const newArray = [...data];
+      //   newArray[index].C = 150;
+      //   newArray[index + 1].C = 40;
+      //   newArray[index - 1].C = 40;
+      //   setData(newArray);
+      // }
+      // }
     });
     // console.log('after change', data);
   }

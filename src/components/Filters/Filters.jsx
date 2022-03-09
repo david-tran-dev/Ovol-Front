@@ -32,7 +32,7 @@ function Filters({
   const [massif, setMassif] = useState('');
   const [orientation, setOrientation] = useState('');
   const [difficulty, setDifficulty] = useState('');
-  const [distance, setDistance] = useState(distanceMax);
+  const [distance, setDistance] = useState('distanceMax');
   const [duration, setDuration] = useState(100);
   const [height, setHeight] = useState(heightMax);
 
