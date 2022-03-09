@@ -192,7 +192,6 @@ function App() {
         <Route path="/liftoff/:id" element={<LiftOff />} />
         <Route path="/landings/:id" element={<Landings />} />
       </Routes>
-
     </div>
   );
 }
