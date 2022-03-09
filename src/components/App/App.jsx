@@ -116,7 +116,7 @@ function App() {
       if (filters[2] !== '') {
         const liftOffFound = liftOffList.find((liftOff) => liftOff.id === track.liftOff_id);
         console.log('liftOffFound:', liftOffFound);
-        return liftOffFound.favorableWind.includes(filters[2]);
+        if (!liftOffFound.favorableWind.includes(filters[2])) return false;
       }
       if (filters[3] !== '' && track.overall_length > filters[3]) return false;
       if (filters[4] !== '' && track.positive_elevation > filters[4]) return false;
