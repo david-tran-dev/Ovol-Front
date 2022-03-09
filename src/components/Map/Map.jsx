@@ -11,12 +11,13 @@ import PropTypes from 'prop-types';
 import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
 // import LocateControl from 'react-leaflet-locate-control';
+import { Link } from 'react-router-dom';
 import LocationMarker from './LocationMarker/LocationMarker';
 
 import paragliding from '../../assets/icons/paragliding.png';
 
-function Map({ liftOffList }) {
-  console.log(liftOffList);
+function Map({ liftOffList, tracksList }) {
+  console.log('tracksList:', tracksList);
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
   // Future fonctionnalité
   // const [positions, setPositions] = useState([]);
@@ -65,14 +66,22 @@ function Map({ liftOffList }) {
           <LayersControl.Overlay checked name="Point de décollage">
             <LayerGroup>
               {liftOffList.length > 0 && liftOffList.map(({
-                altitude, latitude, longitude, name,
-              }, index) => (
-                <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>
-                  <Popup>Nom: {name} <br />
-                    Altitude: {altitude}m
-                  </Popup>
-                </Marker>
-              ))}
+                altitude, latitude, longitude, name, id,
+              }, index) => {
+                const trackFound = tracksList.find((track) => track.liftOff_id === id);
+                return (
+                  <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>
+                    <Popup>
+                      Nom: {name} <br />
+                      Altitude: {altitude}m <br />
+                      Randonnée:
+                      <Link to={`/track/${trackFound.id}`}>
+                        {trackFound.name}
+                      </Link>
+                    </Popup>
+                  </Marker>
+                );
+              })}
             </LayerGroup>
           </LayersControl.Overlay>
         </LayersControl>
@@ -90,6 +99,7 @@ Map.propTypes = {
       altitude: PropTypes.number.isRequired,
     }),
   ).isRequired,
+  tracksList: PropTypes.array.isRequired,
 };
 
 export default React.memo(Map);
