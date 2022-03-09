@@ -19,6 +19,12 @@ export default function Flag({ liftOffId }) {
     if (Number(baliseInfos.vitesseVentMoy) < 10) {
       setColorFlag('green');
     }
+    else if (Number(baliseInfos.vitesseVentMoy) >= 10 && Number(baliseInfos.vitesseVentMoy) < 15) {
+      setColorFlag('orange');
+    }
+    else {
+      setColorFlag('red');
+    }
   }
   useEffect(async () => {
     setConditions();
