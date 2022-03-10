@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import DOMPurify from 'dompurify';
 import { ThemeProvider } from '@emotion/react';
+import Flag from '../Flag/Flag';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
@@ -30,12 +31,10 @@ function Track({ className, ...rest }) {
     setLoading(true);
     if (Object.keys(hiking).length === 0) {
       const response = await requestHiking(id);
-      console.log(response);
       if (response.status === 200) {
         setHiking(response.data[0]);
       }
       else {
-        console.log(response);
         navigate('/error');
       }
     }
@@ -46,20 +45,13 @@ function Track({ className, ...rest }) {
       setLoading(false);
     }
   }, [hiking]);
-
-  console.log('hiking:', hiking);
-
-  console.log('render');
-
   return (
     <>
-
       {!loading ? (
         <div
           className={`track ${className}`}
           {...rest}
         >
-
           <Container sx={{ my: 1 }}>
             <CardMedia
               className="track-img"
@@ -97,7 +89,7 @@ function Track({ className, ...rest }) {
                   display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
                 }}
                 >
-                  <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, mx: 1 }} />
+                  <Flag liftOffId={hiking.liftOff_id} />
                   <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
                     <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
                   </a>

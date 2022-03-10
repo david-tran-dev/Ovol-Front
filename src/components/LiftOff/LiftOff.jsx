@@ -22,11 +22,10 @@ function LiftOff({ className, ...rest }) {
   const navigate = useNavigate();
 
   useEffect(async () => {
-    console.log('useffect');
     setLoading(true);
     if (!liftOff) {
       const response = await requestLiftOff(id);
-      console.log('response: ', response);
+      console.log('LiftOff: ', response.data[0]);
       if (response.status === 200) {
         setLiftOff(response.data[0]);
       }
@@ -37,10 +36,6 @@ function LiftOff({ className, ...rest }) {
 
     setLoading(false);
   }, [liftOff]);
-
-  console.log('liftOff', liftOff);
-  console.log('render');
-
   return (
     <>
 

@@ -6,6 +6,7 @@ import Graph from './Graph';
 
 function Compass({ favorableWind, unfavorableWind, balise }) {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [windDirection, setWindDirection] = useState('');
   // valeur par default
   const dataApi = [
@@ -150,11 +151,10 @@ function Compass({ favorableWind, unfavorableWind, balise }) {
         }
       }
     });
-    // console.log('after change', data);
   }
   async function getBaliseInfos() {
     const result = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${balise}}`);
-    const windInstant = result.data.directVentInst;
+    const windInstant = result.data.directVentMoy;
     if (windInstant === undefined) {
       setWindDirection('undefined');
     }
@@ -182,17 +182,18 @@ function Compass({ favorableWind, unfavorableWind, balise }) {
     if (windInstant >= 292.5 && windInstant < 337.5) {
       setWindDirection('NO');
     }
+    setIsLoading(true);
   }
   useEffect(() => {
     setData(dataApi);
     getBaliseInfos();
     handleGraphData();
-  }, [windDirection]);
+  }, [isLoading]);
 
   return (
     <div className="App">
       <div className="graph__container">
-        <Graph props={data} />
+        <Graph data={data} isLoading={isLoading} />
       </div>
     </div>
   );

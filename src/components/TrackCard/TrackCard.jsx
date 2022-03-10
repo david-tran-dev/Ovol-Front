@@ -9,8 +9,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Icon } from '@mui/material';
 import { convertDurationToTime } from '../../utils/timeConverter';
+import Flag from '../Flag/Flag';
 
 function TrackCard({
   className,
@@ -48,7 +48,7 @@ function TrackCard({
             <Typography component="h2" variant="body1" fontWeight="bold" textAlign="left">
               {name}
             </Typography>
-            <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, textAlign: 'left' }} />
+            <Flag liftOffId={id} />
           </Box>
           <CardContent
             className="trackCard-content"
