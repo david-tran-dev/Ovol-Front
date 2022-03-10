@@ -13,6 +13,7 @@ export default function Flag({ liftOffId }) {
     const liftOff = await requestLiftOff(liftOffId);
     const balise = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${liftOff.data[0].balise}`);
     const baliseInfos = balise.data;
+    console.log('balise ', balise);
     if (Number(baliseInfos.vitesseVentMoy) < 20) {
       setColorFlag('green');
     }
@@ -24,6 +25,7 @@ export default function Flag({ liftOffId }) {
     }
     const windDirection = await convertWindDirection(liftOff.data[0].balise);
     if (windDirection && colorFlag !== 'red') {
+      console.log('orange');
       setColorFlag('orange');
     }
     if (liftOff.data[0].favorableWind) {
