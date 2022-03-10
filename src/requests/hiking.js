@@ -22,16 +22,6 @@ export async function requestHiking(id) {
     return err.response;
   }
 }
-// export async function requestHikingPost(data, idLand, idLift) {
-//   try {
-//     const response = await apiAxios.post('/hiking', data, { liftOff_id: idLift }, { idLandings: idLand });
-//     return response;
-//   }
-//   catch (err) {
-//     console.log(err);
-//     return err.response;
-//   }
-// }
 
 export async function requestHikingPost(data, img, url) {
   try {

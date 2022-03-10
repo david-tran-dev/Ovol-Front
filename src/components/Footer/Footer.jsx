@@ -1,26 +1,26 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Footer.scss';
 
 function Footer() {
   return (
     <div className="footer">
       <p className="footer-para">O'Vol  © Tous droits réservés (2022)</p>
-      <NavLink
+      <Link
         to="/mentionsLegales"
       >
-        <a className="footer-link"> &nbsp;&nbsp;&nbsp;Mentions Legales</a>
-      </NavLink>
-      <NavLink
+        <span className="footer-link"> &nbsp;&nbsp;&nbsp;Mentions Legales</span>
+      </Link>
+      <Link
         to="/contact"
       >
-        <a className="footer-link"> &nbsp;&nbsp;&nbsp;Contact</a>
-      </NavLink>
-      <NavLink
+        <span className="footer-link"> &nbsp;&nbsp;&nbsp;Contact</span>
+      </Link>
+      <Link
         to="/apropos"
       >
-        <a className="footer-link"> &nbsp;&nbsp;&nbsp;A Propos</a>
-      </NavLink>
+        <span className="footer-link"> &nbsp;&nbsp;&nbsp;A Propos</span>
+      </Link>
     </div>
   );
 }

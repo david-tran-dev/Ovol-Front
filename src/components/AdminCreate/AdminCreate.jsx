@@ -16,8 +16,8 @@ import TextField from '@mui/material/TextField';
 // import { height } from '@mui/system';
 import UploadImg from '../UploadImg/UploadImg';
 import customTheme from '../../themes/customTheme';
-import { requestHiking, requestHikingPost } from '../../requests/hiking';
-import { requestLiftOff, requestLiftOffPost } from '../../requests/liftOff';
+import { requestHiking } from '../../requests/hiking';
+import { requestLiftOff } from '../../requests/liftOff';
 import { requestLandings, requestLandingPost } from '../../requests/landings';
 
 import Loading from '../Loading/Loading';
