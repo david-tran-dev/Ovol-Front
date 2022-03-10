@@ -11,8 +11,8 @@ export default function Flag({ liftOffId }) {
   async function setConditions() {
     const liftOff = await requestLiftOff(liftOffId);
     const balise = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${liftOff.data[0].balise}`);
-    console.log('liftOff flag', liftOff.data[0]);
-    console.log('balise infos', balise.data.vitesseVentMoy);
+    // console.log('liftOff flag', liftOff.data[0]);
+    // console.log('balise infos', balise.data.vitesseVentMoy);
     // const liftOffInfos = liftOff.data[0];
     const baliseInfos = balise.data;
     // TODO : declarer les conditions pour la couleur du drapeau

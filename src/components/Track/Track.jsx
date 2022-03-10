@@ -31,12 +31,10 @@ function Track({ className, ...rest }) {
     setLoading(true);
     if (Object.keys(hiking).length === 0) {
       const response = await requestHiking(id);
-      console.log(response);
       if (response.status === 200) {
         setHiking(response.data[0]);
       }
       else {
-        console.log(response);
         navigate('/error');
       }
     }
@@ -47,20 +45,13 @@ function Track({ className, ...rest }) {
       setLoading(false);
     }
   }, [hiking]);
-
-  console.log('hiking:', hiking);
-
-  console.log('render');
-
   return (
     <>
-
       {!loading ? (
         <div
           className={`track ${className}`}
           {...rest}
         >
-
           <Container sx={{ my: 1 }}>
             <CardMedia
               className="track-img"
