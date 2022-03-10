@@ -4,6 +4,7 @@
     padding: 0 1rem;
     color: vars.$color1;
 }
+
 .header-top {
     position: relative;
     display: flex;
@@ -37,10 +38,11 @@
         display: flex;
         justify-self: flex-end;
     }
+
     &__message {
         font-size: 1.2em;
         bottom: -10px;
-        margin: 1rem 0;
+        margin: 0.1rem 0;
     }
 
 

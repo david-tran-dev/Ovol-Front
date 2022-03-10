@@ -32,6 +32,7 @@ function Track({ className, ...rest }) {
     setLoading(true);
     if (Object.keys(hiking).length === 0) {
       const response = await requestHiking(id);
+      console.log('response setloadn', response);
       if (response.status === 200) {
         setHiking(response.data[0]);
       }

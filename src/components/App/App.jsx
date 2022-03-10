@@ -10,14 +10,15 @@ import Login from '../Login/Login';
 import Header from '../Header/Header';
 import NavHeader from '../NavHeader/NavHeader';
 import SearchBar from '../SearchBar/SearchBar';
+import Map from '../Map/Map';
+import TracksList from '../TracksList/TracksList';
+import AdminCreate from '../AdminCreate/AdminCreate';
 import Track from '../Track/Track';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import Contact from '../Contact/Contact';
 import MentionsLegales from '../MentionsLegales/MentionsLegales';
 import Apropos from '../Apropos/Apropos';
-import Map from '../Map/Map';
 import Footer from '../Footer/Footer';
-import TracksList from '../TracksList/TracksList';
 import LiftOff from '../LiftOff/LiftOff';
 import Loading from '../Loading/Loading';
 import Landings from '../Landings/Landings';
@@ -175,6 +176,7 @@ function App() {
           )}
         />
         <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
+        <Route path="/adminCreate" element={<AdminCreate onActiveNav={handleIsOpenNavBar} />} />
         <Route
           path="/tracksList"
           element={(
