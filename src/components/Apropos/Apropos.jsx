@@ -1,14 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import SendIcon from '@mui/icons-material/Send';
+import { NavLink } from 'react-router-dom';
 import itemDataApropos from '../../assets/img/itemDataContact/itemDataApropos';
 import './apropos.scss';
 
@@ -39,21 +38,21 @@ function MiddleDividers() {
           </Grid>
           <Typography color="text.secondary" variant="body2">
             Biographie :
+            <p>
+              O'vol a pour objectif de répertorier des randonnées pédestres en montagne ou la descente s'effectue en parapente.
+            </p>
           </Typography>
         </Box>
         <Divider variant="middle" />
         <Box sx={{ m: 2 }}>
           <Stack direction="column" spacing={1}>
-            <Chip label="Qui sommes nous ?" />
-            <Chip label="Histoire" />
+            <NavLink
+              to="/contact"
+            >
+              <Chip label="Qui sommes nous ?" />
+            </NavLink>
+            { /* <Chip label="Histoire" /> */ }
           </Stack>
-        </Box>
-        <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-          <Button
-            endIcon={<SendIcon />}
-            href="mailto:ovolclock@gmail.com"
-          >SEND MESSAGE
-          </Button>
         </Box>
       </Box>
     </div>

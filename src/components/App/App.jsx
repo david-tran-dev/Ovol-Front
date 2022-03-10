@@ -16,6 +16,7 @@ import Contact from '../Contact/Contact';
 import MentionsLegales from '../MentionsLegales/MentionsLegales';
 import Apropos from '../Apropos/Apropos';
 import Map from '../Map/Map';
+import Footer from '../Footer/Footer';
 import TracksList from '../TracksList/TracksList';
 import LiftOff from '../LiftOff/LiftOff';
 import Loading from '../Loading/Loading';
@@ -192,6 +193,7 @@ function App() {
         <Route path="/liftoff/:id" element={<LiftOff />} />
         <Route path="/landings/:id" element={<Landings />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

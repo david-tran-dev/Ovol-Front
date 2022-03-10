@@ -1,14 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import SendIcon from '@mui/icons-material/Send';
 import itemDataML from '../../assets/img/itemDataContact/itemDataMentionsLegales';
 import './mentionsLegales.scss';
 
@@ -37,8 +35,16 @@ function MiddleDividers() {
               </Typography>
             </Grid>
           </Grid>
-          <Typography color="text.secondary" variant="body2">
-            Règlementation :
+          <Typography variant="body2">
+            <h2>CONDITIONS D’UTILISATION :</h2>
+            <p>L’utilisation du présent site implique l’acceptation pleine et entière des conditions générales d’utilisation décrites ci-après.
+              Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment.
+            </p>
+            <br />
+            <h2>INFORMATIONS :</h2>
+            <p>Les informations et documents du site sont présentés à titre indicatif, n’ont pas de caractère exhaustif, et ne peuvent engager la responsabilité du propriétaire du site.
+              <br />Le propriétaire du site ne peut être tenu responsable des dommages directs et indirects consécutifs à l’accès au site.
+            </p>
           </Typography>
         </Box>
         <Divider variant="middle" />
@@ -50,13 +56,6 @@ function MiddleDividers() {
             <Chip label="Libertés individuelles" />
             <Chip label="Conditions d'utilisation" />
           </Stack>
-        </Box>
-        <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-          <Button
-            endIcon={<SendIcon />}
-            href="mailto:ovolclock@gmail.com"
-          >SEND MESSAGE
-          </Button>
         </Box>
       </Box>
     </div>
