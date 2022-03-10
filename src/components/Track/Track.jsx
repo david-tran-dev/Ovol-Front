@@ -17,10 +17,13 @@ import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
+import Weather from '../Weather/Weather';
+import { requestLiftOff } from '../../requests/liftOff';
 
 function Track({ className, ...rest }) {
   const [hiking, setHiking] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [liftOff, setLiftOff] = useState({});
   const [steps, setSteps] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -38,9 +41,19 @@ function Track({ className, ...rest }) {
         navigate('/error');
       }
     }
+
     if (Object.keys(hiking).length > 0) {
       if (hiking.key_stage !== null) {
         setSteps(hiking.key_stage.split('\n'));
+      }
+      const response = await requestLiftOff(hiking.liftOff_id);
+      console.log(response);
+      if (response.status === 200) {
+        setLiftOff(response.data[0]);
+      }
+      else {
+        console.log(response);
+        navigate('/error');
       }
       setLoading(false);
     }
@@ -119,6 +132,8 @@ function Track({ className, ...rest }) {
             <CarouselPhotos photos={hiking.photo_hiking} />
 
             <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
+
+            <Weather lat={liftOff.latitude} lon={liftOff.longitude} />
 
             <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
               <ThemeProvider theme={customTheme}>
