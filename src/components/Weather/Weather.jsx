@@ -86,7 +86,7 @@ function Weather({
               </Box>
             </CardContent>
             <CardContent>
-              <Box display="flex" flexDirection="row">
+              <Box display="flex" flexDirection="row" mb="16px">
                 <Box p={1}>
                   <Typography className="weather-infos" variant="h6" color="textPrimary">
                     Humidité: {main.humidity} %
@@ -104,6 +104,7 @@ function Weather({
                 </Box>
               </Box>
             </CardContent>
+            <Typography><a className="weather-image-contributor" href="https://fr.freepik.com/vecteurs/fond" target="_blank" rel="noreferrer">Fond vecteur créé par <span className="weather-image-contributor-link">vectorpocket - fr.freepik.com</span></a></Typography>
           </Card>
         )}
     </>
