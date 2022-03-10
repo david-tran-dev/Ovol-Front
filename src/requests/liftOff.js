@@ -23,17 +23,6 @@ export async function requestLiftOff(id) {
   }
 }
 
-// export async function requestLiftOffPost(data, idLand) {
-//   try {
-//     const response = await apiAxios.post('/liftoff', data, { idLandinds: idLand });
-//     return response;
-//   }
-//   catch (err) {
-//     console.log(err);
-//     return err.response;
-//   }
-// }
-
 export async function requestLiftOffPost(data, img, url) {
   try {
     let photo_liftOff = '';
