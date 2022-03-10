@@ -10,21 +10,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   Container, Box, CardMedia,
 } from '@mui/material';
-import { requestLiftOff } from '../../requests/map';
+import { requestLiftOff } from '../../requests/liftOff';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
+import Compass from '../Compass/Compass';
 
 function LiftOff({ className, ...rest }) {
   const { id } = useParams();
-  const [liftOff, setLiftOff] = useState();
+  const [liftOff, setLiftOff] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
   useEffect(async () => {
-    console.log('useeffect');
     setLoading(true);
     if (!liftOff) {
       const response = await requestLiftOff(id);
-      console.log('response:', response);
+      console.log('LiftOff: ', response.data[0]);
       if (response.status === 200) {
         setLiftOff(response.data[0]);
       }
@@ -32,16 +33,13 @@ function LiftOff({ className, ...rest }) {
         navigate('/error');
       }
     }
+
     setLoading(false);
   }, [liftOff]);
-
-  console.log('liftOff', liftOff);
-  console.log('render');
   return (
     <>
 
       {!loading
-
         ? (
           <div
             className={`liftOff ${className}`}
@@ -86,9 +84,13 @@ function LiftOff({ className, ...rest }) {
                 <p className="liftOff-danger">Danger: </p>
                 <p className="liftOff-danger__content">{liftOff.danger}</p>
               </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Compass favorableWind={liftOff.favorableWind} unfavorableWind={liftOff.unfavorableWind} balise={liftOff.balise} />
+              </Box>
 
             </Container>
           </div>
+
         )
         : <Loading />}
     </>
@@ -97,22 +99,8 @@ function LiftOff({ className, ...rest }) {
 
 LiftOff.propTypes = {
   className: PropTypes.string,
-  // liftOffList: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     name: PropTypes.string.isRequired,
-  //     description: PropTypes.string.isRequired,
-  // type-of-terrain: PropTypes.string.isRequired,
-  // danger: PropTypes.string,
-  // fflv-link: PropTypes.string.isRequired,
-  // latitude:  PropTypes.number.isRequired,
-  // longitude: PropTypes.number.isRequired,
-  // altitude: PropTypes.number.isRequired,
-  // favorable-wind: PropTypes.string.isRequired,
-  // unfavorable-wind: PropTypes.string.isRequired,
-  //   }),
-  // ).isRequired,
-
 };
+
 LiftOff.defaultProps = {
   className: '',
 };

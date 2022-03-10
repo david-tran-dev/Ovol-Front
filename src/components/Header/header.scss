@@ -2,6 +2,7 @@
 
 .header {
     padding: 0 1rem;
+    color: vars.$color1;
 }
 .header-top {
     position: relative;
@@ -10,9 +11,9 @@
 
 
     &__title {
-        margin: 0.5em;
         font-size: 2em;
         font-family: vars.$font2;
+        font-weight: bold;
         position: relative;
     }
 
@@ -38,14 +39,15 @@
     }
     &__message {
         font-size: 1.2em;
-        position: absolute;
         bottom: -10px;
         margin: 1rem 0;
     }
 
 
 }
-
+.header-logo {
+    width: 140px;
+}
 .header-nav {
     display: flex;
     flex-direction: row;

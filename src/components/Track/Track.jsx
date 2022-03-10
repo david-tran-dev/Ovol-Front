@@ -12,14 +12,18 @@ import {
 } from '@mui/material';
 import DOMPurify from 'dompurify';
 import { ThemeProvider } from '@emotion/react';
+import Flag from '../Flag/Flag';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
+import Weather from '../Weather/Weather';
+import { requestLiftOff } from '../../requests/liftOff';
 
 function Track({ className, ...rest }) {
   const [hiking, setHiking] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [liftOff, setLiftOff] = useState({});
   const [steps, setSteps] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -30,37 +34,38 @@ function Track({ className, ...rest }) {
     setLoading(true);
     if (Object.keys(hiking).length === 0) {
       const response = await requestHiking(id);
-      console.log(response);
       if (response.status === 200) {
         setHiking(response.data[0]);
+      }
+      else {
+        navigate('/error');
+      }
+    }
+
+    if (Object.keys(hiking).length > 0) {
+      if (hiking.key_stage !== null) {
+        setSteps(hiking.key_stage.split('\n'));
+      }
+      const response = await requestLiftOff(hiking.liftOff_id);
+      console.log(response);
+      if (response.status === 200) {
+        setLiftOff(response.data[0]);
       }
       else {
         console.log(response);
         navigate('/error');
       }
-    }
-    if (Object.keys(hiking).length > 0) {
-      if (hiking.key_stage !== null) {
-        setSteps(hiking.key_stage.split('\n'));
-      }
       setLoading(false);
     }
   }, [hiking]);
-
-  console.log('hiking:', hiking);
-
-  console.log('render');
-
   return (
     <>
-
       {!loading ? (
         <div
           className={`track ${className}`}
           {...rest}
         >
-
-          <Container className="track-container" sx={{ my: 1 }}>
+          <Container sx={{ my: 1 }}>
             <CardMedia
               className="track-img"
               component="img"
@@ -90,9 +95,6 @@ function Track({ className, ...rest }) {
                 <p className="track-info__key">Carte IGN:
                   <span className="track-info__value"> {hiking.ign_card_reference}</span>
                 </p>
-                <p className="track-info__key">Terrain:
-                  <span className="track-info__value"> {hiking.land_type}</span>
-                </p>
 
               </Box>
               <Box sx={{ width: '50%', mb: 2 }}>
@@ -100,9 +102,14 @@ function Track({ className, ...rest }) {
                   display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
                 }}
                 >
-                  <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, mx: 1 }} />
-                  <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
+                  <Flag liftOffId={hiking.liftOff_id} />
+                  <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
+                    <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
+                  </a>
                 </Box>
+                <p className="track-info__key">Terrain:
+                  <span className="track-info__value"> {hiking.land_type}</span>
+                </p>
                 <p className="track-info__key">Massif:
                   <span className="track-info__value"> {hiking.mountain}</span>
                 </p>
@@ -112,13 +119,7 @@ function Track({ className, ...rest }) {
                 <p className="track-info__key">Difficulté:
                   <span className="track-info__value"> {hiking.difficulty}</span>
                 </p>
-                <p className="track-info__key">Point de départ:
-                  <span className="track-info__value">
-                    <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
-                      <Icon class="fa-solid fa-flag-checkered" sx={{ width: 24, height: 24, mx: 1 }} />
-                    </a>
-                  </span>
-                </p>
+
               </Box>
             </Box>
             <p className="track-resume">Résumé</p>
@@ -132,12 +133,14 @@ function Track({ className, ...rest }) {
 
             <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
 
+            <Weather lat={liftOff.latitude} lon={liftOff.longitude} />
+
             <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
               <ThemeProvider theme={customTheme}>
                 <Link className="track-link" to={`/liftoff/${hiking.liftOff_id}`}>
                   <Button className="track-button" variant="contained">Décollage</Button>
                 </Link>
-                <Link className="track-link" to={`/landing/${hiking.idLandings}`}>
+                <Link className="track-link" to={`/landings/${hiking.idLandings}`}>
                   <Button className="track-button" variant="contained">Attérissage</Button>
                 </Link>
               </ThemeProvider>

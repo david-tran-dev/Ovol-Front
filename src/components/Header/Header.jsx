@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import HomeIcon from '../../utils/HomeIcon';
+import logo from '../../assets/logo.png';
 import './header.scss';
 import MenuHeader from '../MenuHeader/MenuHeader';
 
@@ -29,9 +30,11 @@ function Header({
             />
           </NavLink>
         </div>
-        <div className="header-top__title">O'VOL
+        <div className="header-logo-container">
+          <img className="header-logo" src={logo} alt="logo paragliding" />
+          <div className="header-top__title">O'VOL </div>
+          {isLogged && (<p className="header-top__message">Bienvenue, Admin</p>)}
         </div>
-        {isLogged && (<p className="header-top__message">Bienvenue, Admin</p>)}
         <div className="header-top__avatar">
 
           <MenuHeader onActiveNav={onActiveNav} isLogged={isLogged} onLogoutSubmit={onLogoutSubmit} />
