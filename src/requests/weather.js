@@ -7,7 +7,7 @@ const apiWeatherAxios = axios.create({
 
 export async function requestWeather(lat, lon) {
   try {
-    const apiKey = process.env.REACT_APP_API_KEY;
+    const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
     const response = await apiWeatherAxios.get(
       apiWeatherAxios.baseURL,
       {
