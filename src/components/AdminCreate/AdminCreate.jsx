@@ -17,7 +17,7 @@ import TextField from '@mui/material/TextField';
 import UploadImg from '../UploadImg/UploadImg';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
-import { requestLiftOff } from '../../requests/liftOff';
+import { requestLiftOff, requestLiftOffPost } from '../../requests/liftOff';
 import { requestLandings, requestLandingPost } from '../../requests/landings';
 
 import Loading from '../Loading/Loading';
@@ -111,6 +111,23 @@ function AdminCreate({ className, ...rest }) {
         }
         else {
           console.log(responseLand);
+          navigate('/error');
+        }
+      })
+      .then(async () => {
+        console.log('valuesLiftOff:', valuesLiftOff);
+        const responseLiftOff = await requestLiftOffPost(valuesLiftOff, valuesImgLift, valuesUrlLift);
+        console.log('responseLiftOff:', responseLiftOff);
+        if (responseLiftOff.status === 200) {
+          const cloneValuesLiftOff = { ...valuesLiftOff };
+          const landingsId = [];
+          landingsId.push(responseLiftOff.data[0].id);
+          cloneValuesLiftOff.idLandings = landingsId;
+          setValuesLiftOff(cloneValuesLiftOff);
+          console.log('clonevaluesLift', cloneValuesLiftOff);
+        }
+        else {
+          console.log(responseLiftOff);
           navigate('/error');
         }
       });

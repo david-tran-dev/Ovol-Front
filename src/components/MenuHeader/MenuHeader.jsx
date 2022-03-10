@@ -83,7 +83,7 @@ function MenuHeader({
               <NavLink
                 to="/adminCreate"
               >
-                <MenuItem sx={{ color: 'red' }}>AdminCreate</MenuItem>
+                <MenuItem sx={{ color: 'red' }} onClick={handleClose}>AdminCreate</MenuItem>
               </NavLink>
               <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
             </>

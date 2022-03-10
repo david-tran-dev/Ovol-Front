@@ -51,7 +51,7 @@ function App() {
     }
     const searchList = tracksList.filter((track) => track.name.toLowerCase().includes(value.toLowerCase()));
     setFilterTrackList(searchList);
-    if (location.pathname !== '/trackList') {
+    if (location.pathname !== '/tracklist') {
       setIsFiltersActive(false);
     }
     navigate('/trackslist');
@@ -178,7 +178,7 @@ function App() {
         <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/adminCreate" element={<AdminCreate onActiveNav={handleIsOpenNavBar} />} />
         <Route
-          path="/tracksList"
+          path="/trackslist"
           element={(
             <TracksList
               trackFilterList={filterTrackList}

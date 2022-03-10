@@ -165,7 +165,7 @@ function Compass({ favorableWind, unfavorableWind, balise }) {
   }, [isLoading]);
 
   return (
-    <div className="App">
+    <div>
       <div className="graph__container">
         <Graph data={data} isLoading={isLoading} />
       </div>

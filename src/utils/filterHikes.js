@@ -39,7 +39,12 @@ export function getTrackDistancetMax(list) {
 
 export function getTrackDurationMax(list) {
   const durationArray = list.map((track) => track.duration);
-  const durationMaxString = Math.max(...durationArray).toFixed(2);
-  const durationMax = Number(durationMaxString);
+  const durationMax = Math.max(...durationArray);
   return durationMax;
+}
+
+export function convertNumber(number) {
+  const numberString = number.toFixed(2);
+  const numberConverted = Number(numberString);
+  return numberConverted;
 }
