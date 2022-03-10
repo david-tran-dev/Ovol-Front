@@ -9,6 +9,9 @@ import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import SendIcon from '@mui/icons-material/Send';
+import FaceIcon from '@mui/icons-material/Face';
+import { ThemeProvider } from '@mui/material';
+import customTheme from '../../themes/customTheme';
 import itemData from '../../assets/img/itemDataContact/itemDataContact';
 import './contact.scss';
 
@@ -19,7 +22,7 @@ function MiddleDividers() {
         <Box sx={{ my: 3, mx: 2 }}>
           <Grid container alignItems="center">
             <Grid item xs>
-              <ImageList sx={{ width: 330, height: 450 }} cols={2} rowHeight={164}>
+              <ImageList sx={{ width: '100%', height: '100%' }} cols={2} rowHeight={164}>
                 {itemData.map((item) => (
                   <ImageListItem key={item.img}>
                     <img
@@ -43,21 +46,23 @@ function MiddleDividers() {
         </Box>
         <Divider variant="middle" />
         <Box sx={{ m: 2 }}>
-          <Stack direction="row" spacing={1}>
-            <Chip label="David" />
-            <Chip label="Antoine" />
-            <Chip label="Olivier" />
-            <Chip label="Adrien" />
-            <Chip label="Fred" />
+          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Chip className="header-contact__chip" icon={<FaceIcon />} label="David" />
+            <Chip className="header-contact__chip" icon={<FaceIcon />} label="Antoine" />
+            <Chip className="header-contact__chip" icon={<FaceIcon />} label="Olivier" />
+            <Chip className="header-contact__chip" icon={<FaceIcon />} label="Adrien" />
+            <Chip className="header-contact__chip" icon={<FaceIcon />} label="Fred" />
           </Stack>
         </Box>
-        <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-          <Button
-            endIcon={<SendIcon />}
-            href="mailto:ovolclock@gmail.com"
-          >SEND MESSAGE
-          </Button>
-        </Box>
+        <ThemeProvider theme={customTheme}>
+          <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
+            <Button
+              endIcon={<SendIcon />}
+              href="mailto:ovolclock@gmail.com"
+            >SEND MESSAGE
+            </Button>
+          </Box>
+        </ThemeProvider>
       </Box>
     </div>
   );

@@ -69,109 +69,108 @@ function Filters({
   };
   console.log(distanceMax);
   return (
-    <Paper
-      className="filters className"
-      {...rest}
-      sx={{ display: 'flex', flexDirection: 'column', my: 2 }}
-    >
-      <Container sx={{ display: 'flex' }}>
-        <Box sx={{
-          m: 2, width: '50%', display: 'flex', flexDirection: 'column',
-        }}
-        >
-          <Typography>Distance</Typography>
-          <PrettoSlider
-            valueLabelDisplay="auto"
-            aria-label="Distance"
-            defaultValue={distanceMax}
-            size="small"
-            value={distance}
-            min={0}
-            max={distanceMax}
-            onChange={(e) => handleChange('distance', e.target.value)}
-          />
-          <Typography>Dénivelé</Typography>
-          <PrettoSlider
-            valueLabelDisplay="auto"
-            aria-label="Dénivelé"
-            defaultValue={heightMax}
-            size="small"
-            value={height}
-            min={0}
-            max={heightMax}
-            onChange={(e) => handleChange('height', e.target.value)}
-          />
-          <Typography>Temps estimé</Typography>
-          <PrettoSlider
-            valueLabelDisplay="auto"
-            aria-label="Durée"
-            defaultValue={durationMax}
-            size="small"
-            value={duration}
-            min={0}
-            max={durationMax}
-            onChange={(e) => handleChange('duration', e.target.value)}
-          />
-        </Box>
-        <Box sx={{
-          m: 2, width: '50%', display: 'flex', flexDirection: 'column',
-        }}
-        >
-          <FormControl fullWidth size="small" className="filter-select">
-            <InputLabel id="massif">Massif</InputLabel>
-            <Select
-              labelId="massif"
-              id="massif-select"
-              value={massif}
-              label="Massif"
-              onChange={(e) => handleChange('massif', e.target.value)}
-            >
-              {massifList.map((massif, index) => <MenuItem key={index + massif} value={massif}>{massif}</MenuItem>)}
+    <ThemeProvider theme={customTheme}>
+      <Paper
+        className="filters className"
+        {...rest}
+        sx={{ display: 'flex', flexDirection: 'column', my: 2 }}
+      >
+        <Container sx={{ display: 'flex' }}>
+          <Box sx={{
+            m: 2, width: '50%', display: 'flex', flexDirection: 'column',
+          }}
+          >
+            <Typography>Distance</Typography>
+            <PrettoSlider
+              valueLabelDisplay="auto"
+              aria-label="Distance"
+              defaultValue={distanceMax}
+              size="small"
+              value={distance}
+              min={0}
+              max={distanceMax}
+              onChange={(e) => handleChange('distance', e.target.value)}
+            />
+            <Typography>Dénivelé</Typography>
+            <PrettoSlider
+              valueLabelDisplay="auto"
+              aria-label="Dénivelé"
+              defaultValue={heightMax}
+              size="small"
+              value={height}
+              min={0}
+              max={heightMax}
+              onChange={(e) => handleChange('height', e.target.value)}
+            />
+            <Typography>Temps estimé</Typography>
+            <PrettoSlider
+              valueLabelDisplay="auto"
+              aria-label="Durée"
+              defaultValue={durationMax}
+              size="small"
+              value={duration}
+              min={0}
+              max={durationMax}
+              onChange={(e) => handleChange('duration', e.target.value)}
+            />
+          </Box>
+          <Box sx={{
+            m: 2, width: '50%', display: 'flex', flexDirection: 'column',
+          }}
+          >
+            <FormControl fullWidth size="small" className="filter-select">
+              <InputLabel id="massif">Massif</InputLabel>
+              <Select
+                labelId="massif"
+                id="massif-select"
+                value={massif}
+                label="Massif"
+                onChange={(e) => handleChange('massif', e.target.value)}
+              >
+                {massifList.map((massif, index) => <MenuItem key={index + massif} value={massif}>{massif}</MenuItem>)}
 
-            </Select>
-          </FormControl>
-          <FormControl fullWidth size="small" className="filter-select">
-            <InputLabel id="orientation">Orientation</InputLabel>
-            <Select
-              labelId="orientation"
-              id="orientation-select"
-              value={orientation}
-              label="Orientation"
-              onChange={(e) => handleChange('orientation', e.target.value)}
-            >
-              <MenuItem value="N">N</MenuItem>
-              <MenuItem value="E">E</MenuItem>
-              <MenuItem value="S">S</MenuItem>
-              <MenuItem value="O">O</MenuItem>
-              <MenuItem value="NE">NE</MenuItem>
-              <MenuItem value="SE">SE</MenuItem>
-              <MenuItem value="SO">SO</MenuItem>
-              <MenuItem value="NO">NO</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth size="small" className="filter-select">
+              <InputLabel id="orientation">Orientation</InputLabel>
+              <Select
+                labelId="orientation"
+                id="orientation-select"
+                value={orientation}
+                label="Orientation"
+                onChange={(e) => handleChange('orientation', e.target.value)}
+              >
+                <MenuItem value="N">N</MenuItem>
+                <MenuItem value="E">E</MenuItem>
+                <MenuItem value="S">S</MenuItem>
+                <MenuItem value="O">O</MenuItem>
+                <MenuItem value="NE">NE</MenuItem>
+                <MenuItem value="SE">SE</MenuItem>
+                <MenuItem value="SO">SO</MenuItem>
+                <MenuItem value="NO">NO</MenuItem>
 
-            </Select>
-          </FormControl>
-          <FormControl fullWidth size="small" className="filter-select">
-            <InputLabel id="difficulty">Difficulté</InputLabel>
-            <Select
-              labelId="difficulty"
-              id="difficulty-select"
-              value={difficulty}
-              label="difficulty"
-              onChange={(e) => handleChange('difficulty', e.target.value)}
-            >
-              {difficultyList.map((difficulty, index) => <MenuItem key={index + difficulty} value={difficulty}>{difficulty}</MenuItem>)}
-            </Select>
-          </FormControl>
-        </Box>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth size="small" className="filter-select">
+              <InputLabel id="difficulty">Difficulté</InputLabel>
+              <Select
+                labelId="difficulty"
+                id="difficulty-select"
+                value={difficulty}
+                label="difficulty"
+                onChange={(e) => handleChange('difficulty', e.target.value)}
+              >
+                {difficultyList.map((difficulty, index) => <MenuItem key={index + difficulty} value={difficulty}>{difficulty}</MenuItem>)}
+              </Select>
+            </FormControl>
+          </Box>
 
-      </Container>
-      <Container>
-        <ThemeProvider theme={customTheme}>
+        </Container>
+        <Container>
           <Button variant="contained" sx={{ mb: 2, mx: 'auto' }} onClick={handleResetFilter}>Réinitialiser</Button>
-        </ThemeProvider>
-
-      </Container>
-    </Paper>
+        </Container>
+      </Paper>
+    </ThemeProvider>
   );
 }
 
