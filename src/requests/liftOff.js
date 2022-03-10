@@ -23,9 +23,35 @@ export async function requestLiftOff(id) {
   }
 }
 
-export async function requestLiftOffPost(data, idLand) {
+// export async function requestLiftOffPost(data, idLand) {
+//   try {
+//     const response = await apiAxios.post('/liftoff', data, { idLandinds: idLand });
+//     return response;
+//   }
+//   catch (err) {
+//     console.log(err);
+//     return err.response;
+//   }
+// }
+
+export async function requestLiftOffPost(data, img, url) {
   try {
-    const response = await apiAxios.post('/liftoff', data, { idLandinds: idLand });
+    let photo_liftOff = '';
+
+    const lenghtPhoto = img.length;
+    img.forEach((photo, index) => {
+      if (index !== lenghtPhoto - 1) {
+        photo_liftOff += `'name': '${img[index]}', 'url': '${url[index]}', `;
+      }
+      if (index === lenghtPhoto - 1) {
+        photo_liftOff += `'name': '${img[index]}', 'url': '${url[index]}'`;
+      }
+    });
+    data.photo_liftOff = photo_liftOff;
+    // console.log('LA STRING PHOTO:', photo_landing);
+    // data.photo_landing = `'name': '${img}', 'url': '${url}'`; // Pour 1 photo
+    console.log('data', data);
+    const response = await apiAxios.post('/liftoff', data);
     return response;
   }
   catch (err) {

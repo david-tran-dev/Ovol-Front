@@ -69,10 +69,10 @@ function UploadImg({
   return (
     <div className="img__uploader">
       <div>
-        <label htmlFor="upload-photo">
+        <label htmlFor={`upload-${name}`}>
           <input
             style={{ display: 'none' }}
-            id="upload-photo"
+            id={`upload-${name}`}
             name="upload-photo"
             type="file"
             onChange={handleChange}

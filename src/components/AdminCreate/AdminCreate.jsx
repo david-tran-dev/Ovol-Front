@@ -16,8 +16,8 @@ import TextField from '@mui/material/TextField';
 // import { height } from '@mui/system';
 import UploadImg from '../UploadImg/UploadImg';
 import customTheme from '../../themes/customTheme';
-import { requestHiking } from '../../requests/hiking';
-import { requestLiftOff } from '../../requests/liftOff';
+import { requestHiking, requestHikingPost } from '../../requests/hiking';
+import { requestLiftOff, requestLiftOffPost } from '../../requests/liftOff';
 import { requestLandings, requestLandingPost } from '../../requests/landings';
 
 import Loading from '../Loading/Loading';
@@ -93,12 +93,30 @@ function AdminCreate({ className, ...rest }) {
     }
   }, [hiking]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     // console.log('valueLiftOf:', valuesLiftOff);
+    console.log('value du submit: ', valuesLanding, valuesImgLanding, valuesUrlLanding);
 
-    const responseLand = await requestLandingPost(valuesLanding, valuesImgLanding, valuesUrlLanding);
-    console.log('response retour fetch responseLand:', responseLand.data[0].id);
+    requestLandingPost(valuesLanding, valuesImgLanding, valuesUrlLanding)
+      .then((responseLand) => {
+        console.log('resultLand:', responseLand);
+        if (responseLand.status === 200) {
+          const cloneValuesLiftOff = { ...valuesLiftOff };
+          const landingsId = [];
+          landingsId.push(responseLand.data[0].id);
+          cloneValuesLiftOff.idLandings = landingsId;
+          setValuesLiftOff(cloneValuesLiftOff);
+          console.log('clonevaluesLift', cloneValuesLiftOff);
+        }
+        else {
+          console.log(responseLand);
+          navigate('/error');
+        }
+      });
+    // const liftPromise = await requestLiftOffPost(valuesLiftOff, valuesImgLift, valuesUrlLift);
+    // const hikingPromise = await requestHikingPost(valuesHiking, valuesImgHiking, valuesUrlHiking);
+    // console.log('response retour fetch responseLand:', responseLand.data[0].id);
     // console.log({ valuesLanding, valuesImg, valuesUrl });
     // const idLand = responseLand.data.id;
     // if (responseLand) {
