@@ -1,10 +1,11 @@
 /* eslint-disable no-mixed-operators */
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Graph from './Graph';
+import convertWindDirection from '../../utils/convertWindDirection';
 
 function Compass({ favorableWind, unfavorableWind, balise }) {
+  console.log('balise', balise);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [windDirection, setWindDirection] = useState('');
@@ -153,35 +154,8 @@ function Compass({ favorableWind, unfavorableWind, balise }) {
     });
   }
   async function getBaliseInfos() {
-    const result = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${balise}}`);
-    const windInstant = result.data.directVentMoy;
-    if (windInstant === undefined) {
-      setWindDirection('undefined');
-    }
-    if (windInstant > 0 && windInstant < 22.5 || windInstant >= 337.5) {
-      setWindDirection('N');
-    }
-    if (windInstant >= 22.5 && windInstant < 67.5) {
-      setWindDirection('NE');
-    }
-    if (windInstant >= 67.5 && windInstant < 112.5) {
-      setWindDirection('E');
-    }
-    if (windInstant >= 112.5 && windInstant < 157.5) {
-      setWindDirection('SE');
-    }
-    if (windInstant >= 157.5 && windInstant < 202.5) {
-      setWindDirection('S');
-    }
-    if (windInstant >= 202.5 && windInstant < 247.5) {
-      setWindDirection('SO');
-    }
-    if (windInstant >= 247.5 && windInstant < 292.5) {
-      setWindDirection('O');
-    }
-    if (windInstant >= 292.5 && windInstant < 337.5) {
-      setWindDirection('NO');
-    }
+    const direction = await convertWindDirection(balise);
+    setWindDirection(direction);
     setIsLoading(true);
   }
   useEffect(() => {

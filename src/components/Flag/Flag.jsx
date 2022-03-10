@@ -3,6 +3,7 @@ import { Icon } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { requestLiftOff } from '../../requests/liftOff';
+import convertWindDirection from '../../utils/convertWindDirection';
 import './flag.scss';
 
 export default function Flag({ liftOffId }) {
@@ -11,11 +12,7 @@ export default function Flag({ liftOffId }) {
   async function setConditions() {
     const liftOff = await requestLiftOff(liftOffId);
     const balise = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${liftOff.data[0].balise}`);
-    // console.log('liftOff flag', liftOff.data[0]);
-    // console.log('balise infos', balise.data.vitesseVentMoy);
-    // const liftOffInfos = liftOff.data[0];
     const baliseInfos = balise.data;
-    // TODO : declarer les conditions pour la couleur du drapeau
     if (Number(baliseInfos.vitesseVentMoy) < 20) {
       setColorFlag('green');
     }
@@ -24,6 +21,20 @@ export default function Flag({ liftOffId }) {
     }
     else {
       setColorFlag('red');
+    }
+    const windDirection = await convertWindDirection(liftOff.data[0].balise);
+    if (windDirection && colorFlag !== 'red') {
+      setColorFlag('orange');
+    }
+    if (liftOff.data[0].favorableWind) {
+      if (liftOff.data[0].favorableWind.find((el) => el === windDirection) && colorFlag !== 'orange' && colorFlag !== 'red') {
+        setColorFlag('green');
+      }
+    }
+    if (liftOff.data[0].unfavorableWind) {
+      if (liftOff.data[0].unfavorableWind.find((el) => el === windDirection)) {
+        setColorFlag('red');
+      }
     }
   }
   useEffect(async () => {

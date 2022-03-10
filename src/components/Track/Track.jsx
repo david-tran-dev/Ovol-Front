@@ -29,8 +29,6 @@ function Track({ className, ...rest }) {
   const navigate = useNavigate();
 
   useEffect(async () => {
-    console.log('useEffect');
-
     setLoading(true);
     if (Object.keys(hiking).length === 0) {
       const response = await requestHiking(id);
