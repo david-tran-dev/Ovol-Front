@@ -42,7 +42,7 @@ function UploadImg({
           <Button variant="contained" component="span">
             Télécharger votre image
           </Button>{' '}
-          <Button variant="contained" type="submit" onClick={uploadImage}>Envoyer</Button>
+          <Button variant="contained" onClick={uploadImage}>Envoyer</Button>
         </label>
       </div>
       <div className="img__container">

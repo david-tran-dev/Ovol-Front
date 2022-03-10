@@ -9,9 +9,11 @@ import {
 import {
   Container, Button,
 } from '@mui/material';
-import ImageListItem from '@mui/material/ImageList';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 import { ThemeProvider } from '@emotion/react';
 import TextField from '@mui/material/TextField';
+// import { height } from '@mui/system';
 import UploadImg from '../UploadImg/UploadImg';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
@@ -131,8 +133,14 @@ function AdminCreate({ className, ...rest }) {
     // console.log('le state', value);
   };
   const handleImg = (imgName) => {
-    console.log('imgselected:', imgName);
-    setValuesImg(imgName);
+    const myArrayImgNameClone = [...valuesImg];
+    // myArrayImg[0] = (imgUrl);
+    myArrayImgNameClone.push(imgName);
+    // setValuesUrl(imgUrl);
+    setValuesImg(myArrayImgNameClone);
+    console.log({ myArrayImgNameClone });
+    // console.log('imgselected:', imgName);
+    // setValuesImg(imgName);
   };
   const handleUrl = (imgUrl) => {
     console.log('imgurl:', imgUrl);
@@ -143,9 +151,6 @@ function AdminCreate({ className, ...rest }) {
     setValuesUrl(myArrayImgUrlClone);
     console.log({ myArrayImgUrlClone });
   };
-  // const handleChangeImg = (value) => {
-  //   setValuesTextField(value);
-  // };
 
   return (
 
@@ -177,20 +182,41 @@ function AdminCreate({ className, ...rest }) {
                       if (item === 'photo_landing') {
                         return (
                           <>
-                            <TextField
+                            {/* <TextField
                               sx={{ p: '2px 4px', width: '100%' }}
                               label={item}
                               placeholder={item}
                               // onChange={(event) => handleUrl(event.target.value)}
                               value={[valuesImg, valuesUrl]}
                               multiline
-                            />
-                            <ImageListItem sx={{ width: '200px', height: '200px' }}>
-                              <img
-                                src={valuesUrl}
-                                alt={valuesImg}
-                              />
-                            </ImageListItem>
+                            /> */}
+                            {/* <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+                              <ImageListItem>
+                                <img
+                                  src={valuesUrl}
+                                  alt={valuesImg}
+                                />
+                              </ImageListItem>
+                            </ImageList> */}
+                            <ImageList
+                              sx={{
+                                width: 500,
+                                height: valuesUrl.length <= 0 ? 40 : 400,
+                              }}
+                              cols={3}
+                              rowHeight={164}
+                            >
+                              {valuesUrl.map((item) => (
+                                <ImageListItem key={item.valuesUrl}>
+                                  <img
+                                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                    alt={item}
+                                    loading="lazy"
+                                  />
+                                </ImageListItem>
+                              ))}
+                            </ImageList>
                           </>
 
                         );
