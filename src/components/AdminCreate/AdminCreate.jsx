@@ -30,8 +30,12 @@ function AdminCreate({ className, ...rest }) {
   const [valuesLiftOff, setValuesLiftOff] = useState({});
   const [valuesLanding, setValuesLanding] = useState({});
   const [valuesHiking, setValuesHiking] = useState({});
-  const [valuesImg, setValuesImg] = useState([]);
-  const [valuesUrl, setValuesUrl] = useState([]);
+  const [valuesImgLanding, setValuesImgLanding] = useState([]);
+  const [valuesUrlLanding, setValuesUrlLanding] = useState([]);
+  const [valuesImgLift, setValuesImgLift] = useState([]);
+  const [valuesUrlLift, setValuesUrlLift] = useState([]);
+  const [valuesImgHiking, setValuesImgHiking] = useState([]);
+  const [valuesUrlHiking, setValuesUrlHiking] = useState([]);
   // const [valuesTextField, setValuesTextField] = useState({});
   const navigate = useNavigate();
 
@@ -93,7 +97,7 @@ function AdminCreate({ className, ...rest }) {
     event.preventDefault();
     // console.log('valueLiftOf:', valuesLiftOff);
 
-    const responseLand = await requestLandingPost(valuesLanding, valuesImg, valuesUrl);
+    const responseLand = await requestLandingPost(valuesLanding, valuesImgLanding, valuesUrlLanding);
     console.log('response retour fetch responseLand:', responseLand.data[0].id);
     // console.log({ valuesLanding, valuesImg, valuesUrl });
     // const idLand = responseLand.data.id;
@@ -132,25 +136,90 @@ function AdminCreate({ className, ...rest }) {
     setValuesHiking(valueClone);
     // console.log('le state', value);
   };
-  const handleImg = (imgName) => {
-    const myArrayImgNameClone = [...valuesImg];
-    // myArrayImg[0] = (imgUrl);
-    myArrayImgNameClone.push(imgName);
-    // setValuesUrl(imgUrl);
-    setValuesImg(myArrayImgNameClone);
-    console.log({ myArrayImgNameClone });
-    // console.log('imgselected:', imgName);
-    // setValuesImg(imgName);
+  const handleImg = (name, imgName) => {
+    console.log(' C EST QUOI LE NAME ', name);
+    if (name === 'landing') {
+      const myArrayImgNameClone = [...valuesImgLanding];
+      // myArrayImg[0] = (imgUrl);
+      myArrayImgNameClone.push(imgName);
+      // setValuesUrl(imgUrl);
+      setValuesImgLanding(myArrayImgNameClone);
+      // console.log({ myArrayImgNameClone });
+      // console.log('imgselected:', imgName);
+      // setValuesImg(imgName);
+    }
+    if (name === 'lift') {
+      const myArrayImgNameClone = [...valuesImgLift];
+      myArrayImgNameClone.push(imgName);
+      setValuesImgLift(myArrayImgNameClone);
+    }
+    if (name === 'hiking') {
+      const myArrayImgNameClone = [...valuesImgHiking];
+      myArrayImgNameClone.push(imgName);
+      setValuesImgHiking(myArrayImgNameClone);
+    }
   };
-  const handleUrl = (imgUrl) => {
-    console.log('imgurl:', imgUrl);
-    const myArrayImgUrlClone = [...valuesUrl];
-    // myArrayImg[0] = (imgUrl);
-    myArrayImgUrlClone.push(imgUrl);
-    // setValuesUrl(imgUrl);
-    setValuesUrl(myArrayImgUrlClone);
-    console.log({ myArrayImgUrlClone });
+  const handleUrl = (name, imgUrl) => {
+    if (name === 'landing') {
+      console.log('imgurl:', imgUrl);
+      const myArrayImgUrlClone = [...valuesUrlLanding];
+      // myArrayImg[0] = (imgUrl);
+      myArrayImgUrlClone.push(imgUrl);
+      // setValuesUrl(imgUrl);
+      setValuesUrlLanding(myArrayImgUrlClone);
+      // console.log({ myArrayImgUrlClone });
+    }
+    if (name === 'lift') {
+      console.log('imgurl:', imgUrl);
+      const myArrayImgUrlClone = [...valuesUrlLift];
+      myArrayImgUrlClone.push(imgUrl);
+      setValuesUrlLift(myArrayImgUrlClone);
+    }
+    if (name === 'hiking') {
+      console.log('imgurl:', imgUrl);
+      const myArrayImgUrlClone = [...valuesUrlHiking];
+      myArrayImgUrlClone.push(imgUrl);
+      setValuesUrlHiking(myArrayImgUrlClone);
+    }
   };
+  // const handleImgLift = (imgName) => {
+  //   const myArrayImgNameClone = [...valuesImgLift];
+  //   // myArrayImg[0] = (imgUrl);
+  //   myArrayImgNameClone.push(imgName);
+  //   // setValuesUrl(imgUrl);
+  //   setValuesImgLift(myArrayImgNameClone);
+  //   // console.log({ myArrayImgNameClone });
+  //   // console.log('imgselected:', imgName);
+  //   // setValuesImg(imgName);
+  // };
+  // const handleUrlLift = (imgUrl) => {
+  //   console.log('imgurl:', imgUrl);
+  //   const myArrayImgUrlClone = [...valuesUrlLift];
+  //   // myArrayImg[0] = (imgUrl);
+  //   myArrayImgUrlClone.push(imgUrl);
+  //   // setValuesUrl(imgUrl);
+  //   setValuesUrlLift(myArrayImgUrlClone);
+  //   // console.log({ myArrayImgUrlClone });
+  // };
+  // const handleImgHick = (imgName) => {
+  //   const myArrayImgNameClone = [...valuesImgHick];
+  //   // myArrayImg[0] = (imgUrl);
+  //   myArrayImgNameClone.push(imgName);
+  //   // setValuesUrl(imgUrl);
+  //   setValuesImgHick(myArrayImgNameClone);
+  //   // console.log({ myArrayImgNameClone });
+  //   // console.log('imgselected:', imgName);
+  //   // setValuesImg(imgName);
+  // };
+  // const handleUrlHick = (imgUrl) => {
+  //   console.log('imgurl:', imgUrl);
+  //   const myArrayImgUrlClone = [...valuesUrlHick];
+  //   // myArrayImg[0] = (imgUrl);
+  //   myArrayImgUrlClone.push(imgUrl);
+  //   // setValuesUrl(imgUrl);
+  //   setValuesUrlHick(myArrayImgUrlClone);
+  //   console.log({ myArrayImgUrlClone });
+  // };
 
   return (
 
@@ -167,10 +236,11 @@ function AdminCreate({ className, ...rest }) {
                 <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
                   ADMIN ATTERRISSAGE ITEMS:
                   {
-                    Object.keys(landing).map(((item) => {
+                    Object.keys(landing).map(((item, index) => {
                       if (item !== 'id' && item !== 'photo_landing') {
                         return (
                           <TextField
+                            key={index + item}
                             sx={{ p: '2px 4px', width: '100%' }}
                             label={item}
                             placeholder={item}
@@ -182,31 +252,62 @@ function AdminCreate({ className, ...rest }) {
                       if (item === 'photo_landing') {
                         return (
                           <>
-                            {/* <TextField
-                              sx={{ p: '2px 4px', width: '100%' }}
-                              label={item}
-                              placeholder={item}
-                              // onChange={(event) => handleUrl(event.target.value)}
-                              value={[valuesImg, valuesUrl]}
-                              multiline
-                            /> */}
-                            {/* <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                              <ImageListItem>
-                                <img
-                                  src={valuesUrl}
-                                  alt={valuesImg}
-                                />
-                              </ImageListItem>
-                            </ImageList> */}
                             <ImageList
+                              key={index + item + index}
                               sx={{
                                 width: 500,
-                                height: valuesUrl.length <= 0 ? 40 : 400,
+                                height: valuesUrlLanding.length <= 0 ? 40 : 400,
                               }}
                               cols={3}
                               rowHeight={164}
                             >
-                              {valuesUrl.map((item) => (
+                              {valuesUrlLanding.map((item, index) => (
+                                <ImageListItem key={index + item + index + index}>
+                                  <img
+                                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                    alt={item}
+                                    loading="lazy"
+                                  />
+                                </ImageListItem>
+                              ))}
+                            </ImageList>
+                          </>
+
+                        );
+                      }
+                      return null;
+                    }))
+                  }
+                  <UploadImg key="landing" onImgSelect={handleImg} onUrlSelect={handleUrl} name="landing" />
+                </Container>
+                <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
+                  ADMIN DECOLLAGE ITEMS:
+                  {
+                    Object.keys(liftOff).map(((item) => {
+                      if (item !== 'id' && item !== 'idLandings' && item !== 'photo_liftOff') {
+                        return (
+                          <TextField
+                            sx={{ p: '2px 4px', width: '100%' }}
+                            label={item}
+                            placeholder={item}
+                            name={item}
+                            onChange={(event) => handleChangeLiftOff(item, event.target.value)}
+                          />
+                        );
+                      }
+                      if (item === 'photo_liftOff') {
+                        return (
+                          <>
+                            <ImageList
+                              sx={{
+                                width: 500,
+                                height: valuesUrlLift.length <= 0 ? 40 : 400,
+                              }}
+                              cols={3}
+                              rowHeight={164}
+                            >
+                              {valuesUrlLift.map((item) => (
                                 <ImageListItem key={item.valuesUrl}>
                                   <img
                                     src={`${item}?w=164&h=164&fit=crop&auto=format`}
@@ -224,34 +325,14 @@ function AdminCreate({ className, ...rest }) {
                       return null;
                     }))
                   }
-                  <UploadImg imgSelect={handleImg} urlSelect={handleUrl} />
-                </Container>
-                <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
-                  ADMIN DECOLLAGE ITEMS:
-                  {
-                    Object.keys(liftOff).map(((item) => {
-                      if (item !== 'id' && item !== 'idLandings') {
-                        return (
-                          <TextField
-                            sx={{ p: '2px 4px', width: '100%' }}
-                            label={item}
-                            placeholder={item}
-                            name={item}
-                            onChange={(event) => handleChangeLiftOff(item, event.target.value)}
-                          />
-                        );
-                      }
-                      return null;
-                    }))
-                  }
-                  <UploadImg />
+                  <UploadImg key="lift" onImgSelect={handleImg} onUrlSelect={handleUrl} name="lift" />
                 </Container>
 
                 <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
                   ADMIN RANDO ITEMS:
                   {
                     Object.keys(hiking).map(((item) => {
-                      if (item !== 'user_id' && item !== 'id' && item !== 'idLandings' && item !== 'liftOff_id') {
+                      if (item !== 'user_id' && item !== 'id' && item !== 'idLandings' && item !== 'liftOff_id' && item !== 'photo_hiking') {
                         return (
                           <TextField
                             sx={{ p: '2px 4px', width: '100%' }}
@@ -263,10 +344,36 @@ function AdminCreate({ className, ...rest }) {
                           />
                         );
                       }
+                      if (item === 'photo_hiking') {
+                        return (
+                          <>
+                            <ImageList
+                              sx={{
+                                width: 500,
+                                height: valuesUrlHiking.length <= 0 ? 40 : 400,
+                              }}
+                              cols={3}
+                              rowHeight={164}
+                            >
+                              {valuesUrlHiking.map((item) => (
+                                <ImageListItem key={item.valuesUrl}>
+                                  <img
+                                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                    alt={item}
+                                    loading="lazy"
+                                  />
+                                </ImageListItem>
+                              ))}
+                            </ImageList>
+                          </>
+
+                        );
+                      }
                       return null;
                     }))
                 }
-                  <UploadImg />
+                  <UploadImg key="hiking" onImgSelect={handleImg} onUrlSelect={handleUrl} name="hiking" />
                 </Container>
                 <Button variant="contained" type="submit">Submit</Button>
               </ThemeProvider>
