@@ -13,6 +13,7 @@ import {
 import { requestLiftOff } from '../../requests/liftOff';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
+import Compass from '../Compass/Compass';
 
 function LiftOff({ className, ...rest }) {
   const { id } = useParams();
@@ -21,11 +22,10 @@ function LiftOff({ className, ...rest }) {
   const navigate = useNavigate();
 
   useEffect(async () => {
-    console.log('useeffect');
     setLoading(true);
     if (!liftOff) {
       const response = await requestLiftOff(id);
-      console.log('response: ', response);
+      console.log('LiftOff: ', response.data[0]);
       if (response.status === 200) {
         setLiftOff(response.data[0]);
       }
@@ -36,9 +36,6 @@ function LiftOff({ className, ...rest }) {
 
     setLoading(false);
   }, [liftOff]);
-
-  console.log('liftOff', liftOff);
-  console.log('render');
   return (
     <>
 
@@ -86,6 +83,9 @@ function LiftOff({ className, ...rest }) {
                 <p className="liftOff-description__content">{liftOff.description}</p>
                 <p className="liftOff-danger">Danger: </p>
                 <p className="liftOff-danger__content">{liftOff.danger}</p>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Compass favorableWind={liftOff.favorableWind} unfavorableWind={liftOff.unfavorableWind} balise={liftOff.balise} />
               </Box>
 
             </Container>

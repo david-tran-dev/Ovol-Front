@@ -12,21 +12,23 @@ import {
 } from '@mui/material';
 import DOMPurify from 'dompurify';
 import { ThemeProvider } from '@emotion/react';
+import Flag from '../Flag/Flag';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
+import Weather from '../Weather/Weather';
+import { requestLiftOff } from '../../requests/liftOff';
 
 function Track({ className, ...rest }) {
   const [hiking, setHiking] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [liftOff, setLiftOff] = useState({});
   const [steps, setSteps] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(async () => {
-    console.log('useEffect');
-
     setLoading(true);
     if (Object.keys(hiking).length === 0) {
       const response = await requestHiking(id);
@@ -35,31 +37,33 @@ function Track({ className, ...rest }) {
         setHiking(response.data[0]);
       }
       else {
-        console.log(response);
         navigate('/error');
       }
     }
+
     if (Object.keys(hiking).length > 0) {
       if (hiking.key_stage !== null) {
         setSteps(hiking.key_stage.split('\n'));
       }
+      const response = await requestLiftOff(hiking.liftOff_id);
+      console.log(response);
+      if (response.status === 200) {
+        setLiftOff(response.data[0]);
+      }
+      else {
+        console.log(response);
+        navigate('/error');
+      }
       setLoading(false);
     }
   }, [hiking]);
-
-  console.log('hiking:', hiking);
-
-  console.log('render');
-
   return (
     <>
-
       {!loading ? (
         <div
           className={`track ${className}`}
           {...rest}
         >
-
           <Container sx={{ my: 1 }}>
             <CardMedia
               className="track-img"
@@ -97,7 +101,7 @@ function Track({ className, ...rest }) {
                   display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
                 }}
                 >
-                  <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, mx: 1 }} />
+                  <Flag liftOffId={hiking.liftOff_id} />
                   <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
                     <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
                   </a>
@@ -127,6 +131,8 @@ function Track({ className, ...rest }) {
             <CarouselPhotos photos={hiking.photo_hiking} />
 
             <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
+
+            <Weather lat={liftOff.latitude} lon={liftOff.longitude} />
 
             <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
               <ThemeProvider theme={customTheme}>

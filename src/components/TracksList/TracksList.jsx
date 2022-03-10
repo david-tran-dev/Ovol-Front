@@ -2,15 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './tracksList.scss';
 import TrackCard from '../TrackCard/TrackCard';
+import Filters from '../Filters/Filters';
 
 function TracksList({
-  className, trackFilterList, liftOffList, ...rest
+  className,
+  trackFilterList,
+  liftOffList,
+  isFiltersActive,
+  tracksList,
+  onFilterChange,
+  onResetFilter,
+  ...rest
 }) {
   return (
     <main
       className={`trackslist ${className}`}
       {...rest}
     >
+      {isFiltersActive
+        ? (
+          <Filters
+            tracksList={tracksList}
+            onFilterChange={onFilterChange}
+            onResetFilter={onResetFilter}
+          />
+        )
+        : null}
       {trackFilterList.map(({
         id,
         difficulty,
@@ -20,6 +37,7 @@ function TracksList({
         overall_length,
         img_card,
         liftOff_id,
+        duration,
       }) => {
         const liftOffFound = liftOffList.find((liftOff) => liftOff.id === liftOff_id);
         console.log('liftOffFound:', liftOffFound);
@@ -34,7 +52,9 @@ function TracksList({
             overall_length={overall_length}
             id={id}
             img_card={img_card}
+            duration={duration}
             favorableWind={liftOffFound && liftOffFound.favorableWind}
+
           />
         );
       })}
@@ -53,11 +73,17 @@ TracksList.propTypes = {
       positive_elevation: PropTypes.number.isRequired,
       overall_length: PropTypes.number.isRequired,
       img_card: PropTypes.string.isRequired,
+      duration: PropTypes.number.isRequired,
     }),
   ).isRequired,
   liftOffList: PropTypes.array.isRequired,
+  isFiltersActive: PropTypes.bool.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  tracksList: PropTypes.array,
+  onResetFilter: PropTypes.func.isRequired,
 };
 TracksList.defaultProps = {
   className: '',
+  tracksList: [],
 };
 export default React.memo(TracksList);

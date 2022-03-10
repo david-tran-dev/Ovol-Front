@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ThemeProvider, Button } from '@mui/material';
 import customTheme from '../../themes/customTheme';
 
 function NavHeader({
   className,
   onFilterList,
+  onFiltersClick,
   ...rest
 }) {
+  const location = useLocation();
   const handleTrackListClick = () => {
     onFilterList('');
   };
@@ -28,11 +30,8 @@ function NavHeader({
         >
           <Button className="header-nav__button" variant="contained" onClick={handleTrackListClick}>Randonnées </Button>
         </NavLink>
-        <NavLink
-          to="/filtres"
-        >
-          <Button className="header-nav__button" variant="contained">Filtres</Button>
-        </NavLink>
+        {location.pathname === '/tracksList'
+        && <Button className="header-nav__button" variant="contained" onClick={() => onFiltersClick()}>Filtres</Button>}
       </ThemeProvider>
     </div>
   );
@@ -41,6 +40,7 @@ function NavHeader({
 NavHeader.propTypes = {
   className: PropTypes.string,
   onFilterList: PropTypes.func.isRequired,
+  onFiltersClick: PropTypes.func.isRequired,
 };
 NavHeader.defaultProps = {
   className: '',

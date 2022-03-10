@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 import React, { useEffect, useState } from 'react';
 import {
   Routes, Route, useLocation, useNavigate,
@@ -16,6 +18,7 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 import Contact from '../Contact/Contact';
 import MentionsLegales from '../MentionsLegales/MentionsLegales';
 import Apropos from '../Apropos/Apropos';
+import Footer from '../Footer/Footer';
 import LiftOff from '../LiftOff/LiftOff';
 import Loading from '../Loading/Loading';
 import Landings from '../Landings/Landings';
@@ -34,8 +37,9 @@ function App() {
   const [isOpenNavBar, setIsOpenNavBar] = useState(true);
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [isLogged, setIsLogged] = useState(false);
+  const [isFiltersActive, setIsFiltersActive] = useState(false);
   const navigate = useNavigate();
-
+  console.log('location:', location);
   // const [isLoading, setIsLoading] = useState(false);
   const handleIsOpenNavBar = (value) => {
     setIsOpenNavBar(value);
@@ -47,6 +51,9 @@ function App() {
     }
     const searchList = tracksList.filter((track) => track.name.toLowerCase().includes(value.toLowerCase()));
     setFilterTrackList(searchList);
+    if (location.pathname !== '/trackList') {
+      setIsFiltersActive(false);
+    }
     navigate('/trackslist');
   };
 
@@ -69,9 +76,12 @@ function App() {
   const handleLogoutSubmit = () => {
     removeBearerToken();
     setIsLogged(false);
-    // setSearchBar(false);
     setIsOpenNavBar(true);
     navigate('/');
+  };
+
+  const handleFiltersClick = () => {
+    setIsFiltersActive((prevState) => !prevState);
   };
 
   useEffect(async () => {
@@ -98,6 +108,39 @@ function App() {
     }
   }, []);
 
+  const multiFilterTrack = (filters) => {
+    console.log('filters:', filters);
+
+    const result = tracksList.filter((track) => {
+      console.log('filter0', filters[0]);
+      console.log('filter2', filters[2]);
+      console.log('trackMoutain', track.mountain);
+      console.log('trackdenivelé', track.positive_elevation);
+      if (filters[0] !== '' && track.mountain !== filters[0]) return false;
+      if (filters[1] !== '' && track.difficulty !== filters[1]) return false;
+      if (filters[2] !== '') {
+        const liftOffFound = liftOffList.find((liftOff) => liftOff.id === track.liftOff_id);
+        console.log('liftOffFound:', liftOffFound);
+        if (!liftOffFound.favorableWind.includes(filters[2])) return false;
+      }
+      if (filters[3] !== '' && track.overall_length > filters[3]) return false;
+      if (filters[4] !== '' && track.positive_elevation > filters[4]) return false;
+      if (filters[5] !== '' && track.duration > filters[5]) return false;
+
+      return true;
+    });
+    console.log('result', result);
+    setFilterTrackList(result);
+  };
+
+  const handleFilterChange = (filters) => {
+    multiFilterTrack(filters);
+  };
+
+  const handleResetFilter = () => {
+    console.log('reinit');
+    setFilterTrackList(tracksList);
+  };
   return (
     <div className="App">
       <Header
@@ -110,7 +153,8 @@ function App() {
         ? (
           <>
             <SearchBar onFilterList={handleFilterTrackList} />
-            <NavHeader onFilterList={handleFilterTrackList} />
+            <NavHeader onFilterList={handleFilterTrackList} onFiltersClick={handleFiltersClick} />
+
           </>
         )
         : ''}
@@ -120,7 +164,7 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
         <Route path="/mentionsLegales" element={<MentionsLegales onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/apropos" element={<Apropos onActiveNav={handleIsOpenNavBar} />} />
-        <Route path="/" element={<Map liftOffList={liftOffList} />} />
+        <Route path="/" element={<Map liftOffList={liftOffList} tracksList={tracksList} />} />
         <Route
           path="/login"
           element={(
@@ -139,6 +183,10 @@ function App() {
             <TracksList
               trackFilterList={filterTrackList}
               liftOffList={liftOffList}
+              isFiltersActive={isFiltersActive}
+              tracksList={tracksList}
+              onFilterChange={handleFilterChange}
+              onResetFilter={handleResetFilter}
             />
           )}
         />
@@ -147,7 +195,7 @@ function App() {
         <Route path="/liftoff/:id" element={<LiftOff />} />
         <Route path="/landings/:id" element={<Landings />} />
       </Routes>
-
+      <Footer />
     </div>
   );
 }

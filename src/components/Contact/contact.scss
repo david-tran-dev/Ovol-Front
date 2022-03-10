@@ -1,4 +1,9 @@
 .header-contact {
     display: flex;
     justify-content: center;
+    height: auto;
+
+    &__chip {
+        margin-bottom: 1em;
+    }
 }

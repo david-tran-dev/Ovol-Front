@@ -9,7 +9,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Icon } from '@mui/material';
+import { convertDurationToTime } from '../../utils/timeConverter';
+import Flag from '../Flag/Flag';
 
 function TrackCard({
   className,
@@ -21,6 +22,7 @@ function TrackCard({
   positive_elevation,
   img_card,
   favorableWind,
+  duration,
 }) {
   return (
     <Link
@@ -46,7 +48,7 @@ function TrackCard({
             <Typography component="h2" variant="body1" fontWeight="bold" textAlign="left">
               {name}
             </Typography>
-            <Icon className="fa-solid fa-flag" sx={{ width: 24, height: 24, textAlign: 'left' }} />
+            <Flag liftOffId={id} />
           </Box>
           <CardContent
             className="trackCard-content"
@@ -75,6 +77,9 @@ function TrackCard({
             <Typography className="trackCard-content__detail">
               Longueur totale : {overall_length}km
             </Typography>
+            <Typography className="trackCard-content__detail">
+              Temps estimé : {convertDurationToTime(duration)}
+            </Typography>
           </CardContent>
         </Box>
       </Card>
@@ -92,11 +97,11 @@ TrackCard.propTypes = {
   overall_length: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   img_card: PropTypes.string.isRequired,
-  favorableWind: PropTypes.array.isRequired,
-
+  favorableWind: PropTypes.array,
+  duration: PropTypes.number.isRequired,
 };
 TrackCard.defaultProps = {
   className: '',
-
+  favorableWind: [],
 };
 export default React.memo(TrackCard);

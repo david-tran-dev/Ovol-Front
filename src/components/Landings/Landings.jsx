@@ -15,7 +15,6 @@ function Landings({ className, ...rest }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('useffect');
     setLoading(true);
     if (landings.length === 0) {
       console.log('dans le if');
