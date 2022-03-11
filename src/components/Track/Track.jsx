@@ -101,7 +101,7 @@ function Track({ className, ...rest }) {
                   display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
                 }}
                 >
-                  <Flag liftOffId={hiking.liftOff_id} />
+                  <Flag liftOff_id={hiking.liftOff_id} />
                   <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
                     <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
                   </a>

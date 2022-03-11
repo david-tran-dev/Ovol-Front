@@ -16,13 +16,15 @@ import TextField from '@mui/material/TextField';
 // import { height } from '@mui/system';
 import UploadImg from '../UploadImg/UploadImg';
 import customTheme from '../../themes/customTheme';
-import { requestHiking } from '../../requests/hiking';
+import { requestHiking, requestHikingPost } from '../../requests/hiking';
 import { requestLiftOff, requestLiftOffPost } from '../../requests/liftOff';
 import { requestLandings, requestLandingPost } from '../../requests/landings';
 
 import Loading from '../Loading/Loading';
 
-function AdminCreate({ className, ...rest }) {
+function AdminCreate({
+  className, onSetTracksList, userId, ...rest
+}) {
   const [liftOff, setLiftOff] = useState({});
   const [landing, setLanding] = useState({});
   const [hiking, setHiking] = useState({});
@@ -100,36 +102,51 @@ function AdminCreate({ className, ...rest }) {
 
     requestLandingPost(valuesLanding, valuesImgLanding, valuesUrlLanding)
       .then((responseLand) => {
-        console.log('resultLand:', responseLand);
+        console.log('premiere requete');
+        console.log('responsetLanding:', responseLand);
         if (responseLand.status === 200) {
           const cloneValuesLiftOff = { ...valuesLiftOff };
           const landingsId = [];
           landingsId.push(responseLand.data[0].id);
           cloneValuesLiftOff.idLandings = landingsId;
-          setValuesLiftOff(cloneValuesLiftOff);
-          console.log('clonevaluesLift', cloneValuesLiftOff);
+          return cloneValuesLiftOff;
+        }
+        console.log(responseLand);
+        navigate('/error');
+        return responseLand;
+      })
+      .then(async (response) => {
+        console.log('2 eme requetes value:', cloneValuesLiftOff);
+        if (response.status !== 200) {
+          navigate('/error');
+        }
+        const responseLiftOff = await requestLiftOffPost(cloneValuesLiftOff, valuesImgLift, valuesUrlLift);
+        console.log('responseLiftOff:', responseLiftOff);
+        if (responseLiftOff.status === 200) {
+          const cloneValuesHiking = { ...valuesHiking };
+          cloneValuesHiking.liftOff_id = responseLiftOff.data[0].id.toString();
+          cloneValuesHiking.user_id = userId;
+          return cloneValuesHiking;
+        }
+        console.log(responseLiftOff);
+        navigate('/error');
+        return responseLiftOff;
+      })
+      .then(async (cloneValuesHiking) => {
+        console.log('3eme requete valuesHiking:', cloneValuesHiking);
+        const responseHiking = await requestHikingPost(cloneValuesHiking, valuesImgHiking, valuesUrlHiking);
+        console.log('responseHiking:', responseHiking);
+        if (responseHiking.status === 200) {
+          onSetTracksList();
         }
         else {
-          console.log(responseLand);
+          console.log(responseHiking);
           navigate('/error');
         }
       })
-      .then(async () => {
-        console.log('valuesLiftOff:', valuesLiftOff);
-        const responseLiftOff = await requestLiftOffPost(valuesLiftOff, valuesImgLift, valuesUrlLift);
-        console.log('responseLiftOff:', responseLiftOff);
-        if (responseLiftOff.status === 200) {
-          const cloneValuesLiftOff = { ...valuesLiftOff };
-          const landingsId = [];
-          landingsId.push(responseLiftOff.data[0].id);
-          cloneValuesLiftOff.idLandings = landingsId;
-          setValuesLiftOff(cloneValuesLiftOff);
-          console.log('clonevaluesLift', cloneValuesLiftOff);
-        }
-        else {
-          console.log(responseLiftOff);
-          navigate('/error');
-        }
+      .catch((err) => {
+        console.log(err);
+        navigate('/error');
       });
     // const liftPromise = await requestLiftOffPost(valuesLiftOff, valuesImgLift, valuesUrlLift);
     // const hikingPromise = await requestHikingPost(valuesHiking, valuesImgHiking, valuesUrlHiking);
@@ -422,9 +439,13 @@ function AdminCreate({ className, ...rest }) {
 }
 
 AdminCreate.propTypes = {
+  onSetTracksList: PropTypes.func.isRequired,
   className: PropTypes.string,
+  userId: PropTypes.number.isRequired,
 };
+
 AdminCreate.defaultProps = {
   className: '',
+
 };
 export default React.memo(AdminCreate);
