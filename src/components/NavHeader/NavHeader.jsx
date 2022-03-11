@@ -26,11 +26,11 @@ function NavHeader({
           <Button className="header-nav__button" variant="contained">Carte</Button>
         </NavLink>
         <NavLink
-          to="/tracksList"
+          to="/trackslist"
         >
           <Button className="header-nav__button" variant="contained" onClick={handleTrackListClick}>Randonnées </Button>
         </NavLink>
-        {location.pathname === '/tracksList'
+        {location.pathname === '/trackslist'
         && <Button className="header-nav__button" variant="contained" onClick={() => onFiltersClick()}>Filtres</Button>}
       </ThemeProvider>
     </div>

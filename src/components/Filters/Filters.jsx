@@ -12,6 +12,7 @@ import Select from '@mui/material/Select';
 import { ThemeProvider } from '@emotion/react';
 import PrettoSlider from './PrettoSlider/PrettoSlider';
 import {
+  convertNumber,
   createDifficultyList, createMountainList, getTrackDistancetMax, getTrackDurationMax, getTrackHeightMax,
 } from '../../utils/filterHikes';
 import customTheme from '../../themes/customTheme';
@@ -63,11 +64,10 @@ function Filters({
     setOrientation('');
     setDifficulty('');
     setDistance(distanceMax);
-    setDuration(100);
+    setDuration(durationMax);
     setHeight(heightMax);
     onResetFilter();
   };
-  console.log(distanceMax);
   return (
     <ThemeProvider theme={customTheme}>
       <Paper
@@ -106,11 +106,11 @@ function Filters({
             <PrettoSlider
               valueLabelDisplay="auto"
               aria-label="Durée"
-              defaultValue={durationMax}
+              defaultValue={convertNumber(durationMax)}
               size="small"
               value={duration}
               min={0}
-              max={durationMax}
+              max={convertNumber(durationMax)}
               onChange={(e) => handleChange('duration', e.target.value)}
             />
           </Box>

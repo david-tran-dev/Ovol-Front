@@ -29,6 +29,7 @@ function Map({ liftOffList, tracksList }) {
     iconAnchor: [20, 30],
   });
 
+  console.log('liftoffList:', liftOffList);
   console.log('render');
   return (
     <div className="map">
@@ -69,15 +70,19 @@ function Map({ liftOffList, tracksList }) {
                 altitude, latitude, longitude, name, id,
               }, index) => {
                 const trackFound = tracksList.find((track) => track.liftOff_id === id);
+                console.log('trackFound:', trackFound);
                 return (
                   <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>
                     <Popup>
                       Nom: {name} <br />
                       Altitude: {altitude}m <br />
                       Randonnée:
-                      <Link to={`/track/${trackFound.id}`}>
-                        {trackFound.name}
-                      </Link>
+                      {trackFound ? (
+                        <Link to={`/track/${trackFound.id}`}>
+                          {trackFound.name}
+                        </Link>
+                      )
+                        : 'Non trouvé'}
                     </Popup>
                   </Marker>
                 );
