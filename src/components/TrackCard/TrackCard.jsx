@@ -48,7 +48,7 @@ function TrackCard({
             <Typography component="h2" variant="body1" fontWeight="bold" textAlign="left">
               {name}
             </Typography>
-            <Flag liftOffId={id} />
+            <Flag liftOff_id={id} />
           </Box>
           <CardContent
             className="trackCard-content"

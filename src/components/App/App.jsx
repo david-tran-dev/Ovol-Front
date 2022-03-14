@@ -38,6 +38,7 @@ function App() {
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [isLogged, setIsLogged] = useState(false);
   const [isFiltersActive, setIsFiltersActive] = useState(false);
+  const [userId, setUserId] = useState('');
   const navigate = useNavigate();
   console.log('location:', location);
   // const [isLoading, setIsLoading] = useState(false);
@@ -60,11 +61,12 @@ function App() {
   const handleLoginSubmit = async (email, password) => {
     setLoginErrorMessage('');
     const response = await requestLogin(email, password);
-    console.log('response:', response);
+    console.log('responseLogin:', response);
     if (response.status === 200) {
       setBearerToken(response.data.accessToken);
       setIsLogged(true);
       setIsOpenNavBar(true);
+      setUserId(response.data.id);
       navigate('/trackslist');
     }
     else {
@@ -119,7 +121,7 @@ function App() {
       if (filters[0] !== '' && track.mountain !== filters[0]) return false;
       if (filters[1] !== '' && track.difficulty !== filters[1]) return false;
       if (filters[2] !== '') {
-        const liftOffFound = liftOffList.find((liftOff) => liftOff.id === track.liftOff_id);
+        const liftOffFound = liftOffList.find((liftOff) => liftOff.id === track.liftOffId);
         console.log('liftOffFound:', liftOffFound);
         if (!liftOffFound.favorableWind.includes(filters[2])) return false;
       }
@@ -141,6 +143,11 @@ function App() {
     console.log('reinit');
     setFilterTrackList(tracksList);
   };
+
+  const handleSetTracksList = () => {
+    console.log('3 requetes passé! BRAVO!!!');
+  };
+
   return (
     <div className="App">
       <Header
@@ -178,7 +185,7 @@ function App() {
         <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
         {isLogged
           ? (
-            <Route path="/adminCreate" element={<AdminCreate onActiveNav={handleIsOpenNavBar} />} />
+            <Route path="/adminCreate" element={<AdminCreate userId={userId} onActiveNav={handleIsOpenNavBar} onSetTracksList={handleSetTracksList} />} />
           )
           : <Route path="/login" element={<ErrorPage />} />}
         <Route
