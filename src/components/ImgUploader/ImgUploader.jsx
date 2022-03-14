@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import './ImgUploader.scss';
+import './imgUpload.scss';
 
 function ImgUploader() {
   const [imageSelected, setImageSelected] = useState('');

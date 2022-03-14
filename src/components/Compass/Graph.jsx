@@ -19,6 +19,7 @@ function Graph({ data, isLoading }) {
       </RadarChart>
     ) : <CircularProgress color="success" /> }
     </div>
+
   );
 }
 

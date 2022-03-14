@@ -126,14 +126,6 @@ function Track({ className, ...rest }) {
 
             <p className="track-steps">Etapes de la randonnée</p>
             {steps.map((step, index) => <p className="track-steps__content" key={step + index}>{step}</p>)}
-
-            <p className="track-photos">Photos </p>
-            <CarouselPhotos photos={hiking.photo_hiking} />
-
-            <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
-
-            <Weather lat={liftOff.latitude} lon={liftOff.longitude} />
-
             <Box sx={{ display: 'flex', mt: 2, justifyContent: 'space-around' }}>
               <ThemeProvider theme={customTheme}>
                 <Link className="track-link" to={`/liftoff/${hiking.liftOff_id}`}>
@@ -144,6 +136,13 @@ function Track({ className, ...rest }) {
                 </Link>
               </ThemeProvider>
             </Box>
+            <p className="track-photos">Photos </p>
+            <CarouselPhotos photos={hiking.photo_hiking} />
+
+            <div className="track-hiking-map" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hiking.hiking_plan, { ALLOWED_TAGS: ['iframe'] }) }} />
+
+            <Weather lat={liftOff.latitude} lon={liftOff.longitude} />
+
           </Container>
         </div>
       )
