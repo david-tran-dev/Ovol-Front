@@ -18,7 +18,7 @@ function UploadImg({
 }) {
   console.log('name', name);
   const [imageSelectedLanding, setImageSelectedLanding] = useState('');
-  const [imageSelectedLiftOff, setImageSelectedLiftOff] = useState('');
+  const [imageSelectedLift, setImageSelectedLift] = useState('');
   const [imageSelectedHiking, setImageSelectedHiking] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   // console.log('nom img:', imageSelected.name);
@@ -33,8 +33,8 @@ function UploadImg({
       onImgSelect(name, imageSelectedLanding.name);
       formData.append('file', imageSelectedLanding);
     } if (name === 'lift') {
-      onImgSelect(name, imageSelectedLiftOff.name);
-      formData.append('file', imageSelectedLiftOff);
+      onImgSelect(name, imageSelectedLift.name);
+      formData.append('file', imageSelectedLift);
     } if (name === 'hiking') {
       onImgSelect(name, imageSelectedHiking.name);
       formData.append('file', imageSelectedHiking);
@@ -61,11 +61,16 @@ function UploadImg({
     if (name === 'landing') {
       setImageSelectedLanding(e.target.files[0]);
     } if (name === 'lift') {
-      setImageSelectedLiftOff(e.target.files[0]);
+      setImageSelectedLift(e.target.files[0]);
     } if (name === 'hiking') {
       setImageSelectedHiking(e.target.files[0]);
     }
+    console.log('target', e.target.files[0]);
   };
+  console.log(`imageSelected${name.charAt(0).toUpperCase() + name.slice(1)}`);
+  console.log('imageselectLanding:::', imageSelectedLanding.name);
+
+  // eslint-disable-next-line no-return-assign
   return (
     <div className="img__uploader">
       <div>
@@ -80,7 +85,15 @@ function UploadImg({
           <Button variant="contained" component="span">
             Selectionner votre image
           </Button>{' '}
-          <Button variant="contained" onClick={uploadImage}>Uploader</Button>
+          <Button
+            id={`uploadButton-${name}`}
+            variant="contained"
+            onClick={uploadImage}
+            sx={{
+              backgroundColor: `imageSelected${name.charAt(0).toUpperCase() + name.slice(1)}` !== '' ? 'green' : 'orange',
+            }}
+          >Uploader
+          </Button>
         </label>
       </div>
       <div className="img__container">

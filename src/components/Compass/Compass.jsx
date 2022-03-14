@@ -5,7 +5,6 @@ import Graph from './Graph';
 import convertWindDirection from '../../utils/convertWindDirection';
 
 function Compass({ favorableWind, unfavorableWind, balise }) {
-  console.log('balise', balise);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [windDirection, setWindDirection] = useState('');
@@ -156,6 +155,8 @@ function Compass({ favorableWind, unfavorableWind, balise }) {
   async function getBaliseInfos() {
     const direction = await convertWindDirection(balise);
     setWindDirection(direction);
+    console.log('direction:', direction);
+    console.log({ windDirection });
     setIsLoading(true);
   }
   useEffect(() => {
