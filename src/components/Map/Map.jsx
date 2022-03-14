@@ -69,7 +69,7 @@ function Map({ liftOffList, tracksList }) {
               {liftOffList.length > 0 && liftOffList.map(({
                 altitude, latitude, longitude, name, id,
               }, index) => {
-                const trackFound = tracksList.find((track) => track.liftOff_id === id);
+                const trackFound = tracksList.find((track) => track.liftOffId === id);
                 console.log('trackFound:', trackFound);
                 return (
                   <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>

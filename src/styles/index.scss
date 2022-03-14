@@ -5,8 +5,14 @@ body {
 	font-family: vars.$font2;
 	// font-size: calc(16px + 1vw);
 	// line-height: calc(1.1rem + 0.5vw);
+	& .login-page{
+		background: url('../assets/img/bg-paragliding1.avif') no-repeat center/cover;
+	}
 }
+.bg-layer {
+	background-color: rgba(255,255,255,0.5);
 
+}
 h1, h2 {
 	font-family: vars.$font1;
 }

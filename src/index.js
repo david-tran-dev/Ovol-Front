@@ -5,7 +5,10 @@ import App from './components/App/App';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <div className="bg-layer">
+      <App />
+    </div>
+
   </BrowserRouter>,
   document.getElementById('root'),
 );

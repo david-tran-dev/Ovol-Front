@@ -5,8 +5,10 @@
 	text-align: left;
 	font-family: vars.$font1;
 	line-height: 1.2rem;
+	max-width: 900px;
+	margin: 0 auto;
 	;
-
+	
 	&-title,
 	&-resume,
 	&-steps,

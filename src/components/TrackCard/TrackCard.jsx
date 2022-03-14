@@ -27,7 +27,6 @@ function TrackCard({
   return (
     <Link
       to={`/track/${id}`}
-
     >
       <Card className={`trackCard ${className}`} sx={{ display: 'flex', my: 1 }}>
         <CardMedia

@@ -134,7 +134,8 @@ function AdminCreate({
         const response = await requestHikingPost(cloneValuesHiking, valuesImgHiking, valuesUrlHiking);
         console.log('responseHiking:', response);
         if (response.status === 200) {
-          onSetTracksList();
+          const track = response.data[0];
+          onSetTracksList(track);
         }
         else {
           throw new Error(response);
