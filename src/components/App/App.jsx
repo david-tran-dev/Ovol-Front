@@ -183,7 +183,11 @@ function App() {
           )}
         />
         <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
-        <Route path="/adminCreate" element={<AdminCreate userId={userId} onActiveNav={handleIsOpenNavBar} onSetTracksList={handleSetTracksList} />} />
+        {isLogged
+          ? (
+            <Route path="/adminCreate" element={<AdminCreate userId={userId} onActiveNav={handleIsOpenNavBar} onSetTracksList={handleSetTracksList} />} />
+          )
+          : <Route path="/login" element={<ErrorPage />} />}
         <Route
           path="/trackslist"
           element={(

@@ -5,6 +5,7 @@ let direction = '';
 export default async function convertWindDirection(balise) {
   const result = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${balise}}`);
   const windInstant = result.data.directVentMoy;
+  console.log('balise info', result.data);
   if (windInstant === undefined) {
     direction = undefined;
   }

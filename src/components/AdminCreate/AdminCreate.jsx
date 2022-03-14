@@ -12,6 +12,10 @@ import {
 } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Fab from '@mui/material/Fab';
+import EditIcon from '@mui/icons-material/Edit';
+import Box from '@mui/material/Box';
+import SendIcon from '@mui/icons-material/Send';
 import { ThemeProvider } from '@emotion/react';
 import TextField from '@mui/material/TextField';
 // import { height } from '@mui/system';
@@ -227,7 +231,12 @@ function AdminCreate({
             <div className="div-container">
               <ThemeProvider theme={customTheme}>
                 <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
-                  ADMIN ATTERRISSAGE ITEMS:
+                  <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                    <Fab color="primary" aria-label="edit">
+                      <EditIcon />
+                    </Fab>
+                    ATTERISSAGE ITEMS
+                  </Box>
                   {
                     Object.keys(landing).map(((item, index) => {
                       if (item !== 'id' && item !== 'photo_landing') {
@@ -275,7 +284,12 @@ function AdminCreate({
                   <UploadImg key="landing" onImgSelect={handleImg} onUrlSelect={handleUrl} name="landing" />
                 </Container>
                 <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
-                  ADMIN DECOLLAGE ITEMS:
+                  <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                    <Fab color="primary" aria-label="edit">
+                      <EditIcon />
+                    </Fab>
+                    DECOLLAGE ITEMS
+                  </Box>
                   {
                     Object.keys(liftOff).map(((item) => {
                       if (item !== 'id' && item !== 'idLandings' && item !== 'photo_liftOff') {
@@ -322,7 +336,12 @@ function AdminCreate({
                 </Container>
 
                 <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
-                  ADMIN RANDO ITEMS:
+                  <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                    <Fab color="primary" aria-label="edit">
+                      <EditIcon />
+                    </Fab>
+                    RANDONNEES ITEMS
+                  </Box>
                   {
                     Object.keys(hiking).map(((item) => {
                       if (item !== 'user_id' && item !== 'id' && item !== 'idLandings' && item !== 'liftOff_id' && item !== 'photo_hiking') {
@@ -367,8 +386,8 @@ function AdminCreate({
                     }))
                 }
                   <UploadImg key="hiking" onImgSelect={handleImg} onUrlSelect={handleUrl} name="hiking" />
+                  <Button variant="contained" sx={{ margin: '10px 0' }} type="submit" endIcon={<SendIcon />} size="large">Submit</Button>
                 </Container>
-                <Button variant="contained" type="submit">Submit</Button>
               </ThemeProvider>
             </div>
           </form>
