@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/jsx-no-useless-fragment */
@@ -38,7 +39,6 @@ function AdminCreate({
   const [valuesUrlLift, setValuesUrlLift] = useState([]);
   const [valuesImgHiking, setValuesImgHiking] = useState([]);
   const [valuesUrlHiking, setValuesUrlHiking] = useState([]);
-  // const [valuesTextField, setValuesTextField] = useState({});
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -97,70 +97,49 @@ function AdminCreate({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log('valueLiftOf:', valuesLiftOff);
     console.log('value du submit: ', valuesLanding, valuesImgLanding, valuesUrlLanding);
 
     requestLandingPost(valuesLanding, valuesImgLanding, valuesUrlLanding)
-      .then((responseLand) => {
+      .then((response) => {
         console.log('premiere requete');
-        console.log('responsetLanding:', responseLand);
-        if (responseLand.status === 200) {
+        console.log('responsetLanding:', response);
+        if (response.status === 200) {
           const cloneValuesLiftOff = { ...valuesLiftOff };
           const landingsId = [];
-          landingsId.push(responseLand.data[0].id);
+          landingsId.push(response.data[0].id);
           cloneValuesLiftOff.idLandings = landingsId;
           return cloneValuesLiftOff;
         }
-        console.log(responseLand);
-        navigate('/error');
-        return responseLand;
+        throw new Error(response);
       })
-      .then(async (response) => {
+      .then(async (cloneValuesLiftOff) => {
         console.log('2 eme requetes value:', cloneValuesLiftOff);
-        if (response.status !== 200) {
-          navigate('/error');
-        }
-        const responseLiftOff = await requestLiftOffPost(cloneValuesLiftOff, valuesImgLift, valuesUrlLift);
-        console.log('responseLiftOff:', responseLiftOff);
-        if (responseLiftOff.status === 200) {
+
+        const response = await requestLiftOffPost(cloneValuesLiftOff, valuesImgLift, valuesUrlLift);
+        console.log('responseLiftOff:', response);
+        if (response.status === 200) {
           const cloneValuesHiking = { ...valuesHiking };
-          cloneValuesHiking.liftOff_id = responseLiftOff.data[0].id.toString();
+          cloneValuesHiking.liftOff_id = response.data[0].id.toString();
           cloneValuesHiking.user_id = userId;
           return cloneValuesHiking;
         }
-        console.log(responseLiftOff);
-        navigate('/error');
-        return responseLiftOff;
+        throw new Error(response);
       })
       .then(async (cloneValuesHiking) => {
         console.log('3eme requete valuesHiking:', cloneValuesHiking);
-        const responseHiking = await requestHikingPost(cloneValuesHiking, valuesImgHiking, valuesUrlHiking);
-        console.log('responseHiking:', responseHiking);
-        if (responseHiking.status === 200) {
+        const response = await requestHikingPost(cloneValuesHiking, valuesImgHiking, valuesUrlHiking);
+        console.log('responseHiking:', response);
+        if (response.status === 200) {
           onSetTracksList();
         }
         else {
-          console.log(responseHiking);
-          navigate('/error');
+          throw new Error(response);
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log('Error: ', err);
         navigate('/error');
       });
-    // const liftPromise = await requestLiftOffPost(valuesLiftOff, valuesImgLift, valuesUrlLift);
-    // const hikingPromise = await requestHikingPost(valuesHiking, valuesImgHiking, valuesUrlHiking);
-    // console.log('response retour fetch responseLand:', responseLand.data[0].id);
-    // console.log({ valuesLanding, valuesImg, valuesUrl });
-    // const idLand = responseLand.data.id;
-    // if (responseLand) {
-    //   const responseLift = await requestLiftOffPost(valuesLiftOff, idLand);
-    //   console.log(responseLift.data.id);
-    //   const idLift = (responseLift.data.id);
-    //   if (responseLift) {
-    //     requestHikingPost(valuesHiking, idLand, idLift);
-    //   }
-    // }
   };
 
   const handleChangeLiftOff = (item, inputValue) => {
@@ -234,44 +213,6 @@ function AdminCreate({
       setValuesUrlHiking(myArrayImgUrlClone);
     }
   };
-  // const handleImgLift = (imgName) => {
-  //   const myArrayImgNameClone = [...valuesImgLift];
-  //   // myArrayImg[0] = (imgUrl);
-  //   myArrayImgNameClone.push(imgName);
-  //   // setValuesUrl(imgUrl);
-  //   setValuesImgLift(myArrayImgNameClone);
-  //   // console.log({ myArrayImgNameClone });
-  //   // console.log('imgselected:', imgName);
-  //   // setValuesImg(imgName);
-  // };
-  // const handleUrlLift = (imgUrl) => {
-  //   console.log('imgurl:', imgUrl);
-  //   const myArrayImgUrlClone = [...valuesUrlLift];
-  //   // myArrayImg[0] = (imgUrl);
-  //   myArrayImgUrlClone.push(imgUrl);
-  //   // setValuesUrl(imgUrl);
-  //   setValuesUrlLift(myArrayImgUrlClone);
-  //   // console.log({ myArrayImgUrlClone });
-  // };
-  // const handleImgHick = (imgName) => {
-  //   const myArrayImgNameClone = [...valuesImgHick];
-  //   // myArrayImg[0] = (imgUrl);
-  //   myArrayImgNameClone.push(imgName);
-  //   // setValuesUrl(imgUrl);
-  //   setValuesImgHick(myArrayImgNameClone);
-  //   // console.log({ myArrayImgNameClone });
-  //   // console.log('imgselected:', imgName);
-  //   // setValuesImg(imgName);
-  // };
-  // const handleUrlHick = (imgUrl) => {
-  //   console.log('imgurl:', imgUrl);
-  //   const myArrayImgUrlClone = [...valuesUrlHick];
-  //   // myArrayImg[0] = (imgUrl);
-  //   myArrayImgUrlClone.push(imgUrl);
-  //   // setValuesUrl(imgUrl);
-  //   setValuesUrlHick(myArrayImgUrlClone);
-  //   console.log({ myArrayImgUrlClone });
-  // };
 
   return (
 
