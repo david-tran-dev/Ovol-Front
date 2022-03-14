@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { styled } from '@mui/material';
 import customTheme from '../../themes/customTheme';
 
 function Login({ errorMessage, onLoginSubmit }) {
@@ -23,9 +24,22 @@ function Login({ errorMessage, onLoginSubmit }) {
     setEmail('');
     setPassword('');
   };
+  const StyledBody = styled('div')({
+    background: 'url(/img/bg-paragliding1.avif)',
+    backgroundSize: 'cover',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: -1,
 
+  });
   return (
     <ThemeProvider theme={customTheme}>
+      <StyledBody />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

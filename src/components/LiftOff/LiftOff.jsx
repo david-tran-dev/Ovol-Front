@@ -14,11 +14,15 @@ import { requestLiftOff } from '../../requests/liftOff';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
 import Compass from '../Compass/Compass';
+import { requestWeather } from '../../requests/weather';
+import getCloudCeiling from '../../utils/cloudCeiling';
+import { meterToKilometerConverter } from '../../utils/meterToKilometerConverter';
 
 function LiftOff({ className, ...rest }) {
   const { id } = useParams();
   const [liftOff, setLiftOff] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [ceiling, setCeiling] = useState(0);
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -32,6 +36,14 @@ function LiftOff({ className, ...rest }) {
       else {
         navigate('/error');
       }
+    }
+    if (liftOff) {
+      const cloudResponse = await requestWeather(liftOff.latitude, liftOff.longitude);
+      const { temp } = cloudResponse.data.main;
+      const { humidity } = cloudResponse.data.main;
+      const ceilingResult = getCloudCeiling(temp, humidity);
+      setCeiling(meterToKilometerConverter(ceilingResult, 1));
+      console.log('cloudResponse:', cloudResponse);
     }
 
     setLoading(false);
@@ -70,12 +82,18 @@ function LiftOff({ className, ...rest }) {
                     </a>
                   </span>
                 </p>
-                <p className="liftOff-info__key">Vent favorable:
+                <p className="liftOff-info__key">Plafond nuageux:
+                  <span className="liftOff-info__value">
+                    {ceiling} km
+                  </span>
+                </p>
+
+                {/* <p className="liftOff-info__key">Vent favorable:
                   <span className="liftOff-info__value">{liftOff.favorableWind ? ` ${liftOff.favorableWind}` : null}</span>
                 </p>
                 <p className="liftOff-info__key">Vent défavorable:
                   <span className="liftOff-info__value">{liftOff.unfavorableWind ? ` ${liftOff.unfavorableWind}` : null}</span>
-                </p>
+                </p> */}
 
               </Box>
               <Box>

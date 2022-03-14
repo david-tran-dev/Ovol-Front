@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './tracksList.scss';
+import { Grid } from '@mui/material';
 import TrackCard from '../TrackCard/TrackCard';
 import Filters from '../Filters/Filters';
 
@@ -15,10 +16,7 @@ function TracksList({
   ...rest
 }) {
   return (
-    <main
-      className={`trackslist ${className}`}
-      {...rest}
-    >
+    <>
       {isFiltersActive
         ? (
           <Filters
@@ -28,38 +26,45 @@ function TracksList({
           />
         )
         : null}
-      {trackFilterList.map(({
-        id,
-        difficulty,
-        mountain,
-        name,
-        positive_elevation,
-        overall_length,
-        img_card,
-        liftOff_id,
-        duration,
-      }) => {
-        const liftOffFound = liftOffList.find((liftOff) => liftOff.id === liftOff_id);
-        console.log('liftOffFound:', liftOffFound);
-        return (
+      <main
+        className={`trackslist ${className}`}
+        {...rest}
+      >
+        <Grid container spacing={2}>
 
-          <TrackCard
-            key={id}
-            difficulty={difficulty}
-            mountain={mountain}
-            name={name}
-            positive_elevation={positive_elevation}
-            overall_length={overall_length}
-            id={id}
-            img_card={img_card}
-            duration={duration}
-            favorableWind={liftOffFound && liftOffFound.favorableWind}
+          {trackFilterList.length !== 0 && trackFilterList.map(({
+            id,
+            difficulty,
+            mountain,
+            name,
+            positive_elevation,
+            overall_length,
+            img_card,
+            liftOff_id,
+            duration,
+          }) => {
+            const liftOffFound = liftOffList.find((liftOff) => liftOff.id === liftOff_id);
+            console.log('liftOffFound:', liftOffFound);
+            return (
+              <Grid item key={id} xs={12} md={6}>
+                <TrackCard
+                  difficulty={difficulty}
+                  mountain={mountain}
+                  name={name}
+                  positive_elevation={positive_elevation}
+                  overall_length={overall_length}
+                  id={id}
+                  img_card={img_card}
+                  duration={duration}
+                  favorableWind={liftOffFound && liftOffFound.favorableWind}
+                />
+              </Grid>
+            );
+          })}
 
-          />
-        );
-      })}
-
-    </main>
+        </Grid>
+      </main>
+    </>
   );
 }
 

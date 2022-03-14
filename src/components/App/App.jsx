@@ -41,7 +41,6 @@ function App() {
   const [userId, setUserId] = useState('');
   const navigate = useNavigate();
   console.log('location:', location);
-  // const [isLoading, setIsLoading] = useState(false);
   const handleIsOpenNavBar = (value) => {
     setIsOpenNavBar(value);
   };
@@ -87,26 +86,31 @@ function App() {
   };
 
   useEffect(async () => {
-    // setIsLoading(true);
-    const response = await requestHikingList();
-    console.log('response:', response);
+    console.log('trackslist:', tracksList, tracksList.length);
+    if (tracksList.length === 0) {
+      const response = await requestHikingList();
+      console.log('response:', response);
 
-    if (response.status === 200) {
-      setTracksList(response.data);
-      setFilterTrackList(response.data);
-      // setIsLoading(false);
-    }
-    else {
-      console.log(response.data.message);
+      if (response.status === 200) {
+        setTracksList(response.data);
+        setFilterTrackList(response.data);
+      }
+      else {
+        console.log(response.data.message);
+        navigate('/error');
+      }
     }
 
-    const liftOffResponse = await requestLiftOffList();
+    if (liftOffList.length === 0) {
+      const liftOffResponse = await requestLiftOffList();
 
-    if (liftOffResponse.status === 200) {
-      setLiftOffList(liftOffResponse.data);
-    }
-    else {
-      console.log(liftOffResponse.data.message);
+      if (liftOffResponse.status === 200) {
+        setLiftOffList(liftOffResponse.data);
+      }
+      else {
+        console.log(liftOffResponse.data.message);
+        navigate('/error');
+      }
     }
   }, []);
 
@@ -114,10 +118,6 @@ function App() {
     console.log('filters:', filters);
 
     const result = tracksList.filter((track) => {
-      console.log('filter0', filters[0]);
-      console.log('filter2', filters[2]);
-      console.log('trackMoutain', track.mountain);
-      console.log('trackdenivelé', track.positive_elevation);
       if (filters[0] !== '' && track.mountain !== filters[0]) return false;
       if (filters[1] !== '' && track.difficulty !== filters[1]) return false;
       if (filters[2] !== '') {
@@ -144,8 +144,14 @@ function App() {
     setFilterTrackList(tracksList);
   };
 
-  const handleSetTracksList = () => {
+  const handleSetTracksList = (track) => {
     console.log('3 requetes passé! BRAVO!!!');
+    console.log('track:', track);
+    const cloneTracksList = [...tracksList];
+    cloneTracksList.push(track);
+    setTracksList(cloneTracksList);
+    setFilterTrackList(cloneTracksList);
+    navigate('/trackslist');
   };
 
   return (

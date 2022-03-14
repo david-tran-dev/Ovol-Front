@@ -17,7 +17,6 @@ function Landings({ className, ...rest }) {
   useEffect(() => {
     setLoading(true);
     if (landings.length === 0) {
-      console.log('dans le if');
       const ids = id.split(',');
       ids.forEach(async (id) => {
         const response = await requestLandings(id);

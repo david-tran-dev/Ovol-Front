@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import './filters.scss';
-import { Button, Container, Paper } from '@mui/material';
+import {
+  Button, Container, Paper, useTheme, useMediaQuery,
+} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -38,6 +40,9 @@ function Filters({
   const [duration, setDuration] = useState(durationMax);
   const [height, setHeight] = useState(heightMax);
 
+  const theme = useTheme();
+  const filterWidth = useMediaQuery(theme.breakpoints.down('sm'));
+
   const handleChange = (key, value) => {
     console.log(key, value);
     if (key === 'massif') setMassif(value);
@@ -70,10 +75,13 @@ function Filters({
   };
   return (
     <ThemeProvider theme={customTheme}>
+
       <Paper
-        className="filters className"
+        className="filters"
         {...rest}
-        sx={{ display: 'flex', flexDirection: 'column', my: 2 }}
+        sx={{
+          display: 'flex', flexDirection: 'column', m: '1rem auto', width: filterWidth ? '100%' : '600px',
+        }}
       >
         <Container sx={{ display: 'flex' }}>
           <Box sx={{
