@@ -16,13 +16,14 @@ import AdminCreate from '../AdminCreate/AdminCreate';
 import Track from '../Track/Track';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import Contact from '../Contact/Contact';
-import MentionsLegales from '../MentionsLegales/MentionsLegales';
-import Apropos from '../Apropos/Apropos';
 import Footer from '../Footer/Footer';
 import LiftOff from '../LiftOff/LiftOff';
 import Loading from '../Loading/Loading';
 import Landings from '../Landings/Landings';
+import About from '../About/About';
+import LegalNotice from '../LegalNotice/LegalNotice';
 
+// Requests
 import { requestHikingList } from '../../requests/hiking';
 import { requestLiftOffList } from '../../requests/liftOff';
 import { requestLogin } from '../../requests/login';
@@ -40,10 +41,37 @@ function App() {
   const [isFiltersActive, setIsFiltersActive] = useState(false);
   const [userId, setUserId] = useState('');
   const navigate = useNavigate();
-  console.log('location:', location);
   const handleIsOpenNavBar = (value) => {
     setIsOpenNavBar(value);
   };
+
+  useEffect(async () => {
+    if (tracksList.length === 0) {
+      const response = await requestHikingList();
+      console.log('response:', response);
+
+      if (response.status === 200) {
+        setTracksList(response.data);
+        setFilterTrackList(response.data);
+      }
+      else {
+        console.log(response.data.message);
+        navigate('/error');
+      }
+    }
+
+    if (liftOffList.length === 0) {
+      const liftOffResponse = await requestLiftOffList();
+
+      if (liftOffResponse.status === 200) {
+        setLiftOffList(liftOffResponse.data);
+      }
+      else {
+        console.log(liftOffResponse.data.message);
+        navigate('/error');
+      }
+    }
+  }, []);
 
   const handleFilterTrackList = (value) => {
     if (value === '') {
@@ -85,35 +113,6 @@ function App() {
     setIsFiltersActive((prevState) => !prevState);
   };
 
-  useEffect(async () => {
-    console.log('trackslist:', tracksList, tracksList.length);
-    if (tracksList.length === 0) {
-      const response = await requestHikingList();
-      console.log('response:', response);
-
-      if (response.status === 200) {
-        setTracksList(response.data);
-        setFilterTrackList(response.data);
-      }
-      else {
-        console.log(response.data.message);
-        navigate('/error');
-      }
-    }
-
-    if (liftOffList.length === 0) {
-      const liftOffResponse = await requestLiftOffList();
-
-      if (liftOffResponse.status === 200) {
-        setLiftOffList(liftOffResponse.data);
-      }
-      else {
-        console.log(liftOffResponse.data.message);
-        navigate('/error');
-      }
-    }
-  }, []);
-
   const multiFilterTrack = (filters) => {
     console.log('filters:', filters);
 
@@ -121,7 +120,7 @@ function App() {
       if (filters[0] !== '' && track.mountain !== filters[0]) return false;
       if (filters[1] !== '' && track.difficulty !== filters[1]) return false;
       if (filters[2] !== '') {
-        const liftOffFound = liftOffList.find((liftOff) => liftOff.id === track.liftOffId);
+        const liftOffFound = liftOffList.find((liftOff) => liftOff.id === track.liftOff_id);
         console.log('liftOffFound:', liftOffFound);
         if (!liftOffFound.favorableWind.includes(filters[2])) return false;
       }
@@ -144,13 +143,20 @@ function App() {
     setFilterTrackList(tracksList);
   };
 
-  const handleSetTracksList = (track) => {
-    console.log('3 requetes passé! BRAVO!!!');
+  const handleSetTracksList = async (track) => {
     console.log('track:', track);
     const cloneTracksList = [...tracksList];
     cloneTracksList.push(track);
     setTracksList(cloneTracksList);
     setFilterTrackList(cloneTracksList);
+    const liftOffResponse = await requestLiftOffList();
+    if (liftOffResponse.status === 200) {
+      setLiftOffList(liftOffResponse.data);
+    }
+    else {
+      console.log(liftOffResponse.data.message);
+      navigate('/error');
+    }
     navigate('/trackslist');
   };
 
@@ -175,8 +181,8 @@ function App() {
       <Routes location={location}>
         <Route path="/error" element={<ErrorPage />} />
         <Route path="*" element={<ErrorPage />} />
-        <Route path="/mentionsLegales" element={<MentionsLegales onActiveNav={handleIsOpenNavBar} />} />
-        <Route path="/apropos" element={<Apropos onActiveNav={handleIsOpenNavBar} />} />
+        <Route path="/legalnotice" element={<LegalNotice onActiveNav={handleIsOpenNavBar} />} />
+        <Route path="/about" element={<About onActiveNav={handleIsOpenNavBar} />} />
         <Route path="/" element={<Map liftOffList={liftOffList} tracksList={tracksList} />} />
         <Route
           path="/login"
@@ -198,6 +204,7 @@ function App() {
           path="/trackslist"
           element={(
             <TracksList
+              onActiveNav={handleIsOpenNavBar}
               trackFilterList={filterTrackList}
               liftOffList={liftOffList}
               isFiltersActive={isFiltersActive}

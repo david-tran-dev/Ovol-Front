@@ -68,25 +68,25 @@ function MenuHeader({
           <MenuItem onClick={handleClose}>Contact</MenuItem>
         </NavLink>
         <NavLink
-          to="/mentionsLegales"
+          to="/legalnotice"
         >
           <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
         </NavLink>
         <NavLink
-          to="/apropos"
+          to="/about"
         >
           <MenuItem onClick={handleClose}>A propos</MenuItem>
         </NavLink>
         {isLogged
           ? (
-            <>
+            <div>
               <NavLink
                 to="/adminCreate"
               >
                 <MenuItem sx={{ color: 'red' }} onClick={handleClose}>AdminCreate</MenuItem>
               </NavLink>
               <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
-            </>
+            </div>
           )
           : ''}
       </Menu>
