@@ -10,10 +10,6 @@ function UploadImg({
   onImgSelect,
   onUrlSelect,
   name,
-  // imgSelectLift,
-  // urlSelectLift,
-  // imgSelectHick,
-  // urlSelectHick,
 
 }) {
   console.log('name', name);
@@ -21,13 +17,9 @@ function UploadImg({
   const [imageSelectedLift, setImageSelectedLift] = useState('');
   const [imageSelectedHiking, setImageSelectedHiking] = useState('');
   const [imgUrl, setImgUrl] = useState('');
-  // console.log('nom img:', imageSelected.name);
 
   const uploadImage = async (files) => {
-    // imgSelectLift(imageSelected.name);
-    // imgSelectHick(imageSelected.name);
     console.log('result', files[0]);
-    // console.log('dans upload - imageselected:', imageSelected);
     const formData = new FormData();
     if (name === 'landing') {
       onImgSelect(name, imageSelectedLanding.name);
@@ -45,18 +37,13 @@ function UploadImg({
     axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_SERVER}/image/upload`, formData)
       .then((result) => {
         console.log('result de la requete', result);
-        // console.log(result.data.secure_url);
         // on recupere l'url de l'image uploader
-        // onImgSelect(name, imageSelected.name);
         setImgUrl(result.data.secure_url);
         onUrlSelect(name, result.data.secure_url);
-      // urlSelectLift(result.data.secure_url);
-      // urlSelectHick(result.data.secure_url);
       });
   };
   const handleChange = (e) => {
     console.log('Event target files', e.target.files[0]);
-    // console.log('state imageSelected', imageSelected);
 
     if (name === 'landing') {
       setImageSelectedLanding(e.target.files[0]);
@@ -107,10 +94,6 @@ UploadImg.propTypes = {
   onImgSelect: PropTypes.func.isRequired,
   onUrlSelect: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  // imgSelectLift: PropTypes.func.isRequired,
-  // urlSelectLift: PropTypes.func.isRequired,
-  // imgSelectHick: PropTypes.func.isRequired,
-  // urlSelectHick: PropTypes.func.isRequired,
 };
 
 export default React.memo(UploadImg);

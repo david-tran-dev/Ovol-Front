@@ -20,14 +20,15 @@ import Footer from '../Footer/Footer';
 import LiftOff from '../LiftOff/LiftOff';
 import Loading from '../Loading/Loading';
 import Landings from '../Landings/Landings';
+import About from '../About/About';
+import LegalNotice from '../LegalNotice/LegalNotice';
 
+// Requests
 import { requestHikingList } from '../../requests/hiking';
 import { requestLiftOffList } from '../../requests/liftOff';
 import { requestLogin } from '../../requests/login';
 import { removeBearerToken, setBearerToken } from '../../requests';
 import './app.scss';
-import About from '../About/About';
-import LegalNotice from '../LegalNotice/LegalNotice';
 
 function App() {
   const location = useLocation();
@@ -40,10 +41,37 @@ function App() {
   const [isFiltersActive, setIsFiltersActive] = useState(false);
   const [userId, setUserId] = useState('');
   const navigate = useNavigate();
-  console.log('location:', location);
   const handleIsOpenNavBar = (value) => {
     setIsOpenNavBar(value);
   };
+
+  useEffect(async () => {
+    if (tracksList.length === 0) {
+      const response = await requestHikingList();
+      console.log('response:', response);
+
+      if (response.status === 200) {
+        setTracksList(response.data);
+        setFilterTrackList(response.data);
+      }
+      else {
+        console.log(response.data.message);
+        navigate('/error');
+      }
+    }
+
+    if (liftOffList.length === 0) {
+      const liftOffResponse = await requestLiftOffList();
+
+      if (liftOffResponse.status === 200) {
+        setLiftOffList(liftOffResponse.data);
+      }
+      else {
+        console.log(liftOffResponse.data.message);
+        navigate('/error');
+      }
+    }
+  }, []);
 
   const handleFilterTrackList = (value) => {
     if (value === '') {
@@ -85,35 +113,6 @@ function App() {
     setIsFiltersActive((prevState) => !prevState);
   };
 
-  useEffect(async () => {
-    console.log('trackslist:', tracksList, tracksList.length);
-    if (tracksList.length === 0) {
-      const response = await requestHikingList();
-      console.log('response:', response);
-
-      if (response.status === 200) {
-        setTracksList(response.data);
-        setFilterTrackList(response.data);
-      }
-      else {
-        console.log(response.data.message);
-        navigate('/error');
-      }
-    }
-
-    if (liftOffList.length === 0) {
-      const liftOffResponse = await requestLiftOffList();
-
-      if (liftOffResponse.status === 200) {
-        setLiftOffList(liftOffResponse.data);
-      }
-      else {
-        console.log(liftOffResponse.data.message);
-        navigate('/error');
-      }
-    }
-  }, []);
-
   const multiFilterTrack = (filters) => {
     console.log('filters:', filters);
 
@@ -145,7 +144,6 @@ function App() {
   };
 
   const handleSetTracksList = async (track) => {
-    console.log('3 requetes passé! BRAVO!!!');
     console.log('track:', track);
     const cloneTracksList = [...tracksList];
     cloneTracksList.push(track);
