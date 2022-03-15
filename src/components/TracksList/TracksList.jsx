@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './tracksList.scss';
 import { Grid } from '@mui/material';
@@ -13,8 +13,13 @@ function TracksList({
   tracksList,
   onFilterChange,
   onResetFilter,
+  onActiveNav,
   ...rest
 }) {
+  useEffect(() => {
+    onActiveNav(true);
+  }, []);
+
   return (
     <>
       {isFiltersActive
@@ -86,6 +91,7 @@ TracksList.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   tracksList: PropTypes.array,
   onResetFilter: PropTypes.func.isRequired,
+  onActiveNav: PropTypes.func.isRequired,
 };
 TracksList.defaultProps = {
   className: '',

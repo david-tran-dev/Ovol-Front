@@ -7,7 +7,7 @@ function Footer() {
     <div className="footer">
       <p className="footer-para">O'Vol  © Tous droits réservés (2022)</p>
       <Link
-        to="/mentionsLegales"
+        to="/legalnotice"
       >
         <span className="footer-link"> &nbsp;&nbsp;&nbsp;Mentions Legales</span>
       </Link>
@@ -17,7 +17,7 @@ function Footer() {
         <span className="footer-link"> &nbsp;&nbsp;&nbsp;Contact</span>
       </Link>
       <Link
-        to="/apropos"
+        to="/about"
       >
         <span className="footer-link"> &nbsp;&nbsp;&nbsp;A Propos</span>
       </Link>

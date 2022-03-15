@@ -79,7 +79,8 @@ function Track({ className, ...rest }) {
                 <p className="track-info">
                   Infos techniques:
                 </p>
-                <p className="track-info__key">Dénivelé positif:
+                <p className="track-info__key">
+                  Dénivelé positif:
                   <span className="track-info__value"> {hiking.positive_elevation}m</span>
                 </p>
                 <p className="track-info__key">Dénivelé négatif:
