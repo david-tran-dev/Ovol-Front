@@ -23,7 +23,7 @@ function SearchBar({
           onSubmit={handleSubmit}
           component="form"
           sx={{
-            p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,
+            p: '2px 4px', display: 'flex', alignItems: 'center', width: 350,
           }}
         >
           <InputBase

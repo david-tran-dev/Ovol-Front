@@ -18,7 +18,7 @@ function MiddleDividers() {
         <Box sx={{ my: 3, mx: 2 }}>
           <Grid container alignItems="center">
             <Grid item xs>
-              <ImageList sx={{ width: 330, height: 450 }} cols={2} rowHeight={164}>
+              <ImageList sx={{ width: '100%', height: '100%' }} cols={2} rowHeight={164}>
                 {itemDataApropos.map((item) => (
                   <ImageListItem key={item.img}>
                     <img

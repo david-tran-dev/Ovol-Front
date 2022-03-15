@@ -193,7 +193,7 @@ function App() {
           ? (
             <Route path="/adminCreate" element={<AdminCreate userId={userId} onActiveNav={handleIsOpenNavBar} onSetTracksList={handleSetTracksList} />} />
           )
-          : <Route path="/login" element={<ErrorPage />} />}
+          : <Route path="*" element={<ErrorPage />} />}
         <Route
           path="/trackslist"
           element={(

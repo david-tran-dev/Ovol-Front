@@ -43,6 +43,7 @@ function AdminCreate({
   const [valuesUrlLift, setValuesUrlLift] = useState([]);
   const [valuesImgHiking, setValuesImgHiking] = useState([]);
   const [valuesUrlHiking, setValuesUrlHiking] = useState([]);
+  const [isRequired, setIsRequired] = useState(false);
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -148,41 +149,32 @@ function AdminCreate({
   };
 
   const handleChangeLiftOff = (item, inputValue) => {
-    // console.log('item: ', item, 'value:', inputValue);
     const valueClone = { ...valuesLiftOff };
     valueClone[item] = inputValue;
     console.log(valueClone);
     setValuesLiftOff(valueClone);
-    // console.log('le state', value);
+    setIsRequired(true);
   };
   const handleChangeLanding = (item, inputValue) => {
-    // console.log('type of item', (typeof (inputValue)));
-    // console.log('item: ', item, 'value:', inputValue);
     const valueClone = { ...valuesLanding };
     valueClone[item] = inputValue;
-    console.log(valueClone);
     setValuesLanding(valueClone);
+    setIsRequired(true);
     // console.log('le state', value);
   };
   const handleChangeHiking = (item, inputValue) => {
-    // console.log('item: ', item, 'value:', inputValue);
     const valueClone = { ...valuesHiking };
     valueClone[item] = inputValue;
     console.log(valueClone);
     setValuesHiking(valueClone);
-    // console.log('le state', value);
+    setIsRequired(true);
   };
   const handleImg = (name, imgName) => {
     console.log(' C EST QUOI LE NAME ', name);
     if (name === 'landing') {
       const myArrayImgNameClone = [...valuesImgLanding];
-      // myArrayImg[0] = (imgUrl);
       myArrayImgNameClone.push(imgName);
-      // setValuesUrl(imgUrl);
       setValuesImgLanding(myArrayImgNameClone);
-      // console.log({ myArrayImgNameClone });
-      // console.log('imgselected:', imgName);
-      // setValuesImg(imgName);
     }
     if (name === 'lift') {
       const myArrayImgNameClone = [...valuesImgLift];
@@ -199,11 +191,8 @@ function AdminCreate({
     if (name === 'landing') {
       console.log('imgurl:', imgUrl);
       const myArrayImgUrlClone = [...valuesUrlLanding];
-      // myArrayImg[0] = (imgUrl);
       myArrayImgUrlClone.push(imgUrl);
-      // setValuesUrl(imgUrl);
       setValuesUrlLanding(myArrayImgUrlClone);
-      // console.log({ myArrayImgUrlClone });
     }
     if (name === 'lift') {
       console.log('imgurl:', imgUrl);
@@ -245,10 +234,10 @@ function AdminCreate({
                           <TextField
                             key={index + item}
                             sx={{ p: '2px 4px', width: '100%' }}
+                            required
                             label={item}
                             placeholder={item}
                             onChange={(event) => handleChangeLanding(item, event.target.value)}
-                            // multiline
                           />
                         );
                       }
@@ -297,6 +286,7 @@ function AdminCreate({
                         return (
                           <TextField
                             sx={{ p: '2px 4px', width: '100%' }}
+                            required
                             label={item}
                             placeholder={item}
                             name={item}
@@ -349,7 +339,7 @@ function AdminCreate({
                         return (
                           <TextField
                             sx={{ p: '2px 4px', width: '100%' }}
-                            // width="300px"
+                            required
                             label={item}
                             placeholder={item}
                             onChange={(event) => handleChangeHiking(item, event.target.value)}
@@ -387,7 +377,14 @@ function AdminCreate({
                     }))
                 }
                   <UploadImg key="hiking" onImgSelect={handleImg} onUrlSelect={handleUrl} name="hiking" />
-                  <Button variant="contained" sx={{ margin: '10px 0' }} type="submit" endIcon={<SendIcon />} size="large">Submit</Button>
+                  {isRequired
+                    ? (
+                      <>
+                        <Button variant="contained" sx={{ margin: '10px 0' }} type="submit" endIcon={<SendIcon />} size="large">Submit</Button>
+                      </>
+
+                    )
+                    : ''}
                 </Container>
               </ThemeProvider>
             </div>
