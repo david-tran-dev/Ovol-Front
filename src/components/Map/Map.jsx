@@ -17,7 +17,6 @@ import LocationMarker from './LocationMarker/LocationMarker';
 import paragliding from '../../assets/icons/paragliding.png';
 
 function Map({ liftOffList, tracksList }) {
-  console.log('tracksList:', tracksList);
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
   // Future fonctionnalité
   // const [positions, setPositions] = useState([]);
@@ -29,7 +28,6 @@ function Map({ liftOffList, tracksList }) {
     iconAnchor: [20, 30],
   });
 
-  console.log('liftoffList:', liftOffList);
   console.log('render');
   return (
     <div className="map">
@@ -69,17 +67,20 @@ function Map({ liftOffList, tracksList }) {
               {liftOffList.length > 0 && liftOffList.map(({
                 altitude, latitude, longitude, name, id,
               }, index) => {
-                const trackFound = tracksList.find((track) => track.liftOffId === id);
+                console.log('tracksList:', tracksList);
+
+                console.log('liftoffList:', liftOffList);
+                const trackFound = tracksList.find((track) => track.liftOff_id === id);
                 console.log('trackFound:', trackFound);
                 return (
                   <Marker key={index + name} position={[latitude, longitude]} icon={getIcon(40)}>
                     <Popup>
                       Nom: {name} <br />
                       Altitude: {altitude}m <br />
-                      Randonnée:
+
                       {trackFound ? (
                         <Link to={`/track/${trackFound.id}`}>
-                          {trackFound.name}
+                          En savoir plus...
                         </Link>
                       )
                         : 'Non trouvé'}

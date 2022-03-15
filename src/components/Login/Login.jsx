@@ -27,6 +27,7 @@ function Login({ errorMessage, onLoginSubmit }) {
   const StyledBody = styled('div')({
     background: 'url(/img/bg-paragliding1.avif)',
     backgroundSize: 'cover',
+    backgroundPosition: 'center',
     position: 'fixed',
     top: 0,
     left: 0,

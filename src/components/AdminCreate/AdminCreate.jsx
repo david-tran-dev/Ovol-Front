@@ -237,6 +237,7 @@ function AdminCreate({
                             required
                             label={item}
                             placeholder={item}
+                            required
                             onChange={(event) => handleChangeLanding(item, event.target.value)}
                           />
                         );
@@ -290,6 +291,7 @@ function AdminCreate({
                             label={item}
                             placeholder={item}
                             name={item}
+                            required
                             onChange={(event) => handleChangeLiftOff(item, event.target.value)}
                           />
                         );
@@ -342,6 +344,7 @@ function AdminCreate({
                             required
                             label={item}
                             placeholder={item}
+                            required
                             onChange={(event) => handleChangeHiking(item, event.target.value)}
                             multiline
                           />
