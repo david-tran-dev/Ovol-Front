@@ -247,6 +247,7 @@ function AdminCreate({
                             sx={{ p: '2px 4px', width: '100%' }}
                             label={item}
                             placeholder={item}
+                            required
                             onChange={(event) => handleChangeLanding(item, event.target.value)}
                             // multiline
                           />
@@ -300,6 +301,7 @@ function AdminCreate({
                             label={item}
                             placeholder={item}
                             name={item}
+                            required
                             onChange={(event) => handleChangeLiftOff(item, event.target.value)}
                           />
                         );
@@ -352,6 +354,7 @@ function AdminCreate({
                             // width="300px"
                             label={item}
                             placeholder={item}
+                            required
                             onChange={(event) => handleChangeHiking(item, event.target.value)}
                             multiline
                           />
