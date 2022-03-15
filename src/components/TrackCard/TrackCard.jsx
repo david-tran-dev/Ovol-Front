@@ -6,9 +6,17 @@ import './trackCard.scss';
 // material ui
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import { ThemeProvider } from '@emotion/react';
+import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TimerIcon from '@mui/icons-material/Timer';
+import TerrainIcon from '@mui/icons-material/Terrain';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import HikingIcon from '@mui/icons-material/Hiking';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import customTheme from '../../themes/customTheme';
 import { convertDurationToTime } from '../../utils/timeConverter';
 import Flag from '../Flag/Flag';
 
@@ -49,37 +57,39 @@ function TrackCard({
             </Typography>
             <Flag liftOff_id={id} />
           </Box>
-          <CardContent
-            className="trackCard-content"
-            sx={{
-              textAlign: 'left',
-              p: 0,
-              pb: 0,
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'column',
-              height: '100%',
-            }}
-          >
-            <Typography className="trackCard-content__detail">
-              Massif: {mountain}
-            </Typography>
-            <Typography className="trackCard-content__detail">
-              Difficulté: {difficulty}
-            </Typography>
-            <Typography className="trackCard-content__detail">
-              Orientation décollage: {` ${favorableWind}`}
-            </Typography>
-            <Typography className="trackCard-content__detail">
-              Dénivelé positif: {positive_elevation}m
-            </Typography>
-            <Typography className="trackCard-content__detail">
-              Longueur totale : {overall_length}km
-            </Typography>
-            <Typography className="trackCard-content__detail">
-              Temps estimé : {convertDurationToTime(duration)}
-            </Typography>
-          </CardContent>
+          <ThemeProvider theme={customTheme}>
+            <CardContent
+              className="trackCard-content"
+              sx={{
+                textAlign: 'left',
+                p: 0,
+                pb: 0,
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'column',
+                height: '100%',
+              }}
+            >
+              <Typography className="trackCard-content__detail">
+                <TerrainIcon color="primary" style={{ fontSize: 15 }} /> Massif: {mountain}
+              </Typography>
+              <Typography className="trackCard-content__detail">
+                <QueryStatsIcon color="primary" style={{ fontSize: 15 }} /> Difficulté: {difficulty}
+              </Typography>
+              <Typography className="trackCard-content__detail">
+                <AssistantPhotoIcon color="primary" style={{ fontSize: 15 }} />Orientation décollage: {` ${favorableWind}`}
+              </Typography>
+              <Typography className="trackCard-content__detail">
+                <TrendingUpIcon color="primary" style={{ fontSize: 15 }} /> Dénivelé positif: {positive_elevation}m
+              </Typography>
+              <Typography className="trackCard-content__detail">
+                <HikingIcon color="primary" style={{ fontSize: 15 }} /> Longueur totale : {overall_length}km
+              </Typography>
+              <Typography className="trackCard-content__detail">
+                <TimerIcon color="primary" style={{ fontSize: 15 }} /> Temps estimé : {convertDurationToTime(duration)}
+              </Typography>
+            </CardContent>
+          </ThemeProvider>
         </Box>
       </Card>
 

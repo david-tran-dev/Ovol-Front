@@ -12,6 +12,16 @@ import {
 } from '@mui/material';
 import DOMPurify from 'dompurify';
 import { ThemeProvider } from '@emotion/react';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+// import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import HikingIcon from '@mui/icons-material/Hiking';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import GrassIcon from '@mui/icons-material/Grass';
+import TerrainIcon from '@mui/icons-material/Terrain';
 import Flag from '../Flag/Flag';
 import customTheme from '../../themes/customTheme';
 import { requestHiking } from '../../requests/hiking';
@@ -74,53 +84,53 @@ function Track({ className, ...rest }) {
               title={hiking.name}
             />
             <h1 className="track-title"> {hiking.name}</h1>
-            <Box sx={{ display: 'flex', textAlign: 'left', my: 1 }}>
-              <Box sx={{ pr: 2, width: '50%' }}>
-                <p className="track-info">
-                  Infos techniques:
-                </p>
-                <p className="track-info__key">Dénivelé positif:
-                  <span className="track-info__value"> {hiking.positive_elevation}m</span>
-                </p>
-                <p className="track-info__key">Dénivelé négatif:
-                  <span className="track-info__value"> {hiking.negative_elevation}m</span>
-                </p>
-                <p className="track-info__key">Point haut:
-                  <span className="track-info__value"> {hiking.hight_point}m</span>
-                </p>
-                <p className="track-info__key">Point bas:
-                  <span className="track-info__value"> {hiking.low_point}m</span>
-                </p>
-                <p className="track-info__key">Carte IGN:
-                  <span className="track-info__value"> {hiking.ign_card_reference}</span>
-                </p>
-
-              </Box>
-              <Box sx={{ width: '50%', mb: 2 }}>
-                <Box sx={{
-                  display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
-                }}
-                >
-                  <Flag liftOff_id={hiking.liftOff_id} />
-                  <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
-                    <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
-                  </a>
+            <ThemeProvider theme={customTheme}>
+              <Box sx={{ display: 'flex', textAlign: 'left', my: 1 }}>
+                <Box sx={{ pr: 2, width: '50%' }}>
+                  <p className="track-info">
+                    Infos techniques:
+                  </p>
+                  <p className="track-info__key"><TrendingUpIcon color="primary" style={{ fontSize: 15 }} /> Dénivelé positif:
+                    <span className="track-info__value"> {hiking.positive_elevation}m</span>
+                  </p>
+                  <p className="track-info__key"><TrendingDownIcon color="primary" style={{ fontSize: 15 }} /> Dénivelé négatif:
+                    <span className="track-info__value"> {hiking.negative_elevation}m</span>
+                  </p>
+                  <p className="track-info__key"><ExpandLessIcon color="primary" style={{ fontSize: 15 }} /> Point haut:
+                    <span className="track-info__value"> {hiking.hight_point}m</span>
+                  </p>
+                  <p className="track-info__key"><ExpandMoreIcon color="primary" style={{ fontSize: 15 }} /> Point bas:
+                    <span className="track-info__value"> {hiking.low_point}m</span>
+                  </p>
+                  <p className="track-info__key"><LocationOnIcon color="primary" style={{ fontSize: 15 }} /> Carte IGN:
+                    <span className="track-info__value"> {hiking.ign_card_reference}</span>
+                  </p>
                 </Box>
-                <p className="track-info__key">Terrain:
-                  <span className="track-info__value"> {hiking.land_type}</span>
-                </p>
-                <p className="track-info__key">Massif:
-                  <span className="track-info__value"> {hiking.mountain}</span>
-                </p>
-                <p className="track-info__key">Distance:
-                  <span className="track-info__value"> {hiking.overall_length}km</span>
-                </p>
-                <p className="track-info__key">Difficulté:
-                  <span className="track-info__value"> {hiking.difficulty}</span>
-                </p>
-
+                <Box sx={{ width: '50%', mb: 2 }}>
+                  <Box sx={{
+                    display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline', mb: 2,
+                  }}
+                  >
+                    <Flag liftOff_id={hiking.liftOff_id} />
+                    <a href={hiking.starting_point} alt={hiking.name} target="_blank" rel="noreferrer">
+                      <Icon className="fa-solid fa-map-location-dot" sx={{ width: 24, height: 24, mx: 1 }} />
+                    </a>
+                  </Box>
+                  <p className="track-info__key"><GrassIcon color="primary" style={{ fontSize: 15 }} /> Terrain:
+                    <span className="track-info__value"> {hiking.land_type}</span>
+                  </p>
+                  <p className="track-info__key"><TerrainIcon color="primary" style={{ fontSize: 15 }} /> Massif:
+                    <span className="track-info__value"> {hiking.mountain}</span>
+                  </p>
+                  <p className="track-info__key"><HikingIcon color="primary" style={{ fontSize: 15 }} /> Distance:
+                    <span className="track-info__value"> {hiking.overall_length}km</span>
+                  </p>
+                  <p className="track-info__key"><QueryStatsIcon color="primary" style={{ fontSize: 15 }} /> Difficulté:
+                    <span className="track-info__value"> {hiking.difficulty}</span>
+                  </p>
+                </Box>
               </Box>
-            </Box>
+            </ThemeProvider>
             <p className="track-resume">Résumé</p>
             <p className="track-resume__content"> {hiking.resume} </p>
 
