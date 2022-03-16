@@ -21,9 +21,9 @@ import TextField from '@mui/material/TextField';
 // import { height } from '@mui/system';
 import UploadImg from '../UploadImg/UploadImg';
 import customTheme from '../../themes/customTheme';
-import { requestHiking, requestHikingPost } from '../../requests/hiking';
-import { requestLiftOff, requestLiftOffPost } from '../../requests/liftOff';
-import { requestLandings, requestLandingPost } from '../../requests/landings';
+import { requestHikingPost } from '../../requests/hiking';
+import { requestLiftOffPost } from '../../requests/liftOff';
+import { requestLandingPost } from '../../requests/landings';
 
 import Loading from '../Loading/Loading';
 
@@ -60,26 +60,26 @@ function AdminCreate({
     //   }
     // }
     // if (Object.keys(liftOff).length > 0) {
-    //   setLoading(false);
     // }
     if (Object.keys(liftOff).length === 0) {
       const deco = {
         id: 2,
-        name: 'Déco SEPTMONCEL',
+        name: 'Col des Fretes',
         typeOfTerrain: 'Herbe',
-        description: "Approche de l'atterrissage de l'Essard (contre-pente) en PT8 pour le delta. L'atterrissage du haut est délicat en parapente en pleine journée. Toujours vérifier que la biroute du décollage parapente est bien orientée pour éviter de décoller dans le rouleau en cas de vent Est ou Nord. Les parapentes décollent à 1050 m. Les deltas décollent à 1020 m.",
-        danger: 'Ligne à haute tension au milieu du cirque.',
-        fflvLink: 'https://intranet.ffvl.fr/sites_pratique/voir/54',
-        latitude: 46.371,
-        longitude: 5.8985,
-        favorableWind: 'O',
-        unfavorableWind: '',
-        balise: 2563,
-        altitude: 1026,
+        description: 'Le col des Frêtes est un des plus beaux vols rando du bassin annécien. Le col des Frêtes est situé au Sud des Dents de Lanfon au dessus de Talloires et du site de parapente de Planfait. C’est un superbe décollage sur une belle pente herbeuse.',
+        danger: 'Attention au vent du Nord.',
+        fflvLink: '',
+        latitude: 45.8565958,
+        longitude: 6.2464359,
+        favorableWind: 'SO,O',
+        unfavorableWind: 'N,NE,E,SE',
+        balise: 67,
+        altitude: 1645,
         photo_liftOff: [],
       };
       setValuesLiftOff(deco);
       setLiftOff(deco);
+      setLoading(false);
     }
   }, [liftOff]);
 
@@ -102,16 +102,16 @@ function AdminCreate({
     if (Object.keys(landing).length === 0) {
       const atero = {
         id: 2,
-        name: 'Atéro Villard',
+        name: 'Planfait',
         typeOfTerrain: 'Herbe',
-        description: 'Turbulent par vent fort, surtout de Nord.',
-        danger: '',
-        fflvLink: 'https://intranet.ffvl.fr/sites_pratique/voir/54',
-        latitude: 46.3723,
-        longitude: 5.87678,
-        favorableWind: 'O',
+        description: 'Grand Champs',
+        danger: 'Survol de la maison en début de terrain interdit.',
+        fflvLink: 'https://federation.ffvl.fr/sites_pratique/voir/1159',
+        latitude: 45.8487,
+        longitude: 6.2142,
+        favorableWind: 'N,S',
         unfavorableWind: '',
-        altitude: 576,
+        altitude: 567,
         photo_landing: [],
       };
       setValuesLanding(atero);
@@ -138,20 +138,20 @@ function AdminCreate({
     if (Object.keys(hiking).length === 0) {
       const rando = {
         id: 1,
-        name: 'Semnoz Grotte des fours',
-        img_card: 'https://res.cloudinary.com/ovol/image/upload/q_50/v1646905878/img-seeding/Annecy-Semnoz__2013_hyn3lu.jpg',
-        mountain: 'Bauges',
-        resume: 'Montée soutenue en forêt avec en bonus des grottes à visiter. Attention falaise à surmonter au niveau de la grotte des four. Le sentier est balisé sur toute la longueur',
-        key_stage: "D/A : km 0 - alt. 595m - Cimetière de Viuz-la-Chiésaz\n    1 : km 0.24 - alt. 594m - Croisement CD5/Route des Pierres\n    2 : km 1.61 - alt. 738m - Les Granges\n    3 : km 3.25 - alt. 1016m - Croisement de Combe Noire\n    4 : km 4.22 - alt. 1326m - Croisement de la Grotte des Fours\n    5 : km 5.47 - alt. 1640m - Parking près du bâtiment du Courant d'Ere\n    6 : km 6.13 - alt. 1694m - Crêt de Châtillon - Le Semnoz",
-        starting_point: 'https://goo.gl/maps/WQPNLEjkxyw5KAbv7',
-        hiking_plan: '<iframe src="https://www.google.com/maps/d/u/2/embed?mid=1JZCA93VmwEXRcKn9GnlKawxOtpHfI20W&ehbc=2E312F" width="640" height="480"></iframe>',
-        positive_elevation: 1028,
-        negative_elevation: 2,
-        overall_length: 6.9,
+        name: 'Le col des Fretes',
+        img_card: 'https://www.altituderando.com/local/cache-vignettes/L1200xH900/randoon15606-50776.jpg',
+        mountain: 'Aravis',
+        resume: 'Pour accéder au col de Frêtes, vous pouvez soit démarrer de l’atterrissage de Perroix pour 1100 mètres de dénivellée, soit faire une navette pour partir de Planfait pour 700 mètres de dénivelée. Le chemin est bien raide et se déroule presque intégralement en forêt… Le chemin démarre sur la droite à l’entrée du parking du décollage de Planfait et il est bien balisé.',
+        key_stage: "(1) Virer à droite pour un aller-retour vers la Cascade d'Angon. Le chemin, étroit, en balcon sur un profond ravin est impressionnant, mais très bien sécurisé. Attention tout de même aux pierres glissantes car patinées par le passage et humides ; à éviter quand il y a beaucoup de monde. On passe par dessous un pilier stalagmitique sur laquelle coule une première cascade.\n (2) Le chemin se termine par un point de vue sur l'impressionnante chute d'eau dans un gouffre très étroit. Faire demi-tour.\n (3) Reprendre le chemin initial en partant à droite et en suivant le fléchage vers «Pont des Fées». On passe à côté d'une petite falaise qui fait office d'école d'escalade familiale.\n (4) Le Pont des Fées passe au-dessus du fougueux Nant d'Oy avec ses marmites de géant. Continuer le chemin fléché vers Rovagny. Dans Rovagny, suivre la route en tirant vers la gauche jusqu'à une intersection (calvaire). Prendre à gauche sur une vingtaine de mètres pour atteindre un lavoir.",
+        starting_point: 'https://goo.gl/maps/k45DVRWeYCVoPr8S6',
+        hiking_plan: '<iframe src="https://www.google.com/maps/d/u/1/embed?mid=1X4aGVl0d2486Qx4KtGNlRI4EDegYzzkA&ehbc=2E312F" width="640" height="480"></iframe>',
+        positive_elevation: 1122,
+        negative_elevation: 40,
+        overall_length: 5.4,
         land_type: 'Forestier',
-        ign_card_reference: 'Ref. 3431OT 3431OTR',
-        hight_point: 1694,
-        low_point: 587,
+        ign_card_reference: 'Ref. 3431OT',
+        hight_point: 1640,
+        low_point: 555,
         difficulty: 'Difficile',
         photo_hiking: [],
       };
@@ -316,7 +316,6 @@ function AdminCreate({
                       //   );
                       // }
                       if (item === 'photo_landing') {
-                        console.log('dans le if photo');
                         return (
                           <>
                             <ImageList
@@ -356,10 +355,11 @@ function AdminCreate({
                     DECOLLAGE ITEMS
                   </Box>
                   {
-                    Object.keys(valuesLiftOff).map(((item) => {
+                    Object.keys(valuesLiftOff).map(((item, index) => {
                       if (item !== 'id' && item !== 'idLandings' && item !== 'photo_liftOff') {
                         return (
                           <TextField
+                            key={index + item}
                             sx={{ p: '2px 4px', width: '100%' }}
                             required
                             label={item}
@@ -374,6 +374,7 @@ function AdminCreate({
                         return (
                           <>
                             <ImageList
+                              key={index + item + IDBIndex}
                               sx={{
                                 width: 500,
                                 height: valuesUrlLift.length <= 0 ? 40 : 400,
@@ -410,10 +411,11 @@ function AdminCreate({
                     RANDONNEES ITEMS
                   </Box>
                   {
-                    Object.keys(hiking).map(((item) => {
+                    Object.keys(hiking).map(((item, index) => {
                       if (item !== 'user_id' && item !== 'id' && item !== 'idLandings' && item !== 'liftOff_id' && item !== 'photo_hiking') {
                         return (
                           <TextField
+                            key={index + item}
                             sx={{ p: '2px 4px', width: '100%' }}
                             required
                             label={item}
@@ -428,6 +430,7 @@ function AdminCreate({
                         return (
                           <>
                             <ImageList
+                              key={index + item + index}
                               sx={{
                                 width: 500,
                                 height: valuesUrlHiking.length <= 0 ? 40 : 400,

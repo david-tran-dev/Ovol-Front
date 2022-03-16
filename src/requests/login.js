@@ -13,3 +13,17 @@ export async function requestLogin(user, pass) {
     return err.response;
   }
 }
+
+export async function requestCheck(token) {
+  try {
+    const response = await apiAxios.post('/login/check', {}, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+    return response;
+  }
+  catch (err) {
+    return err.response;
+  }
+}
