@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 import React, { useEffect, useState } from 'react';
@@ -26,8 +27,8 @@ import LegalNotice from '../LegalNotice/LegalNotice';
 // Requests
 import { requestHikingList } from '../../requests/hiking';
 import { requestLiftOffList } from '../../requests/liftOff';
-import { requestLogin } from '../../requests/login';
-import { removeBearerToken, setBearerToken } from '../../requests';
+import { requestCheck, requestLogin } from '../../requests/login';
+import { getLocalBearerToken, removeBearerToken, setBearerToken } from '../../requests';
 import './app.scss';
 
 function App() {
@@ -40,13 +41,12 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [isFiltersActive, setIsFiltersActive] = useState(false);
   const [userId, setUserId] = useState('');
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const handleIsOpenNavBar = (value) => {
-    setIsOpenNavBar(value);
-  };
 
   useEffect(async () => {
     if (tracksList.length === 0) {
+      setLoading(true);
       const response = await requestHikingList();
       console.log('response:', response);
 
@@ -58,9 +58,11 @@ function App() {
         console.log(response.data.message);
         navigate('/error');
       }
+      setLoading(false);
     }
 
     if (liftOffList.length === 0) {
+      setLoading(true);
       const liftOffResponse = await requestLiftOffList();
 
       if (liftOffResponse.status === 200) {
@@ -70,8 +72,30 @@ function App() {
         console.log(liftOffResponse.data.message);
         navigate('/error');
       }
+      setLoading(false);
+    }
+    const localToken = getLocalBearerToken();
+    console.log('localToken:', localToken);
+    if (localToken) {
+      setLoading(true);
+      console.log('dnas le if');
+      const response = await requestCheck(localToken);
+      console.log('response:', response);
+      if (response.status === 200 && response.data.logged) {
+        setUserId(response.data.userId);
+        setIsLogged(true);
+        setBearerToken(response.data.accessToken);
+      }
+      else {
+        removeBearerToken();
+      }
+      setLoading(false);
     }
   }, []);
+
+  const handleIsOpenNavBar = (value) => {
+    setIsOpenNavBar(value);
+  };
 
   const handleFilterTrackList = (value) => {
     if (value === '') {
@@ -168,6 +192,7 @@ function App() {
         isLogged={isLogged}
         onLogoutSubmit={handleLogoutSubmit}
       />
+
       {isOpenNavBar
         ? (
           <>
@@ -178,48 +203,54 @@ function App() {
         )
         : ''}
 
-      <Routes location={location}>
-        <Route path="/error" element={<ErrorPage />} />
-        <Route path="*" element={<ErrorPage />} />
-        <Route path="/legalnotice" element={<LegalNotice onActiveNav={handleIsOpenNavBar} />} />
-        <Route path="/about" element={<About onActiveNav={handleIsOpenNavBar} />} />
-        <Route path="/" element={<Map liftOffList={liftOffList} tracksList={tracksList} />} />
-        <Route
-          path="/login"
-          element={(
-            <Login
-              onLoginSubmit={handleLoginSubmit}
-              errorMessage={loginErrorMessage}
-              onActiveNav={handleIsOpenNavBar}
-            />
-          )}
-        />
-        <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
-        {isLogged
-          ? (
-            <Route path="/adminCreate" element={<AdminCreate userId={userId} onActiveNav={handleIsOpenNavBar} onSetTracksList={handleSetTracksList} />} />
-          )
-          : <Route path="*" element={<ErrorPage />} />}
-        <Route
-          path="/trackslist"
-          element={(
-            <TracksList
-              onActiveNav={handleIsOpenNavBar}
-              trackFilterList={filterTrackList}
-              liftOffList={liftOffList}
-              isFiltersActive={isFiltersActive}
-              tracksList={tracksList}
-              onFilterChange={handleFilterChange}
-              onResetFilter={handleResetFilter}
-            />
-          )}
-        />
-        <Route path="/track/:id" element={<Track />} />
-        <Route path="/loading" element={<Loading />} />
-        <Route path="/liftoff/:id" element={<LiftOff />} />
-        <Route path="/landings/:id" element={<Landings />} />
-      </Routes>
-      <Footer />
+      {loading ? <Loading />
+
+        : (
+          <>
+            <Routes location={location}>
+              <Route path="/error" element={<ErrorPage />} />
+              <Route path="*" element={<ErrorPage />} />
+              <Route path="/legalnotice" element={<LegalNotice onActiveNav={handleIsOpenNavBar} />} />
+              <Route path="/about" element={<About onActiveNav={handleIsOpenNavBar} />} />
+              <Route path="/" element={<Map liftOffList={liftOffList} tracksList={tracksList} />} />
+              <Route
+                path="/login"
+                element={(
+                  <Login
+                    onLoginSubmit={handleLoginSubmit}
+                    errorMessage={loginErrorMessage}
+                    onActiveNav={handleIsOpenNavBar}
+                  />
+                )}
+              />
+              <Route path="/contact" element={<Contact onActiveNav={handleIsOpenNavBar} />} />
+              {isLogged
+                ? (
+                  <Route path="/adminCreate" element={<AdminCreate userId={userId} onActiveNav={handleIsOpenNavBar} onSetTracksList={handleSetTracksList} />} />
+                )
+                : <Route path="*" element={<ErrorPage />} />}
+              <Route
+                path="/trackslist"
+                element={(
+                  <TracksList
+                    onActiveNav={handleIsOpenNavBar}
+                    trackFilterList={filterTrackList}
+                    liftOffList={liftOffList}
+                    isFiltersActive={isFiltersActive}
+                    tracksList={tracksList}
+                    onFilterChange={handleFilterChange}
+                    onResetFilter={handleResetFilter}
+                  />
+                )}
+              />
+              <Route path="/track/:id" element={<Track />} />
+              <Route path="/loading" element={<Loading />} />
+              <Route path="/liftoff/:id" element={<LiftOff />} />
+              <Route path="/landings/:id" element={<Landings />} />
+            </Routes>
+            <Footer />
+          </>
+        )}
     </div>
   );
 }
