@@ -51,7 +51,6 @@ function About() {
             >
               <Chip clickable label="Qui sommes nous ?" />
             </NavLink>
-            { /* <Chip label="Histoire" /> */ }
           </Stack>
         </Box>
       </Box>

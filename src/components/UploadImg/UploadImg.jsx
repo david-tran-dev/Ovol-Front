@@ -57,7 +57,6 @@ function UploadImg({
   console.log(`imageSelected${name.charAt(0).toUpperCase() + name.slice(1)}`);
   console.log('imageselectLanding:::', imageSelectedLanding.name);
 
-  // eslint-disable-next-line no-return-assign
   return (
     <div className="img__uploader">
       <div>
@@ -84,7 +83,6 @@ function UploadImg({
         </label>
       </div>
       <div className="img__container">
-        {/* <img src={imgUrl} alt="" /> */}
         <div>URL de l'image = {imgUrl}</div>
       </div>
     </div>

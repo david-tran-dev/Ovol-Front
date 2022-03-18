@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+// Material UI
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
@@ -7,7 +9,9 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+
 import itemDataML from '../../assets/img/itemDataContact/itemDataMentionsLegales';
+
 import './legalNotice.scss';
 
 function LegalNotice() {

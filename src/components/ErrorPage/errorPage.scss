@@ -1,7 +1,7 @@
 @use 'src/styles/vars';
 
 .App .errorpage {
-	margin: 1rem;
+	margin-bottom: 1rem;
 	background: url('../../assets/img/404.jpg') no-repeat center/cover;
 	flex: 1 1 auto;
 	display: flex;
@@ -13,5 +13,6 @@
 	&-content,
 	&-link {
 		text-shadow: 2px 2px 2px black;
+		background-color: rgba(255,255,255,0.5);
 	}
 }

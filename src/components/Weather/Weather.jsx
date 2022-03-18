@@ -1,14 +1,21 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './weather.scss';
+import { Navigate } from 'react-router-dom';
+
+// Material UI
 import {
   Box, Card, CardContent, Typography,
 } from '@mui/material';
-import { Navigate } from 'react-router-dom';
+
+// Components
+import Loading from '../Loading/Loading';
+
+// Requests and utils
 import { requestWeather } from '../../requests/weather';
 import { getWindKilometerPerHour } from '../../utils/weatherConverter';
-import Loading from '../Loading/Loading';
+
+import './weather.scss';
 
 function Weather({
   className, lat, lon, ...rest
@@ -39,7 +46,6 @@ function Weather({
     getWeatherReport();
   }, []);
 
-  // console.log('icon:', weather[0].icon);
   return (
     <>
       {loading ? <Loading />
