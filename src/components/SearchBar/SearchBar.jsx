@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
+// Material UI
 import Paper from '@mui/material/Paper';
 import {
   InputBase, IconButton,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+
 import './searchBar.scss';
 
 function SearchBar({

@@ -2,15 +2,13 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
 import {
-  MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup,
+  MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, useMap,
 
 } from 'react-leaflet';
 import './map.scss';
 import PropTypes from 'prop-types';
-// import * as ELG from 'esri-leaflet-geocoder';
 import L from 'leaflet';
 import 'esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css';
-// import LocateControl from 'react-leaflet-locate-control';
 import { Link } from 'react-router-dom';
 import LocationMarker from './LocationMarker/LocationMarker';
 
@@ -18,9 +16,6 @@ import paragliding from '../../assets/icons/paragliding.png';
 
 function Map({ liftOffList, tracksList }) {
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
-  // Future fonctionnalité
-  // const [positions, setPositions] = useState([]);
-  // const [wayPoints, setWayPoints] = useState([]);
 
   const getIcon = (iconSize) => L.icon({
     iconUrl: paragliding,

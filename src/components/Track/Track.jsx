@@ -3,38 +3,43 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './track.scss';
-import {
-  Link, useNavigate, useParams,
-} from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+
+// Material UI
+import { ThemeProvider } from '@emotion/react';
 import {
   CardMedia, Container, Icon, Box, Button,
 } from '@mui/material';
 import DOMPurify from 'dompurify';
-import { ThemeProvider } from '@emotion/react';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-// import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import HikingIcon from '@mui/icons-material/Hiking';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GrassIcon from '@mui/icons-material/Grass';
 import TerrainIcon from '@mui/icons-material/Terrain';
-import Flag from '../Flag/Flag';
 import customTheme from '../../themes/customTheme';
-import { requestHiking } from '../../requests/hiking';
+
+// Components
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
 import Loading from '../Loading/Loading';
 import Weather from '../Weather/Weather';
+import Flag from '../Flag/Flag';
+
+// Requests
+import { requestHiking } from '../../requests/hiking';
 import { requestLiftOff } from '../../requests/liftOff';
+
+import './track.scss';
 
 function Track({ className, ...rest }) {
   const [hiking, setHiking] = useState({});
   const [loading, setLoading] = useState(true);
   const [liftOff, setLiftOff] = useState({});
   const [steps, setSteps] = useState([]);
+
   const { id } = useParams();
   const navigate = useNavigate();
 

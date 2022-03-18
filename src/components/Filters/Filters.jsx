@@ -1,9 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
+// Material ui
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import './filters.scss';
 import {
   Button, Container, Paper, useTheme, useMediaQuery,
 } from '@mui/material';
@@ -13,11 +14,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { ThemeProvider } from '@emotion/react';
 import PrettoSlider from './PrettoSlider/PrettoSlider';
+import customTheme from '../../themes/customTheme';
+
+// utils
 import {
   convertNumber,
   createDifficultyList, createMountainList, getTrackDistancetMax, getTrackDurationMax, getTrackHeightMax,
 } from '../../utils/filterHikes';
-import customTheme from '../../themes/customTheme';
+
+import './filters.scss';
 
 function Filters({
   className,

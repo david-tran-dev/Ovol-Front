@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+
 import HomeIcon from '../../utils/HomeIcon';
 import logo from '../../assets/logo.png';
-import './header.scss';
 import MenuHeader from '../MenuHeader/MenuHeader';
+
+import './header.scss';
 
 function Header({
   className,

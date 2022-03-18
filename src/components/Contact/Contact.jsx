@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+// material ui
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
@@ -13,13 +15,16 @@ import FaceIcon from '@mui/icons-material/Face';
 import { ThemeProvider } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import customTheme from '../../themes/customTheme';
-import itemData from '../../assets/img/itemDataContact/itemDataContact';
-import './contact.scss';
+
+// avatars
 import fred from '../../assets/img/avatarData/fred.jpg';
 import olivier from '../../assets/img/avatarData/olivier.jpg';
 import adrien from '../../assets/img/avatarData/adrien.jpg';
 import antoine from '../../assets/img/avatarData/antoine.jpg';
 import david from '../../assets/img/avatarData/david.jpg';
+import itemData from '../../assets/img/itemDataContact/itemDataContact';
+
+import './contact.scss';
 
 function MiddleDividers() {
   return (
