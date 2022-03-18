@@ -1,0 +1,47 @@
+export const hikingForm = {
+  name: '',
+  img_card: '',
+  mountain: '',
+  resume: '',
+  key_stage: '',
+  starting_point: '',
+  hiking_plan: '',
+  positive_elevation: '',
+  negative_elevation: '',
+  overall_length: '',
+  land_type: '',
+  ign_card_reference: '',
+  hight_point: '',
+  low_point: '',
+  difficulty: '',
+  photo_hiking: [],
+};
+
+export const landingForm = {
+  name: '',
+  typeOfTerrain: '',
+  description: '',
+  danger: '',
+  fflvLink: '',
+  latitude: '',
+  longitude: '',
+  favorableWind: '',
+  unfavorableWind: '',
+  altitude: '',
+  photo_landing: [],
+};
+
+export const liftOffForm = {
+  name: '',
+  typeOfTerrain: '',
+  description: '',
+  danger: '',
+  fflvLink: '',
+  latitude: '',
+  longitude: '',
+  favorableWind: '',
+  unfavorableWind: '',
+  balise: '',
+  altitude: '',
+  photo_liftOff: [],
+};

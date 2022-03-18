@@ -7,13 +7,19 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './liftOff.scss';
 import { useNavigate, useParams } from 'react-router-dom';
+
+// Material UI
 import {
   Container, Box, CardMedia, Card,
 } from '@mui/material';
-import { requestLiftOff } from '../../requests/liftOff';
 import CarouselPhotos from '../CarouselPhotos/CarouselPhotos';
+
+// Components
 import Loading from '../Loading/Loading';
 import Compass from '../Compass/Compass';
+
+// Requests and utils functions
+import { requestLiftOff } from '../../requests/liftOff';
 import { requestWeather } from '../../requests/weather';
 import getCloudCeiling from '../../utils/cloudCeiling';
 import { meterToKilometerConverter } from '../../utils/meterToKilometerConverter';
@@ -88,13 +94,6 @@ function LiftOff({ className, ...rest }) {
                       {ceiling} km
                     </span>
                   </p>
-
-                  {/* <p className="liftOff-info__key">Vent favorable:
-                  <span className="liftOff-info__value">{liftOff.favorableWind ? ` ${liftOff.favorableWind}` : null}</span>
-                </p>
-                <p className="liftOff-info__key">Vent défavorable:
-                  <span className="liftOff-info__value">{liftOff.unfavorableWind ? ` ${liftOff.unfavorableWind}` : null}</span>
-                </p> */}
 
                 </Box>
                 <Box sx={{ m: 2 }}>

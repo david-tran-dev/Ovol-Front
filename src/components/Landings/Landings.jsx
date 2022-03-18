@@ -1,12 +1,18 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import './landings.scss';
-import { Container } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import Landing from './Landing/Landing';
-import { requestLandings } from '../../requests/landings';
+import PropTypes from 'prop-types';
+
+// Material ui
+import { Container } from '@mui/material';
+
+// Components
 import Loading from '../Loading/Loading';
+import Landing from './Landing/Landing';
+
+import { requestLandings } from '../../requests/landings';
+
+import './landings.scss';
 
 function Landings({ className, ...rest }) {
   const { id } = useParams();
@@ -31,7 +37,6 @@ function Landings({ className, ...rest }) {
     }
     setLoading(false);
   }, [landings]);
-  console.log('landing', landings);
   return (
     <Container
       className="landings className"

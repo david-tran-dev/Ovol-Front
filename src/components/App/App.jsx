@@ -29,6 +29,7 @@ import { requestHikingList } from '../../requests/hiking';
 import { requestLiftOffList } from '../../requests/liftOff';
 import { requestCheck, requestLogin } from '../../requests/login';
 import { getLocalBearerToken, removeBearerToken, setBearerToken } from '../../requests';
+
 import './app.scss';
 
 function App() {
@@ -74,13 +75,12 @@ function App() {
       }
       setLoading(false);
     }
+
+    // Check local token is present and request check from server
     const localToken = getLocalBearerToken();
-    console.log('localToken:', localToken);
     if (localToken) {
       setLoading(true);
-      console.log('dnas le if');
       const response = await requestCheck(localToken);
-      console.log('response:', response);
       if (response.status === 200 && response.data.logged) {
         setUserId(response.data.userId);
         setIsLogged(true);
@@ -168,7 +168,6 @@ function App() {
   };
 
   const handleSetTracksList = async (track) => {
-    console.log('track:', track);
     const cloneTracksList = [...tracksList];
     cloneTracksList.push(track);
     setTracksList(cloneTracksList);
