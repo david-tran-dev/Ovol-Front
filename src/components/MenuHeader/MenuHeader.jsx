@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Avatar } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 function MenuHeader({
@@ -31,37 +31,75 @@ function MenuHeader({
   };
 
   return (
-    <div>
-      <Button
-        id="demo-positioned-button"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        <Avatar sx={{ bgcolor: '#007720' }}>
-          <MenuIcon />
-        </Avatar>
-      </Button>
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleMenuClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
+    <>
+      <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'start' }}>
+        <Button
+          id="demo-positioned-button"
+          aria-controls={open ? 'demo-positioned-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          <Avatar sx={{ bgcolor: '#007720' }}>
+            <MenuIcon />
+          </Avatar>
+        </Button>
+        <Menu
+          id="demo-positioned-menu"
+          aria-labelledby="demo-positioned-button"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleMenuClose}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          <NavLink
+            to="/login"
+          >
+            <MenuItem onClick={handleClose}>Connexion</MenuItem>
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="search-bar__is-active"
+          >
+            <MenuItem onClick={handleClose}>Contact</MenuItem>
+          </NavLink>
+          <NavLink
+            to="/legalnotice"
+          >
+            <MenuItem onClick={handleClose}>Mentions Légales</MenuItem>
+          </NavLink>
+          <NavLink
+            to="/about"
+          >
+            <MenuItem onClick={handleClose}>A propos</MenuItem>
+          </NavLink>
+          {isLogged
+            ? (
+              <div>
+                <NavLink
+                  to="/adminCreate"
+                >
+                  <MenuItem sx={{ color: 'red' }} onClick={handleClose}>AdminCreate</MenuItem>
+                </NavLink>
+                <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
+              </div>
+            )
+            : ''}
+        </Menu>
+      </Box>
+      <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'start' }}>
         <NavLink
           to="/login"
         >
           <MenuItem onClick={handleClose}>Connexion</MenuItem>
+
         </NavLink>
         <NavLink
           to="/contact"
@@ -81,18 +119,20 @@ function MenuHeader({
         </NavLink>
         {isLogged
           ? (
-            <div>
+            <>
               <NavLink
                 to="/adminCreate"
               >
                 <MenuItem sx={{ color: 'red' }} onClick={handleClose}>AdminCreate</MenuItem>
               </NavLink>
               <MenuItem onClick={handleLogoutSubmit}>Logout</MenuItem>
-            </div>
+
+            </>
           )
           : ''}
-      </Menu>
-    </div>
+
+      </Box>
+    </>
   );
 }
 

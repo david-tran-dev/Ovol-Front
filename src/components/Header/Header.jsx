@@ -32,15 +32,16 @@ function Header({
             />
           </NavLink>
         </div>
-        <div className="header-logo-container">
-          <img className="header-logo" src={logo} alt="logo paragliding" />
-          <div className="header-top__title">O'VOL </div>
-          {isLogged && (<p className="header-top__message">Bienvenue, Admin</p>)}
-        </div>
+
         <div className="header-top__avatar">
 
           <MenuHeader onActiveNav={onActiveNav} isLogged={isLogged} onLogoutSubmit={onLogoutSubmit} />
         </div>
+      </div>
+      <div className="header-logo-container">
+        <img className="header-logo" src={logo} alt="logo paragliding" />
+        <div className="header-top__title">O'VOL </div>
+        {isLogged && (<p className="header-top__message">Bienvenue, Admin</p>)}
       </div>
     </div>
   );
