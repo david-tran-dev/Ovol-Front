@@ -43,7 +43,7 @@ function TrackCard({
       <Card className={`trackCard ${className}`} sx={{ display: 'flex', my: 1 }}>
         <CardMedia
           component="img"
-          sx={{ width: '40%' }}
+          sx={{ width: '30%' }}
           image={img_card}
           alt={name}
         />

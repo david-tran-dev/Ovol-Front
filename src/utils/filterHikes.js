@@ -27,24 +27,23 @@ export function createDifficultyList(list) {
 
 export function getTrackHeightMax(list) {
   const heightArray = list.map((track) => track.positive_elevation);
-  const heightMax = Math.max(...heightArray);
+  const heightMax = Number(Math.max(...heightArray));
   return heightMax;
 }
 
 export function getTrackDistancetMax(list) {
   const heightArray = list.map((track) => track.overall_length);
-  const heightMax = Math.max(...heightArray);
+  const heightMax = Number(Math.max(...heightArray));
   return heightMax;
 }
 
 export function getTrackDurationMax(list) {
   const durationArray = list.map((track) => track.duration);
-  const durationMax = Math.max(...durationArray);
+  const durationMax = Number(Number(Math.max(...durationArray)).toFixed(2));
   return durationMax;
 }
 
 export function convertNumber(number) {
-  const numberString = number.toFixed(2);
-  const numberConverted = Number(numberString);
+  const numberConverted = Number(Number(number).toFixed(2));
   return numberConverted;
 }

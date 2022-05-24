@@ -1,15 +1,15 @@
 /* eslint-disable no-mixed-operators */
-import axios from 'axios';
+// import axios from 'axios';
 
 let direction = '';
 export default async function convertWindDirection(balise) {
-  const result = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${balise}}`);
-  const windInstant = result.data.directVentMoy;
-  console.log('balise info', result.data);
+  // const result = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${balise}}`);
+  const windInstant = Number(balise.data.directVentMoy);
+
   if (windInstant === undefined) {
     direction = undefined;
   }
-  if (windInstant > 0 && windInstant < 22.5 || windInstant >= 337.5) {
+  if (windInstant >= 0 && windInstant < 22.5 || windInstant >= 337.5) {
     direction = 'N';
   }
   if (windInstant >= 22.5 && windInstant < 67.5) {

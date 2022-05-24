@@ -97,22 +97,22 @@ function Filters({
             <PrettoSlider
               valueLabelDisplay="auto"
               aria-label="Distance"
-              defaultValue={distanceMax}
+              defaultValue={convertNumber(distanceMax)}
               size="small"
               value={distance}
               min={0}
-              max={distanceMax}
+              max={convertNumber(distanceMax)}
               onChange={(e) => handleChange('distance', e.target.value)}
             />
             <Typography>Dénivelé</Typography>
             <PrettoSlider
               valueLabelDisplay="auto"
               aria-label="Dénivelé"
-              defaultValue={heightMax}
+              defaultValue={convertNumber(heightMax)}
               size="small"
               value={height}
               min={0}
-              max={heightMax}
+              max={convertNumber(heightMax)}
               onChange={(e) => handleChange('height', e.target.value)}
             />
             <Typography>Temps estimé</Typography>

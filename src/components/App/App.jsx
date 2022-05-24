@@ -31,6 +31,7 @@ import { requestCheck, requestLogin } from '../../requests/login';
 import { getLocalBearerToken, removeBearerToken, setBearerToken } from '../../requests';
 
 import './app.scss';
+import { convertNumber } from '../../utils/filterHikes';
 
 function App() {
   const location = useLocation();
@@ -150,7 +151,7 @@ function App() {
       }
       if (filters[3] !== '' && track.overall_length > filters[3]) return false;
       if (filters[4] !== '' && track.positive_elevation > filters[4]) return false;
-      if (filters[5] !== '' && track.duration > filters[5]) return false;
+      if (filters[5] !== '' && convertNumber(track.duration) > filters[5]) return false;
 
       return true;
     });

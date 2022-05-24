@@ -94,7 +94,10 @@ function MenuHeader({
             : ''}
         </Menu>
       </Box>
-      <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'start' }}>
+      <Box sx={{
+        display: { xs: 'none', md: 'flex' }, alignItems: 'start',
+      }}
+      >
         <NavLink
           to="/login"
         >

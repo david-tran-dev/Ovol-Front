@@ -51,7 +51,7 @@ function TracksList({
             const liftOffFound = liftOffList.find((liftOff) => liftOff.id === liftOff_id);
             console.log('liftOffFound:', liftOffFound);
             return (
-              <Grid item key={id} xs={12} md={6}>
+              <Grid item key={id} xs={12} sm={6} md={6} lg={4}>
                 <TrackCard
                   difficulty={difficulty}
                   mountain={mountain}
