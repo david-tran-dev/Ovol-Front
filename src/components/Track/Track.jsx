@@ -43,9 +43,9 @@ function Track({ className, ...rest }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    setLoading(true);
-    if (Object.keys(hiking).length === 0) {
+  useEffect(() => {
+    const getHiking = async () => {
+      setLoading(true);
       const response = await requestHiking(id);
       console.log('response setloadn', response);
       if (response.status === 200) {
@@ -54,12 +54,10 @@ function Track({ className, ...rest }) {
       else {
         navigate('/error');
       }
-    }
-
-    if (Object.keys(hiking).length > 0) {
-      if (hiking.key_stage !== null) {
-        setSteps(hiking.key_stage.split('\n'));
-      }
+      setLoading(false);
+    };
+    const getLifOff = async () => {
+      setLoading(true);
       const response = await requestLiftOff(hiking.liftOff_id);
       console.log(response);
       if (response.status === 200) {
@@ -70,8 +68,19 @@ function Track({ className, ...rest }) {
         navigate('/error');
       }
       setLoading(false);
+    };
+    if (Object.keys(hiking).length === 0) {
+      getHiking();
+    }
+
+    if (Object.keys(hiking).length > 0) {
+      if (hiking.key_stage !== null) {
+        setSteps(hiking.key_stage.split('\n'));
+      }
+      getLifOff();
     }
   }, [hiking]);
+  console.log('render');
   return (
     <>
       {!loading ? (

@@ -1,10 +1,11 @@
 /* eslint-disable no-mixed-operators */
-// import axios from 'axios';
+import axios from 'axios';
 
 let direction = '';
 export default async function convertWindDirection(balise) {
-  // const result = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${balise}}`);
-  const windInstant = Number(balise.data.directVentMoy);
+  const result = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${balise}}`);
+  console.log('balise info:', result);
+  const windInstant = Number(result.data.directVentMoy);
 
   if (windInstant === undefined) {
     direction = undefined;

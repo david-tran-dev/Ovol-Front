@@ -31,9 +31,9 @@ function LiftOff({ className, ...rest }) {
   const [ceiling, setCeiling] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    setLoading(true);
-    if (!liftOff) {
+  useEffect(() => {
+    const getLifOff = async () => {
+      setLoading(true);
       const response = await requestLiftOff(id);
       console.log('LiftOff: ', response.data[0]);
       if (response.status === 200) {
@@ -42,18 +42,28 @@ function LiftOff({ className, ...rest }) {
       else {
         navigate('/error');
       }
-    }
-    if (liftOff) {
+      setLoading(false);
+    };
+    const getWeather = async () => {
+      setLoading(true);
       const cloudResponse = await requestWeather(liftOff.latitude, liftOff.longitude);
       const { temp } = cloudResponse.data.main;
       const { humidity } = cloudResponse.data.main;
       const ceilingResult = getCloudCeiling(temp, humidity);
       setCeiling(meterToKilometerConverter(ceilingResult, 1));
       console.log('cloudResponse:', cloudResponse);
-    }
+      setLoading(false);
+    };
 
-    setLoading(false);
+    if (!liftOff) {
+      getLifOff();
+    }
+    if (liftOff) {
+      getWeather();
+    }
   }, [liftOff]);
+
+  console.log('render');
   return (
     <>
 

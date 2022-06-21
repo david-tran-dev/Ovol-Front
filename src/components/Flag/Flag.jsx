@@ -24,9 +24,11 @@ export default function Flag({ liftOff_id }) {
     else {
       setColorFlag('red');
     }
-    const windDirection = await convertWindDirection(balise);
+    const windDirection = await convertWindDirection(liftOff.data[0].balise);
 
     console.log('windDirection:', windDirection);
+    console.log('favorable', liftOff.data[0].favorableWind);
+    console.log('unfavorable', liftOff.data[0].unfavorableWind);
     if (windDirection && colorFlag !== 'red') {
       console.log('second orange');
       setColorFlag('orange');

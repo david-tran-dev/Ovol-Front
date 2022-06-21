@@ -30,7 +30,11 @@
 		}
 		&__value {
 			font-weight: 400;
+			& a {
+				color: blue;
+			}
 		}
+
 	}
 
 	&-description, &-danger {
