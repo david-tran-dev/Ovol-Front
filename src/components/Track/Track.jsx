@@ -5,12 +5,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+import DOMPurify from 'dompurify';
 // Material UI
 import { ThemeProvider } from '@emotion/react';
 import {
   CardMedia, Container, Icon, Box, Button,
 } from '@mui/material';
-import DOMPurify from 'dompurify';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
