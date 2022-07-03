@@ -15,7 +15,6 @@ export default function Flag({ liftOff_id }) {
     const baliseInfos = balise.data;
     console.log('balise ', balise);
     if (Number(baliseInfos.vitesseVentMoy) < 20) {
-      console.log('first green');
       setColorFlag('green');
     }
     else if (Number(baliseInfos.vitesseVentMoy) >= 20 && Number(baliseInfos.vitesseVentMoy) < 30) {
@@ -26,11 +25,7 @@ export default function Flag({ liftOff_id }) {
     }
     const windDirection = await convertWindDirection(liftOff.data[0].balise);
 
-    console.log('windDirection:', windDirection);
-    console.log('favorable', liftOff.data[0].favorableWind);
-    console.log('unfavorable', liftOff.data[0].unfavorableWind);
     if (windDirection && colorFlag !== 'red') {
-      console.log('second orange');
       setColorFlag('orange');
     }
     if (liftOff.data[0].favorableWind) {
@@ -40,7 +35,6 @@ export default function Flag({ liftOff_id }) {
     }
     if (liftOff.data[0].unfavorableWind) {
       if (liftOff.data[0].unfavorableWind.find((el) => el === windDirection)) {
-        console.log('dans le red');
         setColorFlag('red');
       }
     }

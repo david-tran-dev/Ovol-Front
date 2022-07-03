@@ -19,7 +19,6 @@ function TracksList({
   useEffect(() => {
     onActiveNav(true);
   }, []);
-
   return (
     <>
       {isFiltersActive

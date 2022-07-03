@@ -46,8 +46,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    if (tracksList.length === 0) {
+  useEffect(() => {
+    const getHikingList = async () => {
       setLoading(true);
       const response = await requestHikingList();
       console.log('response:', response);
@@ -61,9 +61,8 @@ function App() {
         navigate('/error');
       }
       setLoading(false);
-    }
-
-    if (liftOffList.length === 0) {
+    };
+    const getLiftOffList = async () => {
       setLoading(true);
       const liftOffResponse = await requestLiftOffList();
 
@@ -75,11 +74,20 @@ function App() {
         navigate('/error');
       }
       setLoading(false);
+    };
+    if (tracksList.length === 0) {
+      getHikingList();
     }
 
-    // Check local token is present and request check from server
+    if (liftOffList.length === 0) {
+      getLiftOffList();
+    }
+  }, []);
+
+  // Check local token is present and request check from server
+  useEffect(() => {
     const localToken = getLocalBearerToken();
-    if (localToken) {
+    const checkToken = async () => {
       setLoading(true);
       const response = await requestCheck(localToken);
       if (response.status === 200 && response.data.logged) {
@@ -91,6 +99,9 @@ function App() {
         removeBearerToken();
       }
       setLoading(false);
+    };
+    if (localToken) {
+      checkToken();
     }
   }, []);
 
@@ -123,7 +134,7 @@ function App() {
     }
     else {
       setIsLogged(false);
-      setLoginErrorMessage(response.data);
+      setLoginErrorMessage(response.data.message);
     }
   };
 
@@ -187,7 +198,6 @@ function App() {
   return (
     <div className="App">
       <Header
-        onFilterList={handleFilterTrackList}
         onActiveNav={handleIsOpenNavBar}
         isLogged={isLogged}
         onLogoutSubmit={handleLogoutSubmit}

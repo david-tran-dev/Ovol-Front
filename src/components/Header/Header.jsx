@@ -10,7 +10,6 @@ import './header.scss';
 
 function Header({
   className,
-  onFilterList,
   isLogged,
   onLogoutSubmit,
   onActiveNav,
@@ -49,7 +48,6 @@ function Header({
 
 Header.propTypes = {
   className: PropTypes.string,
-  onFilterList: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
   onLogoutSubmit: PropTypes.func.isRequired,
   onActiveNav: PropTypes.func.isRequired,

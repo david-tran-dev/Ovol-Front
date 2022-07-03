@@ -10,7 +10,6 @@ import {
   Box, CardMedia, Card,
 } from '@mui/material';
 import CarouselPhotos from '../../CarouselPhotos/CarouselPhotos';
-import Compass from '../../Compass/Compass';
 
 function Landing({
   className,
@@ -66,9 +65,7 @@ function Landing({
           <p className="landing-danger">Danger: </p>
           <p className="landing-danger__content">{danger}</p>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
-          <Compass favorableWind={favorableWind} unfavorableWind={unfavorableWind} />
-        </Box>
+
       </Card>
     </div>
   );
