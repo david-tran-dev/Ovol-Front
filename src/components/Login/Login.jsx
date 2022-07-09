@@ -25,7 +25,7 @@ function Login({ errorMessage, onLoginSubmit }) {
     setPassword('');
   };
   const StyledBody = styled('div')({
-    background: 'url(/img/bg-paragliding1.avif)',
+    background: 'url(/img/bg-paragliding1.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'fixed',
