@@ -31,7 +31,7 @@ function Map({ liftOffList, tracksList }) {
         zoom={10}
         style={{ width: '100%', height: '100%' }}
         className="map-container"
-        tap="false"
+        tap={false}
       >
         <LocationMarker />
         {/* <Polyline
