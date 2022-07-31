@@ -36,7 +36,7 @@ import Loading from '../Loading/Loading';
 function AdminCreate({
   className, onSetTracksList, userId, ...rest
 }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [valuesLiftOff, setValuesLiftOff] = useState({});
   const [valuesLanding, setValuesLanding] = useState({});
   const [valuesHiking, setValuesHiking] = useState({});
@@ -53,7 +53,7 @@ function AdminCreate({
   const theme = useTheme();
   const imageListWidth = useMediaQuery(theme.breakpoints.down('sm'));
 
-  useEffect(async () => {
+  useEffect(() => {
     setLoading(true);
 
     setValuesHiking(hikingForm);
@@ -187,10 +187,12 @@ function AdminCreate({
                   </Box>
                   {
                     Object.keys(valuesLanding).map(((item, index) => {
+                      console.log('item:', item);
+
                       if (item !== 'id' && item !== 'photo_landing') {
                         return (
                           <TextField
-                            key={index + item}
+                            key={`${index + item}atero`}
                             sx={{ p: '2px 4px', width: '100%' }}
                             required
                             label={item}
@@ -205,7 +207,6 @@ function AdminCreate({
                         return (
                           <>
                             <ImageList
-                              key={index + item + index}
                               sx={{
                                 maxWidth: '100%',
                                 height: valuesUrlLanding.length <= 0 ? 40 : '100%',
@@ -216,8 +217,9 @@ function AdminCreate({
                               cols={imageListWidth ? 2 : 4}
                               rowHeight={164}
                             >
-                              {valuesUrlLanding.map((item, index) => (
-                                <ImageListItem key={index + item + index + index} sx={{ m: 1 }}>
+                              {valuesUrlLanding && valuesUrlLanding.map((item, index) => (
+
+                                <ImageListItem key={`${index + item}atero`} sx={{ m: 1 }}>
                                   <img
                                     src={`${item}?w=164&h=164&fit=crop&auto=format`}
                                     srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -234,7 +236,7 @@ function AdminCreate({
                       return null;
                     }))
                   }
-                  <UploadImg key="landing" onImgSelect={handleImg} onUrlSelect={handleUrl} name="landing" />
+                  <UploadImg onImgSelect={handleImg} onUrlSelect={handleUrl} name="landing" />
                 </Container>
                 <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
                   <Box sx={{ '& > :not(style)': { m: 1 } }}>
@@ -292,7 +294,7 @@ function AdminCreate({
                       return null;
                     }))
                   }
-                  <UploadImg key="lift" onImgSelect={handleImg} onUrlSelect={handleUrl} name="lift" />
+                  <UploadImg onImgSelect={handleImg} onUrlSelect={handleUrl} name="lift" />
                 </Container>
 
                 <Container className="div-container__track" sx={{ my: 1, display: 'flex', flexDirection: 'column' }}>
@@ -351,7 +353,7 @@ function AdminCreate({
                       return null;
                     }))
                 }
-                  <UploadImg key="hiking" onImgSelect={handleImg} onUrlSelect={handleUrl} name="hiking" />
+                  <UploadImg onImgSelect={handleImg} onUrlSelect={handleUrl} name="hiking" />
                   {isRequired
                     ? (
                       <>

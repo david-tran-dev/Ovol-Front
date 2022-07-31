@@ -58,12 +58,13 @@ function MenuHeader({
             vertical: 'top',
             horizontal: 'left',
           }}
+        > {!isLogged && (
+        <NavLink
+          to="/login"
         >
-          <NavLink
-            to="/login"
-          >
-            <MenuItem onClick={handleClose}>Connexion</MenuItem>
-          </NavLink>
+          <MenuItem onClick={handleClose}>Connexion</MenuItem>
+        </NavLink>
+        )}
           <NavLink
             to="/contact"
             className="search-bar__is-active"
@@ -95,12 +96,15 @@ function MenuHeader({
         </Menu>
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'start' }}>
+        {!isLogged
+        && (
         <NavLink
           to="/login"
         >
           <MenuItem onClick={handleClose}>Connexion</MenuItem>
 
         </NavLink>
+        )}
         <NavLink
           to="/contact"
           className="search-bar__is-active"

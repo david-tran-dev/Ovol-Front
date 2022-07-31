@@ -39,7 +39,7 @@ function Header({
       </div>
       <div className="header-logo-container">
         <img className="header-logo" src={logo} alt="logo paragliding" />
-        <div className="header-top__title">O'VOL </div>
+        <h1 className="header-top__title">O'VOL </h1>
         {isLogged && (<p className="header-top__message">Bienvenue, Admin</p>)}
       </div>
     </div>

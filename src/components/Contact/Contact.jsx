@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import SendIcon from '@mui/icons-material/Send';
-import FaceIcon from '@mui/icons-material/Face';
 import { ThemeProvider } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import customTheme from '../../themes/customTheme';
@@ -46,7 +45,7 @@ function MiddleDividers() {
                 ))}
               </ImageList>
 
-              <Typography gutterBottom variant="h4" component="div">
+              <Typography gutterBottom variant="h4" component="h2">
                 CONTACT
               </Typography>
             </Grid>
@@ -56,14 +55,13 @@ function MiddleDividers() {
           </Typography>
         </Box>
         <Divider variant="middle" />
-        <Box sx={{ m: 2 }}>
-          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+        <Box sx={{ m: 1 }}>
+          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center', marginBottom: '0.5em' }}>
             <a href="https://www.linkedin.com/in/david-tran-dev/" target="_blank" rel="noreferrer">
               <Chip
                 clickable
                 className="header-contact__chip"
                 avatar={<Avatar alt="David" src={david} />}
-                icon={<FaceIcon />}
                 label="David"
               />
             </a>
@@ -72,7 +70,6 @@ function MiddleDividers() {
                 clickable
                 avatar={<Avatar alt="Antoine" src={antoine} />}
                 className="header-contact__chip"
-                icon={<FaceIcon />}
                 label="Antoine"
               />
             </a>
@@ -81,17 +78,16 @@ function MiddleDividers() {
               <Chip
                 clickable
                 className="header-contact__chip"
-                icon={<FaceIcon />}
                 avatar={<Avatar alt="Olivier" src={olivier} />}
                 label="Olivier"
               />
             </a>
-
+          </Stack>
+          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
             <a href="https://www.linkedin.com/in/aribault35240" target="_blank" rel="noreferrer">
               <Chip
                 clickable
                 className="header-contact__chip"
-                icon={<FaceIcon />}
                 avatar={<Avatar alt="Adrien" src={adrien} />}
                 label="Adrien"
               />
@@ -102,7 +98,6 @@ function MiddleDividers() {
                 clickable
                 avatar={<Avatar alt="Fred" src={fred} />}
                 className="header-contact__chip"
-                icon={<FaceIcon />}
                 label="Fred"
               />
             </a>

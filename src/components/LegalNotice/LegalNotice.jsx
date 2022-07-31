@@ -34,21 +34,22 @@ function LegalNotice() {
                 ))}
               </ImageList>
 
-              <Typography gutterBottom variant="h4" component="div">
+              <Typography gutterBottom component="h2" variant="h4">
                 MENTIONS LEGALES
               </Typography>
             </Grid>
           </Grid>
-          <Typography variant="body2">
-            <h2>CONDITIONS D’UTILISATION :</h2>
-            <p>L’utilisation du présent site implique l’acceptation pleine et entière des conditions générales d’utilisation décrites ci-après.
-              Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment.
-            </p>
-            <br />
-            <h2>INFORMATIONS :</h2>
-            <p>Les informations et documents du site sont présentés à titre indicatif, n’ont pas de caractère exhaustif, et ne peuvent engager la responsabilité du propriétaire du site.
-              <br />Le propriétaire du site ne peut être tenu responsable des dommages directs et indirects consécutifs à l’accès au site.
-            </p>
+          <Typography variant="body1" gutterBottom>
+            CONDITIONS D’UTILISATION : <br />
+            L’utilisation du présent site implique l’acceptation pleine et entière des conditions générales d’utilisation décrites ci-après.
+            Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment.
+
+          </Typography>
+          <Typography variant="body1">
+            INFORMATIONS : <br />
+            Les informations et documents du site sont présentés à titre indicatif, n’ont pas de caractère exhaustif, et ne peuvent engager la responsabilité du propriétaire du site.
+            <br />Le propriétaire du site ne peut être tenu responsable des dommages directs et indirects consécutifs à l’accès au site.
+
           </Typography>
         </Box>
         <Divider variant="middle" />

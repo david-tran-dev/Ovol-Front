@@ -38,9 +38,9 @@ function About() {
           </Grid>
           <Typography color="text.secondary" variant="body2">
             Biographie :
-            <p>
-              O'vol a pour objectif de répertorier des randonnées pédestres en montagne ou la descente s'effectue en parapente.
-            </p>
+            <br />
+            O'vol a pour objectif de répertorier des randonnées pédestres en montagne ou la descente s'effectue en parapente.
+
           </Typography>
         </Box>
         <Divider variant="middle" />

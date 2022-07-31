@@ -90,6 +90,7 @@ function App() {
     const checkToken = async () => {
       setLoading(true);
       const response = await requestCheck(localToken);
+      console.log('responseCheck:', response);
       if (response.status === 200 && response.data.logged) {
         setUserId(response.data.userId);
         setIsLogged(true);
