@@ -133,9 +133,13 @@ function App() {
       setUserId(response.data.id);
       navigate('/trackslist');
     }
-    else {
+    if (response.data.message) {
       setIsLogged(false);
       setLoginErrorMessage(response.data.message);
+    }
+    else {
+      setIsLogged(false);
+      navigate('/error');
     }
   };
 
