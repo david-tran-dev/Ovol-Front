@@ -60,6 +60,7 @@ function TracksList({
                   id={id}
                   img_card={img_card}
                   duration={duration}
+                  liftOffId={liftOff_id}
                   favorableWind={liftOffFound && liftOffFound.favorableWind}
                 />
               </Grid>

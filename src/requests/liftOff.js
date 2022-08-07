@@ -13,6 +13,7 @@ export async function requestLiftOffList() {
 }
 
 export async function requestLiftOff(id) {
+  console.log('liftoffRequestID', id);
   try {
     const response = await apiAxios.get(`/liftoff/${id}`);
     return response;

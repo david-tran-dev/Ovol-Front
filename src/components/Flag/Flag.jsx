@@ -10,6 +10,7 @@ export default function Flag({ liftOff_id }) {
   const [colorFlag, setColorFlag] = useState('black');
 
   async function setConditions() {
+    console.log('flag');
     const liftOff = await requestLiftOff(liftOff_id);
     const balise = await axios.get(`https://balisemeteo.com/balise_json.php?idBalise=${liftOff.data[0].balise}`);
     const baliseInfos = balise.data;

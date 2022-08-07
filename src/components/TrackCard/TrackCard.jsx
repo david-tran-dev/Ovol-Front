@@ -35,6 +35,7 @@ function TrackCard({
   img_card,
   favorableWind,
   duration,
+  liftOffId,
 }) {
   return (
     <Link
@@ -59,7 +60,7 @@ function TrackCard({
             <Typography component="h2" variant="body1" fontWeight="bold" textAlign="left">
               {name}
             </Typography>
-            <Flag liftOff_id={id} />
+            <Flag liftOff_id={liftOffId} />
           </Box>
           <ThemeProvider theme={customTheme}>
             <CardContent
@@ -112,6 +113,7 @@ TrackCard.propTypes = {
   img_card: PropTypes.string.isRequired,
   favorableWind: PropTypes.array,
   duration: PropTypes.number.isRequired,
+  liftOffId: PropTypes.number.isRequired,
 };
 TrackCard.defaultProps = {
   className: '',
