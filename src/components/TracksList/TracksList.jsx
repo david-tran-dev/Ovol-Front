@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './tracksList.scss';
-import { Grid } from '@mui/material';
+import {
+  Container, Grid, ThemeProvider, Typography,
+} from '@mui/material';
 import TrackCard from '../TrackCard/TrackCard';
 import Filters from '../Filters/Filters';
+import customTheme from '../../themes/customTheme';
 
 function TracksList({
   className,
@@ -19,6 +22,7 @@ function TracksList({
   useEffect(() => {
     onActiveNav(true);
   }, []);
+  console.log('tracklist', trackFilterList);
   return (
     <>
       {isFiltersActive
@@ -36,7 +40,7 @@ function TracksList({
       >
         <Grid container spacing={2}>
 
-          {trackFilterList.length !== 0 && trackFilterList.map(({
+          {trackFilterList.length !== 0 ? trackFilterList.map(({
             id,
             difficulty,
             mountain,
@@ -65,7 +69,19 @@ function TracksList({
                 />
               </Grid>
             );
-          })}
+          })
+            : (
+              <ThemeProvider theme={customTheme}>
+                <Container sx={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 2,
+                }}
+                >
+
+                  <Typography variant="body1" className="trackslist__text" fontSize={32}>Aucune randonnée trouvée</Typography>
+                </Container>
+
+              </ThemeProvider>
+            )}
 
         </Grid>
       </main>

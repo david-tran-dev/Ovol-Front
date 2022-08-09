@@ -37,7 +37,7 @@ function SearchBar({
             type="text"
             value={value}
             onChange={(event) => setValue(event.target.value)}
-            placeholder="Search Ovol Maps"
+            placeholder="Search Hikes"
             inputProps={{ 'aria-label': 'search Google Maps' }}
           />
 

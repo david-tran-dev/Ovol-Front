@@ -8,7 +8,6 @@ const apiAxios = axios.create({
 export default apiAxios;
 
 export function setBearerToken(token) {
-  apiAxios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
   apiAxios.defaults.headers.common.Authorization = `bearer ${token}`;
   localStorage.setItem('accessToken', token);
 }

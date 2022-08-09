@@ -1,6 +1,12 @@
 @use 'src/styles/vars';
 
-.trackslist {
+.App .trackslist {
 	width: 100%;
 	margin-bottom: 1rem;
+
+	&__text {
+		font-size: 2rem;
+		margin-top: 5rem;
+		color: vars.$color1;
+	}
 }

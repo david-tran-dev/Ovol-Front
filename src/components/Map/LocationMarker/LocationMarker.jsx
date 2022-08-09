@@ -12,6 +12,7 @@ function LocationMarker() {
   useEffect(() => {
     map.locate().on('locationfound', (e) => {
       setRadius(e.accuracy);
+      console.log('e.latlng', e.latlng);
       const latlngArray = Object.keys(e.latlng).map((key) => e.latlng[key]);
       setLatlng(latlngArray);
       map.flyTo(e.latlng, map.getZoom());

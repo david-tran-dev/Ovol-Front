@@ -156,8 +156,6 @@ function App() {
   };
 
   const multiFilterTrack = (filters) => {
-    console.log('filters:', filters);
-
     const result = tracksList.filter((track) => {
       if (filters[0] !== '' && track.mountain !== filters[0]) return false;
       if (filters[1] !== '' && track.difficulty !== filters[1]) return false;
@@ -172,7 +170,6 @@ function App() {
 
       return true;
     });
-    console.log('result', result);
     setFilterTrackList(result);
   };
 
